@@ -8,15 +8,26 @@
 */
 
 #include <Arduino.h>
+#include <configuration.h>
+#include <forn_control.h>
 
 void setup() {
   Serial.begin(9600);
   pinMode (LED_BUILTIN, OUTPUT);
-  Serial.print ("INICIO LECTURA ANALOGICA: \n");
+  Serial.print ("STARTING openELECTRO \n");
   delay (500);
 }
 
 void loop() {
+
+read_temp01;
+
+}
+
+
+
+
+void read_temp01() {
   int Value = analogRead (A1);
   Serial.println((String)Value);
 
