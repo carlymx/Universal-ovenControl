@@ -19,21 +19,5 @@ void setup() {
 }
 
 void loop() {
-
-read_temp01;
-
-}
-
-
-
-
-void read_temp01() {
-  int Value = analogRead (A1);
-  Serial.println((String)Value);
-
-  // INDICADOR LED
-  digitalWrite (LED_BUILTIN, HIGH);
-  delay (200);
-  digitalWrite (LED_BUILTIN, LOW);
-  delay(2000);
+  read_temp01();
 }

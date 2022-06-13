@@ -1,15 +1,55 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
 {
     "configurations": [
         {
-            "name": "Linux",
+            "name": "PlatformIO",
             "includePath": [
-                "${workspaceFolder}/**"
+                "/home/carly/Documentos/GitHub/openELECTRO/include",
+                "/home/carly/Documentos/GitHub/openELECTRO/src",
+                "/home/carly/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/home/carly/.platformio/packages/framework-arduino-avr/variants/mega",
+                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                ""
             ],
-            "defines": [],
-            "compilerPath": "/usr/bin/clang",
-            "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-clang-x64"
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/carly/Documentos/GitHub/openELECTRO/include",
+                    "/home/carly/Documentos/GitHub/openELECTRO/src",
+                    "/home/carly/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/home/carly/.platformio/packages/framework-arduino-avr/variants/mega",
+                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60002",
+                "ARDUINO_AVR_MEGA2560",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega2560__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/home/carly/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega2560",
+                ""
+            ]
         }
     ],
     "version": 4
