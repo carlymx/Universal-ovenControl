@@ -4,8 +4,33 @@ FUENTES DE INFORMACIÓN:
     https://hetpro-store.com/TUTORIALES/arduino-millis/
     https://programarfacil.com/blog/arduino-blog/millis-micros-arduino/
 
--TERMISTOR NTC:
+- TERMISTOR NTC:
     https://www.youtube.com/watch?v=8Wry8lwgGtA
+    https://github.com/bitwiseAr/Curso-Arduino-desde-cero/tree/master/Capitulo34
         TERMISTOR CALCULATOR: 
         http://www.thinksrs.com/downloads/programs/Therm%20Calc/NTCCalibrator/NTCcalculator.htm
     https://controlautomaticoeducacion.com/instrumentacion/sensores-de-temperatura/
+
+- ESP8266
+    https://cdn.sparkfun.com/datasheets/Wireless/WiFi/ESP8266ModuleV1.pdf
+
+
+
+POSIBLES MEJORAS:
+
+    - THINGSPEAK:   https://thingspeak.com/
+                    https://github.com/jayraj4021/Personal-Weather-Station-14
+
+    - 
+
+    -
+
+
+MANUALES:
+    - TERMINAL SERIAL MONITOR:
+        https://www.cyberciti.biz/hardware/5-linux-unix-commands-for-connecting-to-the-serial-console/
+
+
+
+
+
