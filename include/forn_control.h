@@ -25,6 +25,11 @@ int adc_rate = (pow(2, ANALOG_DIGITAL_CONVERTER_BITS) - 1);
 //                FUNCTIONS                =
 //==========================================
 
+void control_coler_fan(){
+    
+}
+
+
 void read_temperature_A1(){
     int temp_sensor_01_in = analogRead (PIN_TEMP_SENSOR_01);    // READ TERMISTOR A1
     res_temp = RESISTANCE_TEMP_SENSOR_01 * (adc_rate / (float)temp_sensor_01_in - 1.0); // TENSION TO RESISTENCE 
@@ -48,6 +53,12 @@ void read_temperature_A2(){
     temp_sensor_02 = temp_sensor_02 - 273.15;   // CELSIUS
 
     Serial.println("Sensor A2: " + (String)res_temp + " - " + (String)temp_sensor_02_in + " - " + (String)temp_sensor_02);
+    Serial.println(PWM_CONTROL_POWER_20);
+    Serial.println(PWM_CONTROL_POWER_33);
+    Serial.println(PWM_CONTROL_POWER_50);
+    Serial.println(PWM_CONTROL_POWER_66);
+    Serial.println(PWM_CONTROL_POWER_75);
+    Serial.println(PWM_CONTROL_POWER_100);
 }
 
 

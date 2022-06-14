@@ -32,13 +32,31 @@
 //===========================================
 
 
-#define BAUDRATE 9600   // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
-#define ANALOG_DIGITAL_CONVERTER_BITS 10    // 10 bits ARDUINO UNO,MINI, MEGA...
+#define BAUDRATE    9600   // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
+#define ANALOG_DIGITAL_CONVERTER_BITS   10    // 10 bits ARDUINO UNO,MINI, MEGA...
+#define PWM_BITS    8   // 256 [0...255]
 
 #define RESISTANCE_TEMP_SENSOR_01   100000     // 100KOhms
 #define RESISTANCE_TEMP_SENSOR_02   100000     // 100KOhms
 
 #define SENSOR_TIME_SPACE   5000    // 5 SEG
+
+
+//CONTROL FAN CONFIGURATION:
+#define PWM_CONTROL_POWER_20    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*20)
+#define PWM_CONTROL_POWER_33    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*33)
+#define PWM_CONTROL_POWER_50    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*50)
+#define PWM_CONTROL_POWER_66    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*66)
+#define PWM_CONTROL_POWER_75    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*75)
+#define PWM_CONTROL_POWER_100   (unsigned int)(pow(2,(byte)PWM_BITS))
+
+#define COOL_FAN_TEMPERATURE_20    70       // ºC
+#define COOL_FAN_TEMPERATURE_33    100      // ºC
+#define COOL_FAN_TEMPERATURE_50    150      // ºC
+#define COOL_FAN_TEMPERATURE_66    200      // ºC
+#define COOL_FAN_TEMPERATURE_75    225      // ºC
+#define COOL_FAN_TEMPERATURE_100   250      // ºC
+
 
 
 
