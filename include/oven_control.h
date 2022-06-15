@@ -48,6 +48,18 @@ void control_coler_fan(){
 }
 
 
+void open_door(){
+    if(PIN_OPEN_DOOR == 1){
+        digitalWrite(PIN_LIGHT_CHAMBER, HIGH);
+        Serial.print("PUERTA ABIERTA \n");
+    }
+    else {
+        digitalWrite(PIN_LIGHT_CHAMBER, LOW);
+        Serial.print("PUERTA CERRADA \n");
+        }
+}
+
+
 void read_temperature_A1(){
     int temp_sensor_01_in = analogRead(PIN_TEMP_SENSOR_01);    // READ TERMISTOR A1
     res_temp01 = RESISTANCE_TEMP_SENSOR_01 * (adc_rate / (float)temp_sensor_01_in - 1.0); // TENSION TO RESISTENCE 
@@ -77,17 +89,17 @@ void read_temperature_A2(){
 
 
 void time_space() {
-    timer_counter_01 = millis();
+    timer_counter_00 = millis();
 
     // ANTI OVERFLOW (UNSIGNED LONG, 50 DAYS)
-    if (timer_counter_01 < timer_counter_00){
+    if (timer_counter_00 < timer_counter_01){
         timer_counter_00 = millis();
         timer_counter_01 = millis();
         timer_counter_02 = millis();
     }
 
     // FAST ACTIONS TIMER
-    if (timer_counter_01 > (timer_counter_02 + (SENSOR_TIME_SPACE/4))){
+    if (timer_counter_00 > (timer_counter_02 + (SENSOR_TIME_SPACE/4))){
         FAST_CLICK = true;
         timer_counter_02 = millis();
     }
@@ -96,9 +108,9 @@ void time_space() {
     }
     
     // FULL ACTION TIMER
-    if (timer_counter_01 > (timer_counter_00 + SENSOR_TIME_SPACE)){
+    if (timer_counter_00 > (timer_counter_01 + SENSOR_TIME_SPACE)){
         FULL_CLICK = true;
-        timer_counter_00 = millis();
+        timer_counter_01 = millis();
     }
     else {
         FULL_CLICK = false;

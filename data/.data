@@ -19,7 +19,8 @@ FUENTES DE INFORMACIÓN:
 https://programarfacil.com/blog/arduino-blog/pwm-con-arduino-analogico/#Que_es_una_senal_PWM
 https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/
 
-
+- MELOIAS:
+https://docs.arduino.cc/built-in-examples/digital/toneMelody/
 
 POSIBLES MEJORAS:
 

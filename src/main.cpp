@@ -13,6 +13,8 @@
 // PROGRAM
 #include <configuration.h>
 #include <oven_control.h>
+#include <pitches_notes.h>
+#include <melodys.h>
 
 void setup() {
 
@@ -39,14 +41,18 @@ void setup() {
 void loop() {
   time_space();
   
-  // FULL ACTIONS
+  // FULL TIMER ACTIONS
   if (FULL_CLICK == true){
     read_temperature_A1();
     read_temperature_A2();
   }
 
-  //FAST ACTIONS
+  // FAST TIMER ACTIONS
   if (FAST_CLICK == true){
     control_coler_fan();
+    open_door();
   }  
+
+  // LOOP ACTIONS
+  //open_door();
 }
