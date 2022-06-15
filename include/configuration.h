@@ -15,14 +15,14 @@
 #define PIN_LIGHT_CHAMBER   12
 #define PIN_RESISTOR_UP     11
 #define PIN_RESISTOR_DOWN   10
-#define PIN_RESISTOR_REAR   09
-#define PIN_COOL_FAN        08
-#define PIN_CHAMBER_FAN     07
-#define PIN_PCB_FAN         06
-#define PIN_SPEEKER         05
-#define PIN_OPEN_DOOR       04
-#define PIN_ESP8266_RX      03
-#define PIN_ESP8266_TX      02
+#define PIN_RESISTOR_REAR   9
+#define PIN_COOL_FAN        8
+#define PIN_CHAMBER_FAN     7
+#define PIN_PCB_FAN         6
+#define PIN_SPEEKER         5      // Piezoelectric Speaker
+#define PIN_OPEN_DOOR       4
+#define PIN_ESP8266_RX      3
+#define PIN_ESP8266_TX      2
 #define PIN_TEMP_SENSOR_01  PIN_A1
 #define PIN_TEMP_SENSOR_02  PIN_A2
 
@@ -43,6 +43,7 @@
 
 
 //CONTROL FAN CONFIGURATION:
+#define PWM_CONTROL_POWER_0     0
 #define PWM_CONTROL_POWER_20    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*20)
 #define PWM_CONTROL_POWER_33    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*33)
 #define PWM_CONTROL_POWER_50    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*50)

@@ -11,8 +11,13 @@ FUENTES DE INFORMACIÓN:
         http://www.thinksrs.com/downloads/programs/Therm%20Calc/NTCCalibrator/NTCcalculator.htm
     https://controlautomaticoeducacion.com/instrumentacion/sensores-de-temperatura/
 
-- ESP8266
+- ESP8266:
     https://cdn.sparkfun.com/datasheets/Wireless/WiFi/ESP8266ModuleV1.pdf
+    firmwares: https://www.espressif.com/en/products/socs/esp8266ex/resources
+
+- PWM:
+https://programarfacil.com/blog/arduino-blog/pwm-con-arduino-analogico/#Que_es_una_senal_PWM
+https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/
 
 
 
@@ -32,5 +37,5 @@ MANUALES:
 
 
 
-
+-----------------------------------
 
