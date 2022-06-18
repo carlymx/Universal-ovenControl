@@ -11,20 +11,23 @@
 //            PIN CONFIGURATION:            =
 //===========================================
 
-#define PIN_LED_INDICATOR   13      // 0/1
+// ARDUINO UNO PINOUT COMPATIBLE:
+#define PIN_LED_INDICATOR   13      // RED LED, HOT = 1 
 #define PIN_LIGHT_CHAMBER   12      // 0/1
 #define PIN_RESISTOR_UP     11      // 0/1
-#define PIN_RESISTOR_DOWN   10      // 0/1
-#define PIN_RESISTOR_REAR   9       // 0/1
-#define PIN_COOL_FAN        8       // PWM
-#define PIN_CHAMBER_FAN     7       // PWM
-#define PIN_PCB_FAN         6       // PWM
-#define PIN_SPEEKER         5       // PWM - Piezoelectric Speaker
-#define PIN_OPEN_DOOR       4       // 0/1
-#define PIN_ESP8266_RX      3       // RX SERIAL PORT
-#define PIN_ESP8266_TX      2       // TX SERIAL PORT
+#define PIN_RESISTOR_DOWN   8       // 0/1
+#define PIN_RESISTOR_REAR   7       // 0/1
+//#define PIN_COOL_FAN        10      // PWM PIN REQUIRED
+//#define PIN_CHAMBER_FAN     9       // PWM PIN REQUIRED
+#define PIN_PCB_FAN         6       // PWM PIN REQUIRED
+#define PIN_SPEEKER         5       // PWM PIN REQUIRED (Piezoelectric Speaker)
+#define PIN_OPEN_DOOR       4       // 0/1 (1 CLOSE, 0 OPEN)
+#define PIN_ESP8266_RX      3       // RX WIFI ESP8266 PORT
+#define PIN_BT_HC05_RX      2       // RX BLUETOOTH PORT
 #define PIN_TEMP_SENSOR_01  PIN_A0  // ANALOG IN
 #define PIN_TEMP_SENSOR_02  PIN_A1  // ANALOG IN
+#define PIN_PUSH_00         PIN_A2  // PUSH BUTTON IN
+#define PIN_PUSH_01         PIN_A3  // PUSH BUTTON IN
 #define PIN_I2C_SDA         PIN_A4  // I2C PORT
 #define PIN_I2C_SCL         PIN_A5  // I2C PORT
 

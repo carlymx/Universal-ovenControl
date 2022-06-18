@@ -32,6 +32,8 @@ void setup() {
   pinMode(PIN_OPEN_DOOR, INPUT);
   pinMode(PIN_TEMP_SENSOR_01, INPUT);
   pinMode(PIN_TEMP_SENSOR_02, INPUT);
+  pinMode(PIN_PUSH_00, INPUT);
+  pinMode(PIN_PUSH_01, INPUT);
 
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO \n");

@@ -16,12 +16,20 @@ FUENTES DE INFORMACIÓN:
     firmwares: https://www.espressif.com/en/products/socs/esp8266ex/resources
 
 - PWM:
-https://programarfacil.com/blog/arduino-blog/pwm-con-arduino-analogico/#Que_es_una_senal_PWM
-https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/
+    https://programarfacil.com/blog/arduino-blog/pwm-con-arduino-analogico/#Que_es_una_senal_PWM
+    https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/
+
+- Como cambiar la frecuencia de un PWM en Arduino
+    https://www.luisllamas.es/como-cambiar-la-frecuencia-de-un-pwm-en-arduino/
 
 - MELOIAS:
-https://docs.arduino.cc/built-in-examples/digital/toneMelody/
+    https://docs.arduino.cc/built-in-examples/digital/toneMelody/
 
+- OCTOACOPLADORES
+    https://www.luisllamas.es/arduino-optoacoplador/
+
+
+------------------------------------
 POSIBLES MEJORAS:
 
     - THINGSPEAK:   https://thingspeak.com/
