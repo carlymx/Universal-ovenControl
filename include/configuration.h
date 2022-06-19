@@ -17,8 +17,8 @@
 #define PIN_RESISTOR_UP     11      // 0/1
 #define PIN_RESISTOR_DOWN   8       // 0/1
 #define PIN_RESISTOR_REAR   7       // 0/1
-//#define PIN_COOL_FAN        10      // PWM PIN REQUIRED
-//#define PIN_CHAMBER_FAN     9       // PWM PIN REQUIRED
+#define PIN_COOL_FAN        10      // PWM PIN REQUIRED
+#define PIN_CHAMBER_FAN     9       // PWM PIN REQUIRED
 #define PIN_PCB_FAN         6       // PWM PIN REQUIRED
 #define PIN_SPEEKER         5       // PWM PIN REQUIRED (Piezoelectric Speaker)
 #define PIN_OPEN_DOOR       4       // 0/1 (1 CLOSE, 0 OPEN)
