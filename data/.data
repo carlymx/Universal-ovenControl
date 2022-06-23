@@ -28,7 +28,11 @@ FUENTES DE INFORMACIÓN:
 - OCTOACOPLADORES
     https://www.luisllamas.es/arduino-optoacoplador/
 
+- INTERRUPCIONES:
+    https://www.luisllamas.es/que-son-y-como-usar-interrupciones-en-arduino/
 
+- AC DIMMER CON ZERO_CROSSING CONTROL:
+    https://www.electroschematics.com/ac-light-dimmer-module-with-zc-detector/
 ------------------------------------
 POSIBLES MEJORAS:
 

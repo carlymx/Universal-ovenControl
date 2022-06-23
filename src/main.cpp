@@ -19,7 +19,6 @@
 void setup() {
 
   // OUTPUTS PINS
-  pinMode(PIN_LED_INDICATOR, OUTPUT);
   pinMode(PIN_LIGHT_CHAMBER, OUTPUT);
   pinMode(PIN_RESISTOR_UP, OUTPUT);
   pinMode(PIN_RESISTOR_DOWN, OUTPUT);
@@ -34,6 +33,10 @@ void setup() {
   pinMode(PIN_TEMP_SENSOR_02, INPUT);
   pinMode(PIN_PUSH_00, INPUT);
   pinMode(PIN_PUSH_01, INPUT);
+  pinMode(PIN_PUSH_02, INPUT);
+  pinMode(PIN_PUSH_03, INPUT);
+  //INTERRUPTIONS:
+  //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCION, MODO);
 
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO \n");
