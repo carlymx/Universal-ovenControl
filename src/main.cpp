@@ -44,7 +44,7 @@ void setup() {
 }
 
 void loop() {
-  time_space();
+  time_click();
   
   // FULL TIMER ACTIONS
   if (FULL_CLICK == true){

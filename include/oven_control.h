@@ -13,8 +13,8 @@ unsigned long timer_counter_02 = millis();      // FAST TIMER ACTION COUNTER
 float res_temp01, res_temp02, log_res_temp;
 float temp_sensor_01;       // TEMPERATURE SENSOR 01
 float temp_sensor_02;       // TEMPERATURE SENSOR 02
-bool FULL_CLICK = false;    // FULL SENSOR_TIME_SPACE ACTIONS (1/1)
-bool FAST_CLICK = false;    // FAST SENSOR_TIME_SPACE ACTIONS (1/4)
+bool FULL_CLICK = false;    // FULL TIME_CLICK ACTIONS (1/1)
+bool FAST_CLICK = false;    // FAST TIME_CLICK ACTIONS (1/4)
 
 //==========================================
 //        PREVIOUS CALCULATIONS            =
@@ -88,7 +88,7 @@ void read_temperature_A2(){
 }
 
 
-void time_space() {
+void time_click() {
     timer_counter_00 = millis();
 
     // ANTI OVERFLOW (UNSIGNED LONG, 50 DAYS)
@@ -99,7 +99,7 @@ void time_space() {
     }
 
     // FAST ACTIONS TIMER
-    if (timer_counter_00 > (timer_counter_02 + (SENSOR_TIME_SPACE/4))){
+    if (timer_counter_00 > (timer_counter_02 + (TIME_CLICK/4))){
         FAST_CLICK = true;
         timer_counter_02 = millis();
     }
@@ -108,7 +108,7 @@ void time_space() {
     }
     
     // FULL ACTION TIMER
-    if (timer_counter_00 > (timer_counter_01 + SENSOR_TIME_SPACE)){
+    if (timer_counter_00 > (timer_counter_01 + TIME_CLICK)){
         FULL_CLICK = true;
         timer_counter_01 = millis();
     }
