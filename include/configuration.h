@@ -77,6 +77,7 @@
 #define DIMMER_CONTROL_POWER_75    (unsigned int)(((1000000UL/AC_HERTZ)*75)/200)
 #define DIMMER_CONTROL_POWER_100   (unsigned int)(((1000000UL/AC_HERTZ)*100)/200)
 
+// TEMPERATURE ACTIVATORS %
 #define COOL_FAN_TEMPERATURE_20    70       // ºC
 #define COOL_FAN_TEMPERATURE_33    100      // ºC
 #define COOL_FAN_TEMPERATURE_50    150      // ºC
@@ -85,10 +86,7 @@
 #define COOL_FAN_TEMPERATURE_100   250      // ºC
 
 
-
-
-// coefficients Steinhart-Hart:
-// https://tinyurl.com/SHH-Calculator
+// COEFFICIENTS STEINHART-HART (https://tinyurl.com/SHH-Calculator)
 float c1 = 2.114990448e-03;                     // NPC 100KOhms
 float c2 = 0.3832381228e-04;                    // NPC 100KOhms
 float c3 = 5.228061052e-07;                     // NPC 100KOhms
