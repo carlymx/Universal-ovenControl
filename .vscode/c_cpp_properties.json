@@ -8,29 +8,29 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/home/carly/Documentos/GitHub/openELECTRO/include",
-                "/home/carly/Documentos/GitHub/openELECTRO/src",
-                "/home/carly/.platformio/packages/framework-arduino-avr/cores/arduino",
-                "/home/carly/.platformio/packages/framework-arduino-avr/variants/standard",
-                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
-                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
-                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
-                "/home/carly/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "~/Documentos/GitHub/openELECTRO/include",
+                "~/Documentos/GitHub/openELECTRO/src",
+                "~/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "~/.platformio/packages/framework-arduino-avr/variants/standard",
+                "~/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "~/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "~/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "~/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "~/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/home/carly/Documentos/GitHub/openELECTRO/include",
-                    "/home/carly/Documentos/GitHub/openELECTRO/src",
-                    "/home/carly/.platformio/packages/framework-arduino-avr/cores/arduino",
-                    "/home/carly/.platformio/packages/framework-arduino-avr/variants/standard",
-                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
-                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
-                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
-                    "/home/carly/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "~/Documentos/GitHub/openELECTRO/include",
+                    "~/Documentos/GitHub/openELECTRO/src",
+                    "~/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "~/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "~/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "~/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "~/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "~/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "~/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                     ""
                 ]
             },
@@ -45,7 +45,7 @@
             ],
             "cStandard": "c11",
             "cppStandard": "c++11",
-            "compilerPath": "/home/carly/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerPath": "~/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
             "compilerArgs": [
                 "-mmcu=atmega328p",
                 ""
