@@ -1,4 +1,6 @@
+====================================================
 FUENTES DE INFORMACIÓN:
+====================================================
 
 - FUNCIÓN millis():
     https://hetpro-store.com/TUTORIALES/arduino-millis/
@@ -7,9 +9,10 @@ FUENTES DE INFORMACIÓN:
 - TERMISTOR NTC:
     https://www.youtube.com/watch?v=8Wry8lwgGtA
     https://github.com/bitwiseAr/Curso-Arduino-desde-cero/tree/master/Capitulo34
+        
         TERMISTOR CALCULATOR: 
         http://www.thinksrs.com/downloads/programs/Therm%20Calc/NTCCalibrator/NTCcalculator.htm
-    https://controlautomaticoeducacion.com/instrumentacion/sensores-de-temperatura/
+        https://controlautomaticoeducacion.com/instrumentacion/sensores-de-temperatura/
 
 - ESP8266:
     https://cdn.sparkfun.com/datasheets/Wireless/WiFi/ESP8266ModuleV1.pdf
@@ -32,9 +35,17 @@ FUENTES DE INFORMACIÓN:
     https://www.luisllamas.es/que-son-y-como-usar-interrupciones-en-arduino/
 
 - AC DIMMER CON ZERO_CROSSING CONTROL:
+    https://www.prometec.net/zero-crossing-detection/
     https://www.electroschematics.com/ac-light-dimmer-module-with-zc-detector/
-------------------------------------
+
+    - DIMMER AC papperPCB
+        http://txapuzas.blogspot.com/2010/06/regulador-de-potencia-por-triac-para.html
+
+
+
+=======================================================
 POSIBLES MEJORAS:
+=======================================================
 
     - THINGSPEAK:   https://thingspeak.com/
                     https://github.com/jayraj4021/Personal-Weather-Station-14
@@ -43,10 +54,17 @@ POSIBLES MEJORAS:
 
     -
 
-
+=======================================================
 MANUALES:
+=======================================================
     - TERMINAL SERIAL MONITOR:
         https://www.cyberciti.biz/hardware/5-linux-unix-commands-for-connecting-to-the-serial-console/
+
+
+
+
+
+
 
 
 

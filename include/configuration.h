@@ -41,28 +41,41 @@
 
 
 //===========================================
-//         PROGRAM CONFIGURATION:           =
+//         HARDWARE CONFIGURATION:          =
 //===========================================
 
-
-#define BAUDRATE    9600   // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
-#define ANALOG_DIGITAL_CONVERTER_BITS   10    // 10 bits ARDUINO UNO,MINI, MEGA...
-#define PWM_BITS    8   // 256 [0...255]
+#define BAUDRATE    9600    // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
+#define ADC_BITS    10      // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
+#define PWM_BITS    8       // 256 [0...255]
 
 #define RESISTANCE_TEMP_SENSOR_01   100000     // 100KOhms
 #define RESISTANCE_TEMP_SENSOR_02   100000     // 100KOhms
 
 #define TIME_CLICK      5000    // 5 SEG
 
+#define AC_HERTZ 50     // 50/60 HERTZ
 
-//CONTROL FAN CONFIGURATION:
+//===========================================
+//         PROGRAM CONFIGURATION:           =
+//===========================================
+
+//CONTROL PWM FANs CONFIGURATION:
 #define PWM_CONTROL_POWER_0     (unsigned int)((pow(2,(byte)PWM_BITS)/100)*0)
 #define PWM_CONTROL_POWER_20    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*20)
 #define PWM_CONTROL_POWER_33    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*33)
 #define PWM_CONTROL_POWER_50    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*50)
 #define PWM_CONTROL_POWER_66    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*66)
 #define PWM_CONTROL_POWER_75    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*75)
-#define PWM_CONTROL_POWER_100   (unsigned int)(pow(2,(byte)PWM_BITS))
+#define PWM_CONTROL_POWER_100   (unsigned int)(pow(2,(byte)PWM_BITS)-1)
+
+//CONTROL DIMMER CONFIGURATION: (in microseg)
+#define DIMMER_CONTROL_POWER_0     (unsigned int)(((1000000UL/AC_HERTZ)*0)/200)
+#define DIMMER_CONTROL_POWER_20    (unsigned int)(((1000000UL/AC_HERTZ)*20)/200)
+#define DIMMER_CONTROL_POWER_33    (unsigned int)(((1000000UL/AC_HERTZ)*33)/200)
+#define DIMMER_CONTROL_POWER_50    (unsigned int)(((1000000UL/AC_HERTZ)*50)/200)
+#define DIMMER_CONTROL_POWER_66    (unsigned int)(((1000000UL/AC_HERTZ)*66)/200)
+#define DIMMER_CONTROL_POWER_75    (unsigned int)(((1000000UL/AC_HERTZ)*75)/200)
+#define DIMMER_CONTROL_POWER_100   (unsigned int)(((1000000UL/AC_HERTZ)*100)/200)
 
 #define COOL_FAN_TEMPERATURE_20    70       // ºC
 #define COOL_FAN_TEMPERATURE_33    100      // ºC

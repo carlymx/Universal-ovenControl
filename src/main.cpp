@@ -7,10 +7,10 @@
     2022
 ***************************************************************/
 
-// LIB
+// LIB INCLUDE
 #include <Arduino.h>
 
-// PROGRAM
+// PROGRAM INCLUDE
 #include <configuration.h>
 #include <oven_control.h>
 #include <pitches_notes.h>
@@ -39,13 +39,13 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCION, MODO);
 
   Serial.begin(BAUDRATE);
-  Serial.print ("STARTING openELECTRO \n");
+  Serial.print ("STARTING openELECTRO\n ovenCONTROL");
   delay (500);
 }
 
 void loop() {
   time_click();
-  
+
   // FULL TIMER ACTIONS
   if (FULL_CLICK == true){
     read_temperature_A1();
@@ -54,10 +54,7 @@ void loop() {
 
   // FAST TIMER ACTIONS
   if (FAST_CLICK == true){
-    control_coler_fan();
+    control_pcb_fan();
     open_door();
   }  
-
-  // LOOP ACTIONS
-  //open_door();
 }

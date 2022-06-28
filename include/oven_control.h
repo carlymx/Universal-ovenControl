@@ -21,13 +21,13 @@ bool FAST_CLICK = false;    // FAST TIME_CLICK ACTIONS (1/4)
 //==========================================
 
 // ANALOG DIGITAL CONVERTER bits: [10 bits = 1023, 12 = 4095...]
-int adc_rate = (pow(2, ANALOG_DIGITAL_CONVERTER_BITS) - 1);
+int adc_rate = (pow(2, ADC_BITS) - 1);
 
 //==========================================
 //                FUNCTIONS                =
 //==========================================
 
-void control_coler_fan(){
+void control_pcb_fan(){
     if (temp_sensor_01 <= 0){
         analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_100);
         Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");}
@@ -57,6 +57,7 @@ void open_door(){
         digitalWrite(PIN_LIGHT_CHAMBER, LOW);
         Serial.print("PUERTA CERRADA \n");
         }
+    return;
 }
 
 
