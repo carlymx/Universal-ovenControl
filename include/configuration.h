@@ -51,15 +51,15 @@
 #define RESISTANCE_TEMP_SENSOR_01   100000     // 100KOhms
 #define RESISTANCE_TEMP_SENSOR_02   100000     // 100KOhms
 
-#define TIME_CLICK      5000    // 5 SEG
+#define TIME_CLICK  5000    // 5 SEG
 
-#define AC_HERTZ 50     // 50/60 HERTZ
+#define AC_HERTZ    50      // 50/60 HERTZ
 
 //===========================================
 //         PROGRAM CONFIGURATION:           =
 //===========================================
 
-//CONTROL PWM FANs CONFIGURATION:
+//CONTROL % PWM FANs CONFIGURATION:
 #define PWM_CONTROL_POWER_0     (unsigned int)((pow(2,(byte)PWM_BITS)/100)*0)
 #define PWM_CONTROL_POWER_20    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*20)
 #define PWM_CONTROL_POWER_33    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*33)
@@ -68,7 +68,7 @@
 #define PWM_CONTROL_POWER_75    (unsigned int)((pow(2,(byte)PWM_BITS)/100)*75)
 #define PWM_CONTROL_POWER_100   (unsigned int)(pow(2,(byte)PWM_BITS)-1)
 
-//CONTROL DIMMER CONFIGURATION: (in microseg)
+//CONTROL % DIMMER CONFIGURATION: (in microseg)
 #define DIMMER_CONTROL_POWER_0     (unsigned int)(((1000000UL/AC_HERTZ)*0)/200)
 #define DIMMER_CONTROL_POWER_20    (unsigned int)(((1000000UL/AC_HERTZ)*20)/200)
 #define DIMMER_CONTROL_POWER_33    (unsigned int)(((1000000UL/AC_HERTZ)*33)/200)

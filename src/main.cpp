@@ -56,5 +56,6 @@ void loop() {
   if (FAST_CLICK == true){
     control_pcb_fan();
     open_door();
+  
   }  
 }

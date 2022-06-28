@@ -29,21 +29,21 @@ int adc_rate = (pow(2, ADC_BITS) - 1);
 
 void control_pcb_fan(){
     if (temp_sensor_01 <= 0){
-        analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_100);
+        analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_100);
         Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");}
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_20 && temp_sensor_01 < COOL_FAN_TEMPERATURE_33){
-            analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_20);}
+            analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_20);}
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_33 && temp_sensor_01 < COOL_FAN_TEMPERATURE_50){
-            analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_33);}
+            analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_33);}
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_50 && temp_sensor_01 < COOL_FAN_TEMPERATURE_66){
-            analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_50);}
+            analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_50);}
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_66 && temp_sensor_01 < COOL_FAN_TEMPERATURE_75){
-            analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_66);}
+            analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_66);}
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_75 && temp_sensor_01 < COOL_FAN_TEMPERATURE_100){
-            analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_75);}
+            analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_75);}
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_100){
-            analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_100);}
-    else {analogWrite(PIN_COOL_FAN, PWM_CONTROL_POWER_0);}
+            analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_100);}
+    else {analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_0);}
     return;
 }
 
