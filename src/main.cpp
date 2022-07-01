@@ -41,6 +41,7 @@ void setup() {
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
   delay (500);
+  melody("melody_01", "note_durations_01");
 }
 
 void loop() {

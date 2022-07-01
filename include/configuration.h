@@ -11,7 +11,7 @@
 //            PIN CONFIGURATION:            =
 //===========================================
 
-// ARDUINO NANO PINOUT COMPATIBLE:
+// DEFAULT = ARDUINO NANO PINOUT COMPATIBLE:
 // OUTPUTS RELAYS:
 #define PIN_LIGHT_CHAMBER   12      // ON/OFF - RELAY
 #define PIN_RESISTOR_UP     11      // ON/OFF - RELAY
@@ -46,12 +46,13 @@
 
 #define BAUDRATE    9600    // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
 #define ADC_BITS    10      // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
+    #define ADC_RATE    (pow(2, ADC_BITS) - 1)
 #define PWM_BITS    8       // 256 [0...255]
 
 #define RESISTANCE_TEMP_SENSOR_01   100000     // 100KOhms
 #define RESISTANCE_TEMP_SENSOR_02   100000     // 100KOhms
 
-#define TIME_CLICK  5000    // 5 SEG
+#define TIME_CLICK  5000    // IN ms - DEFAULT = 5000 (5 seg)
 
 #define AC_HERTZ    50      // 50/60 HERTZ
 
@@ -87,6 +88,6 @@
 
 
 // COEFFICIENTS STEINHART-HART (https://tinyurl.com/SHH-Calculator)
-float c1 = 2.114990448e-03;                     // NPC 100KOhms
-float c2 = 0.3832381228e-04;                    // NPC 100KOhms
-float c3 = 5.228061052e-07;                     // NPC 100KOhms
+float c1 = 2.114990448e-03;                     // DEFAULT FOR NPC 100KOhms
+float c2 = 0.3832381228e-04;                    // DEFAULT FOR NPC 100KOhms
+float c3 = 5.228061052e-07;                     // DEFAULT FOR NPC 100KOhms
