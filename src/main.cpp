@@ -41,11 +41,13 @@ void setup() {
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
   delay (500);
-  melody("melody_01", "note_durations_01");
+  start_melody(&START_MELODY);
 }
 
 void loop() {
   time_click();
+
+  process_sound();
 
   // FULL TIMER ACTIONS
   if (FULL_CLICK == true){

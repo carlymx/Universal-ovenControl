@@ -9,25 +9,7 @@
 
 #include <pitches_notes.h>
 
-//==========================================
-//                FUNCTIONS                =
-//==========================================
-
-void melody(String xx, String yy){
-    byte size_melody_array = sizeof(xx);
-
-    for (int thisNote = 0; thisNote < size_melody_array; thisNote++) {
-        tone(PIN_SPEEKER, xx[thisNote], (1500/yy[thisNote]));
-        delay (200);
-    }
-    return;
-}
-
-
-//========================
-//=       MELODY'S       =
-//========================
-/*
+/* NOTES DEFINITION:
 #define NOTE_C4  262  //DO
 #define NOTE_CS4 277  //DO SOSTENIDO
 #define NOTE_D4  294  //RE
@@ -41,6 +23,9 @@ void melody(String xx, String yy){
 #define NOTE_AS4 466  //LA SOSTENIDO
 #define NOTE_B4  494  //SI
 */
+
+#define NOTE_DURATION   1500    // ms
+#define NOTE_SILENCE     250    // ms
 
 int melody_01[] = {         // START
     NOTE_C4, NOTE_D4, NOTE_E4
@@ -69,3 +54,51 @@ float note_durations_01[] = { 6,6,4 };
 float note_durations_02[] = { 4,4 };
 
 float note_durations_99[] = { 6,6,4,6,6,4,6,6,6,6,2,6,6,6,6,6,6,6,6,6,6,6,6,2 };
+
+
+//========================
+//=    STRUCTURES        =
+//========================
+
+struct melody {
+    int delay;
+    int numnotes;
+    int* notes;
+    float* duration;
+};
+
+// OBJECT IMPLEMENTATION (MELODIES)
+struct melody EMPTY_MELODY = {NOTE_SILENCE, 0};
+struct melody START_MELODY = {NOTE_SILENCE, 3, melody_01, note_durations_01};
+struct melody ALARM_MELODY = {NOTE_SILENCE, 2, melody_02, note_durations_02};
+struct melody JBELLS_MELODY = {NOTE_SILENCE, 24, melody_99, note_durations_99};
+
+// struct melody* MELODIES[] = { START_MELODY, ALARM_MELODY };
+// start_melody(MELODIES[1]);
+
+//==========================================
+//                FUNCTIONS                =
+//==========================================
+
+// PRIVATE VARS
+struct melody* _current_melody = &EMPTY_MELODY;
+int _current_idx = 0;
+unsigned long _timer_melody = 0xffffffff;
+
+void start_melody(struct melody* melodiaasonar){
+    _timer_melody = millis();
+    _current_idx = 0;
+    _current_melody = melodiaasonar;
+};
+
+void process_sound(){
+    if (_timer_melody < millis()){
+        if (_current_idx < _current_melody->numnotes){
+            tone(PIN_SPEEKER, _current_melody->notes[_current_idx], (NOTE_DURATION/_current_melody->duration[_current_idx]));
+            _timer_melody = millis() + _current_melody->delay;
+            _current_idx++;
+        }
+        else
+            _timer_melody = 0xffffffff;
+    }
+};
