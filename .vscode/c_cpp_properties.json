@@ -37,6 +37,7 @@
             "defines": [
                 "PLATFORMIO=60002",
                 "ARDUINO_AVR_UNO",
+                "ARDUINO_BOARDS",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
                 "ARDUINO=10808",

@@ -12,6 +12,7 @@
 
 // PROGRAM INCLUDE
 #include <configuration.h>
+#include <configuration_pins.h>
 #include <oven_control.h>
 #include <pitches_notes.h>
 #include <melodys.h>
@@ -36,7 +37,7 @@ void setup() {
   pinMode(PIN_PUSH_02, INPUT);
   pinMode(PIN_PUSH_03, INPUT);
   //INTERRUPTIONS:
-  //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCION, MODO);
+  //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCTION, MODO);
 
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");

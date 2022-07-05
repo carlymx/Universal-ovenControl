@@ -8,45 +8,16 @@
 ***************************************************************/
 
 //===========================================
-//            PIN CONFIGURATION:            =
-//===========================================
-
-// DEFAULT = ARDUINO NANO PINOUT COMPATIBLE:
-// OUTPUTS RELAYS:
-#define PIN_LIGHT_CHAMBER   12      // ON/OFF - RELAY
-#define PIN_RESISTOR_UP     11      // ON/OFF - RELAY
-#define PIN_RESISTOR_DOWN   8       // ON/OFF - RELAY
-#define PIN_RESISTOR_REAR   7       // ON/OFF - RELAY
-// OUTPUTS DIMMER:
-#define PIN_COOL_FAN        10      // 50/60Hz AC DIMMER CONTROL
-#define PIN_CHAMBER_FAN     9       // 50/60Hz AC DIMMER CONTROL
-// PCB CONTROL:
-#define PIN_PCB_FAN         6       // PCB FAN (PWM PIN REQUIRED)
-#define PIN_SPEEKER         5       // Piezoelectric Speaker (PWM PIN REQUIRED)
-// COMMUNICATIONS:
-#define PIN_ESP8266_RX      3       // RX WIFI ESP8266 PORT
-#define PIN_BT_HC05_RX      13      // RX BLUETOOTH PORT 
-#define PIN_I2C_SDA         PIN_A4  // I2C PORT
-#define PIN_I2C_SCL         PIN_A5  // I2C PORT
-// INPUTS:
-#define PIN_OPEN_DOOR       4       // ON/OFF (1 CLOSE, 0 OPEN)
-#define PIN_ZERO_CROSSING   2       // 50/60Hz AC ZERO_CROSSING INTERRUPT
-#define PIN_TEMP_SENSOR_01  1 //PIN_A6  // ANALOG SENSOR IN
-#define PIN_TEMP_SENSOR_02  1 //PIN_A7  // ANALOG SENSOR IN
-#define PIN_PUSH_00         PIN_A0  // PUSH BUTTON INPUT
-#define PIN_PUSH_01         PIN_A1  // PUSH BUTTON INPUT
-#define PIN_PUSH_02         PIN_A2  // PUSH BUTTON INPUT
-#define PIN_PUSH_03         PIN_A3  // PUSH BUTTON INPUT
-
-
-
-//===========================================
 //         HARDWARE CONFIGURATION:          =
 //===========================================
 
 #define BAUDRATE    9600    // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
-#define ADC_BITS    10      // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
-    #define ADC_RATE    (pow(2, ADC_BITS) - 1)
+#ifdef RASPBERRYPI_PICO     // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
+    #define ADC_BITS    12
+#else
+    #define ADC_BITS    10
+#endif
+#define ADC_RATE    (pow(2, ADC_BITS) - 1)
 #define PWM_BITS    8       // 256 [0...255]
 
 #define RESISTANCE_TEMP_SENSOR_01   100000     // 100KOhms
