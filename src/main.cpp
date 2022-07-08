@@ -46,20 +46,19 @@ void setup() {
 }
 
 void loop() {
+// CONSTANT TIMER ACTIONS
   time_click();
-
   process_sound();
 
-  // FULL TIMER ACTIONS
+  // FULL CLICK TIMER ACTIONS
   if (FULL_CLICK == true){
     read_temperature_A1();
     read_temperature_A2();
   }
 
-  // FAST TIMER ACTIONS
+  // FAST CLICK TIMER ACTIONS
   if (FAST_CLICK == true){
     control_pcb_fan();
     open_door();
-  
   }  
 }
