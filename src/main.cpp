@@ -15,7 +15,12 @@
 #include <configuration_pins.h>
 #include <oven_control.h>
 #include <pitches_notes.h>
-#include <melodys.h>
+
+#ifndef BOARD_TEST
+  #include <melodys.h>
+#endif
+
+#include <board_test.h>
 
 void setup() {
 
@@ -42,23 +47,29 @@ void setup() {
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
   delay (500);
-  start_melody(&START_MELODY);
+  #ifndef BOARD_TEST
+    start_melody(&START_MELODY);
+  #endif
 }
 
 void loop() {
-// CONSTANT TIMER ACTIONS
-  time_click();
-  process_sound();
+  #ifdef BOARD_TEST
+    loop_board_test();
+  #else // NORMAL MODE
+    // CONSTANT TIMER ACTIONS
+    time_click();
+    process_sound();
 
-  // FULL CLICK TIMER ACTIONS
-  if (FULL_CLICK == true){
-    read_temperature_A1();
-    read_temperature_A2();
-  }
+    // FULL CLICK TIMER ACTIONS
+    if (FULL_CLICK == true){
+      read_temperature_A1();
+      read_temperature_A2();
+    }
 
-  // FAST CLICK TIMER ACTIONS
-  if (FAST_CLICK == true){
-    control_pcb_fan();
-    open_door();
-  }  
+    // FAST CLICK TIMER ACTIONS
+    if (FAST_CLICK == true){
+      control_pcb_fan();
+      open_door();
+    }
+  #endif  
 }
