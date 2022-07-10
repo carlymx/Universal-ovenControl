@@ -34,8 +34,11 @@ void board_test_outputs(){
     }
 }
 
-
 void board_test_inputs(){
+
+}
+
+/*void board_test_inputs(){
     for (byte i=0; i<sizeof(pin_in); i++){
         bool in_x = digitalRead(pin_in[i]);
         if (in_x == HIGH){
@@ -44,5 +47,6 @@ void board_test_inputs(){
         }
     }
 }
+*/
 
  
