@@ -16,9 +16,13 @@ byte pin_out[] = {
     PIN_RESISTOR_REAR, PIN_COOL_FAN, PIN_CHAMBER_FAN, PIN_PCB_FAN
 };
 
+byte x = 0;
+bool pinIn = false;
+
 byte pin_in[] = {
-    PIN_OPEN_DOOR, PIN_ZERO_CROSSING, PIN_PUSH_00, PIN_PUSH_01,
-    PIN_PUSH_02, PIN_PUSH_03, PIN_TEMP_SENSOR_01, PIN_TEMP_SENSOR_02    
+    PIN_OPEN_DOOR, PIN_PUSH_00, PIN_PUSH_01,
+    PIN_PUSH_02, PIN_PUSH_03, PIN_TEMP_SENSOR_01,
+    PIN_TEMP_SENSOR_02    
 }; 
 
 
@@ -35,18 +39,8 @@ void board_test_outputs(){
 }
 
 void board_test_inputs(){
-
+    noTone(PIN_SPEEKER);
+    if (x == sizeof(pin_in)-1){x = 0;} else x++;
+    pinIn = (bool)digitalRead(pin_in[x]);
+    if (pinIn == true){tone(PIN_SPEEKER, 200*(x+1));}
 }
-
-/*void board_test_inputs(){
-    for (byte i=0; i<sizeof(pin_in); i++){
-        bool in_x = digitalRead(pin_in[i]);
-        if (in_x == HIGH){
-            tone(PIN_SPEEKER, 500*(i+1), 250);
-            in_x = LOW;
-        }
-    }
-}
-*/
-
- 

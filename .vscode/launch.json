@@ -12,9 +12,9 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/carly/Documentos/GitHub/openELECTRO/.pio/build/Arduino-UNO328/firmware.elf",
+            "executable": "/home/taller/Documentos/GitHub/openELECTRO/.pio/build/Arduino-UNO328/firmware.elf",
             "projectEnvName": "Arduino-UNO328",
-            "toolchainBinDir": "/home/carly/.platformio/packages/toolchain-atmelavr/bin",
+            "toolchainBinDir": "/home/taller/.platformio/packages/toolchain-atmelavr/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
                 "type": "PlatformIO",
@@ -25,18 +25,18 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/carly/Documentos/GitHub/openELECTRO/.pio/build/Arduino-UNO328/firmware.elf",
+            "executable": "/home/taller/Documentos/GitHub/openELECTRO/.pio/build/Arduino-UNO328/firmware.elf",
             "projectEnvName": "Arduino-UNO328",
-            "toolchainBinDir": "/home/carly/.platformio/packages/toolchain-atmelavr/bin",
+            "toolchainBinDir": "/home/taller/.platformio/packages/toolchain-atmelavr/bin",
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "/home/carly/Documentos/GitHub/openELECTRO/.pio/build/Arduino-UNO328/firmware.elf",
+            "executable": "/home/taller/Documentos/GitHub/openELECTRO/.pio/build/Arduino-UNO328/firmware.elf",
             "projectEnvName": "Arduino-UNO328",
-            "toolchainBinDir": "/home/carly/.platformio/packages/toolchain-atmelavr/bin",
+            "toolchainBinDir": "/home/taller/.platformio/packages/toolchain-atmelavr/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
         }
