@@ -40,7 +40,12 @@ void board_test_outputs(){
 
 void board_test_inputs(){
     noTone(PIN_SPEEKER);
-    if (x == sizeof(pin_in)-1){x = 0;} else x++;
+    if (x == sizeof(pin_in)-1){
+        x = 0;
+    }
+    else x++;
     pinIn = (bool)digitalRead(pin_in[x]);
-    if (pinIn == true){tone(PIN_SPEEKER, 200*(x+1));}
+    if (pinIn == true){
+        tone(PIN_SPEEKER, 200*(x+1));
+    }
 }

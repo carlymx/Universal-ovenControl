@@ -48,7 +48,7 @@ void setup() {
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
   delay (500);
   #ifdef BOARD_TEST
-    //board_test_outputs();
+    board_test_outputs();
   #else
     start_melody(&START_MELODY);
   #endif
