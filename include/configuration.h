@@ -25,6 +25,7 @@
 
 #define RESISTANCE_TEMP_SENSOR_01   100000     // 100KOhms
 #define RESISTANCE_TEMP_SENSOR_02   100000     // 100KOhms
+#define MAX_TEMPERATURE                250     // 250ºC MAX TEMPERATURE SEGURITY LOCK
 
 #define TIME_CLICK  5000    // IN ms - DEFAULT = 5000 (5 seg)
 

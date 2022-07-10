@@ -17,7 +17,7 @@
 
 #ifndef BOARD_TEST
   #include <pitches_notes.h>
-  #include <melodys.h>
+  //#include <melodys.h>
 #else
   #include <board_test.h>
 #endif
@@ -46,12 +46,12 @@ void setup() {
 
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
-  delay (500);
-  #ifdef BOARD_TEST
+   #ifdef BOARD_TEST
     board_test_outputs();
   #else
     start_melody(&START_MELODY);
   #endif
+  delay (2000);
 }
 
 void loop() {
