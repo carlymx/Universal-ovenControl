@@ -26,8 +26,9 @@ void board_test_outputs(){
     for (byte x=0; x<sizeof(pin_out); x++){
         tone(PIN_SPEEKER, 2000, 500);
         delay (250);
+        bool state = false;
         for (byte i=0; i<20; i++){
-            digitalWrite(pin_out[x], (pin_out[x]!=0));
+            digitalWrite(pin_out[x], state=!state);
             delay(250);
         }
     }
@@ -36,8 +37,10 @@ void board_test_outputs(){
 
 void board_test_inputs(){
     for (byte i=0; i<sizeof(pin_in); i++){
-        if (digitalRead(pin_in[i])){
+        bool in_x = digitalRead(pin_in[i]);
+        if (in_x == HIGH){
             tone(PIN_SPEEKER, 500*(i+1), 250);
+            in_x = LOW;
         }
     }
 }
