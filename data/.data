@@ -63,10 +63,35 @@ MANUALES:
 
 
 
+--------------------------------------------
 
+int pinout[] = {
+    PIN_LIGHT_CHAMBER, PIN_RESISTOR_UP, PIN_RESISTOR_DOWN,
+    PIN_RESISTOR_REAR, PIN_COOL_FAN, PIN_CHAMBER_FAN, PIN_PCB_FAN
+}
 
-
-
-
------------------------------------
-
+void digital_probe(int x int y int z){
+    tone(PIN_SPEEKER, 2000, 500);
+    delay (1000);
+    for (int i=0; i<10; i++){
+        digitalWrite(PIN_LIGHT_CHAMBER, 1);
+        delay(250);
+        digitalWrite(PIN_LIGHT_CHAMBER, 0);
+        delay(250);
+}
+-----------------------
+    // FAN PWM PROBE
+    if ( test == 7) {
+        tone(PIN_SPEEKER, 500, 500);
+        for (byte ii=0; ii<5; ii++){
+            for (byte i=0; i<255; i=i+5){
+                analogWrite(PIN_PCB_FAN, i);
+                delay(20);
+            }
+            for (byte i=255; i>255; i=i-5){
+                analogWrite(PIN_PCB_FAN, i);
+                delay(20);
+            }
+        }
+        test = 8;
+    }

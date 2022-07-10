@@ -28,11 +28,11 @@
 #define NOTE_SILENCE     250    // ms
 
 int melody_01[] = {         // START
-    NOTE_C4, NOTE_D4, NOTE_E4
+    NOTE_C7, NOTE_D7, NOTE_E7, NOTE_E7, NOTE_D7, NOTE_C7
 }; 
 
 int melody_02[] = {         // ALARM!!!
-    NOTE_B4, NOTE_B4
+    NOTE_B7, NOTE_B7
 }; 
 
 int melody_99[] = {         // JIMBLE BELLS
@@ -49,7 +49,7 @@ int melody_99[] = {         // JIMBLE BELLS
 // durations: 2 = half note, and 8/3, 4, 6, 8, 12. 
 // It appears that 8/2.9 is more accurate than 8/3.
 
-float note_durations_01[] = { 6,6,4 };
+float note_durations_01[] = { 6,6,4,4,6,6 };
 
 float note_durations_02[] = { 4,4 };
 

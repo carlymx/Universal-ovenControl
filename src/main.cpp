@@ -14,13 +14,13 @@
 #include <configuration.h>
 #include <configuration_pins.h>
 #include <oven_control.h>
-#include <pitches_notes.h>
 
 #ifndef BOARD_TEST
+  #include <pitches_notes.h>
   #include <melodys.h>
+#else
+  #include <board_test.h>
 #endif
-
-#include <board_test.h>
 
 void setup() {
 
@@ -47,14 +47,16 @@ void setup() {
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
   delay (500);
-  #ifndef BOARD_TEST
+  #ifdef BOARD_TEST
+    board_test_outputs();
+  #else
     start_melody(&START_MELODY);
   #endif
 }
 
 void loop() {
   #ifdef BOARD_TEST
-    loop_board_test();
+    board_test_inputs();
   #else // NORMAL MODE
     // CONSTANT TIMER ACTIONS
     time_click();
