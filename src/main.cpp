@@ -9,23 +9,19 @@
 
 // LIB INCLUDE
 #include <Arduino.h>
+#include <EEPROM.h>
 
 // PROGRAM INCLUDE
 #include <configuration.h>
 #include <configuration_pins.h>
 #include <oven_control.h>
 
-#ifdef FORMAT_EEPROM
-  #include <EEPROM.h>
+#if defined FORMAT_EEPROM  || defined BOARD_TEST
   #include <board_config.h>
+#else
+  #include <pitches_notes.h>
 #endif
 
-#ifndef BOARD_TEST
-  #include <pitches_notes.h>
-  //#include <melodys.h>
-#else
-  #include <board_config.h>
-#endif
 
 void setup() {
 
