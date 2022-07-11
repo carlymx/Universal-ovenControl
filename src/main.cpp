@@ -15,11 +15,16 @@
 #include <configuration_pins.h>
 #include <oven_control.h>
 
+#ifdef FORMAT_EEPROM
+  #include <EEPROM.h>
+  #include <board_config.h>
+#endif
+
 #ifndef BOARD_TEST
   #include <pitches_notes.h>
   //#include <melodys.h>
 #else
-  #include <board_test.h>
+  #include <board_config.h>
 #endif
 
 void setup() {
@@ -46,12 +51,15 @@ void setup() {
 
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
-   #ifdef BOARD_TEST
+  delay(2000);
+  #ifdef FORMAT_EEPROM
+    format_eeprom();
+  #endif
+  #ifdef BOARD_TEST
     board_test_outputs();
   #else
     start_melody(&START_MELODY);
   #endif
-  delay (2000);
 }
 
 void loop() {

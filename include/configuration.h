@@ -11,10 +11,8 @@
 //         HARDWARE CONFIGURATION:          =
 //===========================================
 
-// IF ACTIVATED, BOARD IN TEST MODE (DESACTIVATE DEFAULT)
-// #define BOARD_TEST
-
 #define BAUDRATE    9600    // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
+
 #ifdef RASPBERRYPI_PICO     // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
     #define ADC_BITS    12
 #else
@@ -66,3 +64,19 @@
 float c1 = 2.114990448e-03;     // DEFAULT FOR NPC 100KOhms
 float c2 = 0.3832381228e-04;    // DEFAULT FOR NPC 100KOhms
 float c3 = 5.228061052e-07;     // DEFAULT FOR NPC 100KOhms
+
+
+//===========================================
+//         MISCELLANY CONFIGURATION:        =
+//===========================================
+
+// #define BOARD_TEST   // IF ACTIVATED, BOARD IN TEST MODE (DESACTIVATE DEFAULT)
+#define FORMAT_EEPROM   // IF ACTIVATED, ERASE EEPROM AND FORMAT
+
+#ifdef FORMAT_EEPROM
+    #define EEPROM_CRC_CONTROL      234     // ALEATORY NUMBER FOR ADDITION CRC
+    #define PROJECT_NAME            "openELECTRO: oven CONTROL"
+    #define PROJECT_VERSION         "v0.60a"
+    #define PROJECT_URL             "https://github.com/carlymx/openELECTRO"
+    #define PROJECT_TEMP_IN         "ºC"
+#endif

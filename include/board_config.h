@@ -10,7 +10,7 @@
 //===========================================
 //              BOARD TESTING:              =
 //===========================================
-
+#ifdef BOARD_TEST
 byte pin_out[] = {
     PIN_LIGHT_CHAMBER, PIN_RESISTOR_UP, PIN_RESISTOR_DOWN,
     PIN_RESISTOR_REAR, PIN_COOL_FAN, PIN_CHAMBER_FAN, PIN_PCB_FAN
@@ -49,3 +49,20 @@ void board_test_inputs(){
         tone(PIN_SPEEKER, 200*(x+1));
     }
 }
+#endif
+
+#ifdef FORMAT_EEPROM
+
+String project_data[]={
+    (String)EEPROM_CRC_CONTROL, (String)PROJECT_NAME,
+    (String)PROJECT_VERSION, (String)PROJECT_URL, (String)PROJECT_TEMP_IN};
+
+
+void format_eeprom(){
+    int eeprom_size = EEPROM.length();
+    Serial.print("EEPROM FORMATING...\n");
+    for( int index=0; index<eeprom_size; index++){
+        EEPROM[index] = 0;
+    }
+}
+#endif
