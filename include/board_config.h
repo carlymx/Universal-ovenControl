@@ -51,11 +51,53 @@ void board_test_inputs(){
 }
 #endif
 
-#ifdef FORMAT_EEPROM
 
+//===========================================
+//              EEPROM CONFIG:              =
+//===========================================
+
+/* THIS WILL ERASE THE ENTIRE CONTENT OF THE 
+EEPROM (WRITE ALL 0'S) AND FORMAT IT WITH THE 
+DATA REQUIRED FOR A FIRST START-UP. */
+
+//#ifdef FORMAT_EEPROM
 String project_data[]={
-    (String)EEPROM_CRC_CONTROL, (String)PROJECT_NAME,
-    (String)PROJECT_VERSION, (String)PROJECT_URL, (String)PROJECT_TEMP_IN};
+    (String)PROJECT_NAME, (String)PROJECT_VERSION,
+    (String)PROJECT_URL, (String)PROJECT_TEMP_IN};
+
+byte temp_objective[]={
+    0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,
+    80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140,
+    145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200,
+    205, 210, 215, 220, 225, 230, 235, 240, 245, 250};
+
+int temp_map_empty[]={
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0};
+
+int temp_map00[]={
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0};
+
+// EEPROM STRUCTURE:
+struct program_eeprom {
+    byte eepromCRC;
+    String* data;
+    byte* temp_obj;
+    bool mapped01;
+    int* temp_map01;
+    bool mapped02;
+    int* temp_map02;
+};
+
+// OBJECT IMPLEMENTATION
+struct program_eeprom FORMAT_EEPROM_BASIC = {
+    EEPROM_CRC_CONTROL, project_data, temp_objective,
+    false, temp_map_empty,
+    false, temp_map_empty};
+
 
 
 void format_eeprom(){
@@ -65,4 +107,4 @@ void format_eeprom(){
         EEPROM[index] = 0;
     }
 }
-#endif
+//#endif
