@@ -71,12 +71,12 @@ byte temp_objective[]={
     145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200,
     205, 210, 215, 220, 225, 230, 235, 240, 245, 250};
 
-int temp_map_empty[]={
+int temp_map_empty[51]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0};
 
-int temp_map00[]={
+int temp_map00[51]={
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0};
@@ -93,18 +93,23 @@ struct program_eeprom {
 };
 
 // OBJECT IMPLEMENTATION
-struct program_eeprom FORMAT_EEPROM_BASIC = {
+struct program_eeprom BASIC_FORMAT_EEPROM = {
     EEPROM_CRC_CONTROL, project_data, temp_objective,
     false, temp_map_empty,
     false, temp_map_empty};
 
 
-
 void format_eeprom(){
     int eeprom_size = EEPROM.length();
-    Serial.print("EEPROM FORMATING...\n");
+    Serial.print("ERASE EEPROM...\n");
     for( int index=0; index<eeprom_size; index++){
         EEPROM[index] = 0;
     }
+    delay(500); Serial.print("ERASE COMPLETE.\n");
+
+    Serial.print("EEPROM FORMATING...\n");
+    int eeprom_address += sizeof(program_eeprom);
+    EEPROM.put(eeprom_address, BASIC_FORMAT_EEPROM);
+    delay()
 }
 //#endif

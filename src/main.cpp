@@ -48,6 +48,7 @@ void setup() {
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO\n ovenCONTROL");
   delay(2000);
+  
   #ifdef FORMAT_EEPROM
     format_eeprom();
   #endif
