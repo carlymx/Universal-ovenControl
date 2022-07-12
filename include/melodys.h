@@ -81,14 +81,19 @@ struct melody JBELLS_MELODY = {NOTE_SILENCE, 24, melody_99, note_durations_99};
 //==========================================
 
 // PRIVATE VARS
+#define NO_PLAYING_MELODY 0xffffffff;
+
 struct melody* _current_melody = &EMPTY_MELODY;
 int _current_idx = 0;
-unsigned long _timer_melody = 0xffffffff;
+unsigned long _timer_melody = NO_PLAYING_MELODY;
 
 void start_melody(struct melody* melodiaasonar){
-    _timer_melody = millis();
-    _current_idx = 0;
-    _current_melody = melodiaasonar;
+    // Solamente tocamos si no hay una en marcha
+    if (_timer_melody == NO_PLAYING_MELODY) {
+        _timer_melody = millis();
+        _current_idx = 0;
+        _current_melody = melodiaasonar;
+    }
 };
 
 void process_sound(){
@@ -99,6 +104,6 @@ void process_sound(){
             _current_idx++;
         }
         else
-            _timer_melody = 0xffffffff;
+            _timer_melody = NO_PLAYING_MELODY;
     }
 };
