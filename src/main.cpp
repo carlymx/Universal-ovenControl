@@ -48,6 +48,7 @@ void setup() {
   
   #if defined FORMAT_EEPROM
     format_eeprom();
+    read_eeprom();
   #elif defined BOARD_TEST
     board_test_outputs();
   #else

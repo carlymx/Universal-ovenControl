@@ -60,6 +60,9 @@ void board_test_inputs_verif(int inputs){
 EEPROM (WRITE ALL 0'S) AND FORMAT IT WITH THE 
 DATA REQUIRED FOR A FIRST START-UP. */
 #ifdef FORMAT_EEPROM
+    int eeprom_size = EEPROM.length();
+    int eeprom_address = 0;
+
 String project_data[]={
     (String)PROJECT_NAME, (String)PROJECT_VERSION,
     (String)PROJECT_URL, (String)PROJECT_TEMP_IN};
@@ -98,8 +101,6 @@ struct program_eeprom BASIC_FORMAT_EEPROM = {EEPROM_CRC_CONTROL,
 
 
 void format_eeprom(){
-    int eeprom_size = EEPROM.length();
-    int eeprom_address = 0;
     Serial.print("ERASE EEPROM...\n");
     for( int index=0; index<eeprom_size; index++){
         EEPROM[index] = 0;
@@ -112,12 +113,14 @@ void format_eeprom(){
     delay(500);
     Serial.print("FORMAT COMPLETE...\n");
     delay(1000);
+}
 
-    struct program_eeprom READ_EEPROM;
-    EEPROM.get(eeprom_address, BASIC_FORMAT_EEPROM);
-    Serial.println("Leyendo Estructura EEPROM:");
-    Serial.println(BASIC_FORMAT_EEPROM.eepromCRC);
-    Serial.println(BASIC_FORMAT_EEPROM.data);
-    Serial.println(BASIC_FORMAT_EEPROM.temp_obj);
+void read_eeprom(){
+    //struct program_eeprom READ_EEPROM;
+    //EEPROM.get(eeprom_address, BASIC_FORMAT_EEPROM);
+    //Serial.println("Leyendo Estructura EEPROM:");
+    //Serial.println(BASIC_FORMAT_EEPROM.eepromCRC);
+    //Serial.println(BASIC_FORMAT_EEPROM.data);
+    //Serial.println(BASIC_FORMAT_EEPROM.temp_obj);
 }
 #endif
