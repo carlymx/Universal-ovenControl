@@ -43,13 +43,14 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCTION, MODO);
 
   Serial.begin(BAUDRATE);
-  Serial.print ("STARTING openELECTRO\novenCONTROL\n");
+  Serial.print ("STARTING openELECTRO for ovenCONTROL\n");
   delay(2000);
   
   #if defined FORMAT_EEPROM
     format_eeprom();
+    read_eeprom();
   #elif defined BOARD_TEST
-    //board_test_outputs();
+    board_test_outputs();
   #else
     start_melody(&START_MELODY);
   #endif
@@ -57,17 +58,14 @@ void setup() {
 
 void loop() {
   #ifdef BOARD_TEST
-    // board_test_inputs();
-
     byte inputs = board_read_inputs();
     board_test_inputs_verif(inputs);
-
     if (last_input != inputs) {
       Serial.println("Inputs: " + String(inputs));
     }
-
     last_input = inputs;
-
+  #elif defined FORMAT_EEPROM
+  
   #else // NORMAL MODE
     // CONSTANT TIMER ACTIONS
     time_click();
