@@ -10,13 +10,11 @@
 //===========================================
 //              BOARD TESTING:              =
 //===========================================
+
 byte pin_out[] = {
     PIN_LIGHT_CHAMBER, PIN_RESISTOR_UP, PIN_RESISTOR_DOWN,
     PIN_RESISTOR_REAR, PIN_COOL_FAN, PIN_CHAMBER_FAN, PIN_PCB_FAN
 };
-
-byte x = 0;
-bool pinIn = false;
 
 byte pin_in[] = {
     PIN_OPEN_DOOR, PIN_PUSH_00, PIN_PUSH_01,
@@ -34,17 +32,6 @@ void board_test_outputs(){
             digitalWrite(pin_out[x], state=!state);
             delay(250);
         }
-    }
-}
-
-void board_test_inputs(){
-    noTone(PIN_SPEEKER);
-    //if (x == sizeof(pin_in)-1) x = 0; else x++;
-    x = (x + 1) % sizeof(pin_in);
-
-    pinIn = (bool)digitalRead(pin_in[x]);
-    if (pinIn == true){
-        tone(PIN_SPEEKER, 200*(x+1));
     }
 }
 
@@ -105,14 +92,14 @@ struct program_eeprom {
 };
 
 // OBJECT IMPLEMENTATION
-struct program_eeprom BASIC_FORMAT_EEPROM = {
-    EEPROM_CRC_CONTROL, project_data, temp_objective,
-    false, temp_map_empty,
-    false, temp_map_empty};
+struct program_eeprom BASIC_FORMAT_EEPROM = {EEPROM_CRC_CONTROL,
+    project_data, temp_objective, false, temp_map_empty, false,
+    temp_map_empty};
 
 
 void format_eeprom(){
     int eeprom_size = EEPROM.length();
+    int eeprom_address = 0;
     Serial.print("ERASE EEPROM...\n");
     for( int index=0; index<eeprom_size; index++){
         EEPROM[index] = 0;
@@ -120,8 +107,17 @@ void format_eeprom(){
     delay(500); Serial.print("ERASE COMPLETE.\n");
 
     Serial.print("EEPROM FORMATING...\n");
-    int eeprom_address += sizeof(program_eeprom);
+    eeprom_address += sizeof(program_eeprom);
     EEPROM.put(eeprom_address, BASIC_FORMAT_EEPROM);
-    delay()
+    delay(500);
+    Serial.print("FORMAT COMPLETE...\n");
+    delay(1000);
+
+    struct program_eeprom READ_EEPROM;
+    EEPROM.get(eeprom_address, BASIC_FORMAT_EEPROM);
+    Serial.println("Leyendo Estructura EEPROM:");
+    Serial.println(BASIC_FORMAT_EEPROM.eepromCRC);
+    Serial.println(BASIC_FORMAT_EEPROM.data);
+    Serial.println(BASIC_FORMAT_EEPROM.temp_obj);
 }
 #endif
