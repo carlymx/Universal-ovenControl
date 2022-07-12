@@ -6,7 +6,7 @@
     carlymx@gmail.com
     2022
 ***************************************************************/
-#include <melodys.h>
+
 
 unsigned long timer_counter_00 = millis();      // GLOBAL
 unsigned long timer_counter_01 = timer_counter_00;      // FULL TIMER ACTION COUNTER
@@ -25,7 +25,8 @@ void control_pcb_fan(){
     if (temp_sensor_01 <= 0){
         analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_100);
         Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
-        if (_timer_melody == 0xffffffff){start_melody(&ALARM_MELODY);}}
+        if (_timer_melody == 0xffffffff){start_melody(&ALARM_MELODY);}
+        }
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_100){
             analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_100);}
     else if (temp_sensor_01 >= COOL_FAN_TEMPERATURE_75){

@@ -11,17 +11,14 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
-// PROGRAM INCLUDE
 #include <configuration.h>
-#include <configuration_pins.h>
-#include <oven_control.h>
-
 #if defined FORMAT_EEPROM  || defined BOARD_TEST
   #include <board_config.h>
-#else
-  #include <pitches_notes.h>
+  byte last_input = 0;
+#else // NORMAL MODE
+  #include <melodys.h>
+  #include <oven_control.h>
 #endif
-
 
 void setup() {
 
@@ -46,14 +43,13 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCTION, MODO);
 
   Serial.begin(BAUDRATE);
-  Serial.print ("STARTING openELECTRO\n ovenCONTROL");
+  Serial.print ("STARTING openELECTRO\novenCONTROL\n");
   delay(2000);
   
-  #ifdef FORMAT_EEPROM
+  #if defined FORMAT_EEPROM
     format_eeprom();
-  #endif
-  #ifdef BOARD_TEST
-    board_test_outputs();
+  #elif defined BOARD_TEST
+    //board_test_outputs();
   #else
     start_melody(&START_MELODY);
   #endif
@@ -61,13 +57,23 @@ void setup() {
 
 void loop() {
   #ifdef BOARD_TEST
-    board_test_inputs();
+    // board_test_inputs();
+
+    byte inputs = board_read_inputs();
+    board_test_inputs_verif(inputs);
+
+    if (last_input != inputs) {
+      Serial.println("Inputs: " + String(inputs));
+    }
+
+    last_input = inputs;
+
   #else // NORMAL MODE
     // CONSTANT TIMER ACTIONS
     time_click();
     process_sound();
 
-    // FULL CLICK TIMER ACTIONS
+    // FULL CLICK TIMER ACTIONS 
     if (FULL_CLICK == true){
       read_temperature_A1();
       read_temperature_A2();

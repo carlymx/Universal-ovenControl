@@ -10,7 +10,6 @@
 //===========================================
 //              BOARD TESTING:              =
 //===========================================
-#ifdef BOARD_TEST
 byte pin_out[] = {
     PIN_LIGHT_CHAMBER, PIN_RESISTOR_UP, PIN_RESISTOR_DOWN,
     PIN_RESISTOR_REAR, PIN_COOL_FAN, PIN_CHAMBER_FAN, PIN_PCB_FAN
@@ -40,17 +39,31 @@ void board_test_outputs(){
 
 void board_test_inputs(){
     noTone(PIN_SPEEKER);
-    if (x == sizeof(pin_in)-1){
-        x = 0;
-    }
-    else x++;
+    //if (x == sizeof(pin_in)-1) x = 0; else x++;
+    x = (x + 1) % sizeof(pin_in);
+
     pinIn = (bool)digitalRead(pin_in[x]);
     if (pinIn == true){
         tone(PIN_SPEEKER, 200*(x+1));
     }
 }
-#endif
 
+byte board_read_inputs(){
+    byte res = 0;
+    for (byte x=0; x<sizeof(pin_in); x++){
+        if ((bool)digitalRead(pin_in[x]) == true) 
+            res = res | (1 << x);               
+    }
+    return res;
+}
+
+void board_test_inputs_verif(int inputs){
+    noTone(PIN_SPEEKER);
+    if (inputs != 0){
+        unsigned int var_tone = 200*(inputs);
+        tone(PIN_SPEEKER, var_tone);
+    }
+}
 
 //===========================================
 //              EEPROM CONFIG:              =
@@ -59,8 +72,7 @@ void board_test_inputs(){
 /* THIS WILL ERASE THE ENTIRE CONTENT OF THE 
 EEPROM (WRITE ALL 0'S) AND FORMAT IT WITH THE 
 DATA REQUIRED FOR A FIRST START-UP. */
-
-//#ifdef FORMAT_EEPROM
+#ifdef FORMAT_EEPROM
 String project_data[]={
     (String)PROJECT_NAME, (String)PROJECT_VERSION,
     (String)PROJECT_URL, (String)PROJECT_TEMP_IN};
@@ -112,4 +124,4 @@ void format_eeprom(){
     EEPROM.put(eeprom_address, BASIC_FORMAT_EEPROM);
     delay()
 }
-//#endif
+#endif
