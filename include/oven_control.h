@@ -40,7 +40,7 @@ byte control_pcb_fan() {
         // if (_timer_melody == 0xffffffff){start_melody(&ALARM_MELODY);
     }
     else {
-        for (int i = sizeof(temp_oven) - 1; i >= 0; i--)
+        for (int i = 0; i < sizeof(temp_oven); i--)
         {
             if (temp_sensor_01 >= temp_oven[i]) {
                 analogWrite(PIN_PCB_FAN, power_fan[i]);
