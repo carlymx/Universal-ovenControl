@@ -8,9 +8,9 @@
 ***************************************************************/
 
 #ifdef ARDUINO_BOARDS
-    #include <configuration_pins_arduino.h>
+    #include <arduino/configuration_pins.h>
 #else
-    #include <configuration_pins_raspberry.h>
+    #include <RPi_pico/configuration_pins.h>
 #endif
 
 //===========================================

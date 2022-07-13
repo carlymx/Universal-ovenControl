@@ -21,7 +21,7 @@
 #define PIN_CHAMBER_FAN     99      // 50/60Hz AC DIMMER CONTROL
 // PCB CONTROL:
 #define PIN_PCB_FAN         99      // PCB FAN (PWM PIN REQUIRED)
-#define PIN_SPEEKER         99      // Piezoelectric Speaker (PWM PIN REQUIRED)
+#define PIN_SPEAKER         99      // Piezoelectric Speaker (PWM PIN REQUIRED)
 // COMMUNICATIONS:
 #define PIN_ESP8266_RX      99      // RX WIFI ESP8266 PORT
 #define PIN_BT_HC05_RX      99      // RX BLUETOOTH PORT 

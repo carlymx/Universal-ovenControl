@@ -30,7 +30,7 @@ void setup() {
   pinMode(PIN_COOL_FAN, OUTPUT);
   pinMode(PIN_CHAMBER_FAN, OUTPUT);
   pinMode(PIN_PCB_FAN, OUTPUT);
-  pinMode(PIN_SPEEKER, OUTPUT);
+  pinMode(PIN_SPEAKER, OUTPUT);
   // INPUTS PINS
   pinMode(PIN_OPEN_DOOR, INPUT);
   pinMode(PIN_TEMP_SENSOR_01, INPUT);

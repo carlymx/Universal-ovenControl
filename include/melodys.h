@@ -99,7 +99,7 @@ void start_melody(struct melody* melodiaasonar){
 void process_sound(){
     if (_timer_melody < millis()){
         if (_current_idx < _current_melody->numnotes){
-            tone(PIN_SPEEKER, _current_melody->notes[_current_idx], (NOTE_DURATION/_current_melody->duration[_current_idx]));
+            tone(PIN_SPEAKER, _current_melody->notes[_current_idx], (NOTE_DURATION/_current_melody->duration[_current_idx]));
             _timer_melody = millis() + _current_melody->delay;
             _current_idx++;
         }

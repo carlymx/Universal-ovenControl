@@ -22,7 +22,7 @@
 #define PIN_CHAMBER_FAN     9       // 50/60Hz AC DIMMER CONTROL
 // PCB CONTROL:
 #define PIN_PCB_FAN         6       // PCB FAN (PWM PIN REQUIRED) (IN UNO, MINI or NANO: PIN 6 TIMER-0)
-#define PIN_SPEEKER         5       // Piezoelectric (PWM PIN REQUIRED) (IN UNO, MINI or NANO: PIN 5 TIMER-0)
+#define PIN_SPEAKER         5       // Piezoelectric (PWM PIN REQUIRED) (IN UNO, MINI or NANO: PIN 5 TIMER-0)
 // COMMUNICATIONS:
 #define PIN_ESP8266_RX      3       // RX WIFI ESP8266 PORT
 #define PIN_BT_HC05_RX      13      // RX BLUETOOTH PORT 
