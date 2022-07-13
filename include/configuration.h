@@ -6,7 +6,12 @@
     carlymx@gmail.com
     2022
 ***************************************************************/
-#include <configuration_pins.h>
+
+#ifdef ARDUINO_BOARDS
+    #include <configuration_pins_arduino.h>
+#else
+    #include <configuration_pins_raspberry.h>
+#endif
 
 //===========================================
 //         HARDWARE CONFIGURATION:          =
@@ -65,7 +70,6 @@
 float c1 = 2.114990448e-03;     // DEFAULT FOR NPC 100KOhms
 float c2 = 0.3832381228e-04;    // DEFAULT FOR NPC 100KOhms
 float c3 = 5.228061052e-07;     // DEFAULT FOR NPC 100KOhms
-
 
 //===========================================
 //         MISCELLANY CONFIGURATION:        =
