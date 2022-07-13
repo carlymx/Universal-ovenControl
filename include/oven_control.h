@@ -35,20 +35,18 @@ byte control_pcb_fan() {
 
     if (temp_sensor_01 <= 0){
         analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_100);
-        // Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
         err = 1;
-        // if (_timer_melody == 0xffffffff){start_melody(&ALARM_MELODY);
+        // Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
+        // if (_timer_melody == 0xffffffff){start_melody(&ALARM_MELODY);}
     }
     else {
-        for (int i = 0; i < sizeof(temp_oven); i--)
-        {
-            if (temp_sensor_01 >= temp_oven[i]) {
+        for (unsigned int i=0; i<sizeof(temp_oven); i++){
+            if (temp_sensor_01 >= temp_oven[i]){
                 analogWrite(PIN_PCB_FAN, power_fan[i]);
                 break;
             }
         }            
     }
-    
     return err;
 }
 

@@ -65,7 +65,7 @@ void loop() {
     }
     last_input = inputs;
   #elif defined FORMAT_EEPROM
-  
+    // EMPTY
   #else // NORMAL MODE
     // CONSTANT TIMER ACTIONS
     time_click();

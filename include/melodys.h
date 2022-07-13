@@ -81,7 +81,7 @@ struct melody JBELLS_MELODY = {NOTE_SILENCE, 24, melody_99, note_durations_99};
 //==========================================
 
 // PRIVATE VARS
-#define NO_PLAYING_MELODY 0xffffffff;
+#define NO_PLAYING_MELODY 0xffffffff
 
 struct melody* _current_melody = &EMPTY_MELODY;
 int _current_idx = 0;
@@ -89,7 +89,7 @@ unsigned long _timer_melody = NO_PLAYING_MELODY;
 
 void start_melody(struct melody* melodiaasonar){
     // Solamente tocamos si no hay una en marcha
-    if (_timer_melody == NO_PLAYING_MELODY) {
+    if (_timer_melody == NO_PLAYING_MELODY){
         _timer_melody = millis();
         _current_idx = 0;
         _current_melody = melodiaasonar;
