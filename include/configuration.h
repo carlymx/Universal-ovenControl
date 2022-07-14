@@ -7,9 +7,9 @@
     2022
 ***************************************************************/
 
-#ifdef ARDUINO_BOARDS
+#ifdef ARDUINO_BOARDS   // FOR ARDUINO AVR BOARDS (UNO, NANO, MINI...)
     #include <arduino/configuration_pins.h>
-#else
+#else                   // FOR RASPBERRY PI PICO /W
     #include <RPi_pico/configuration_pins.h>
 #endif
 
@@ -19,14 +19,16 @@
 
 #define BAUDRATE    9600    // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
 
-#ifdef RASPBERRYPI_PICO     // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
+#ifdef RASPBERRYPI_PICO     // ANALOG DIGITAL CONVERTER (12bits=4096 [0-4095])
     #define ADC_BITS    12
 #else
-    #define ADC_BITS    10
+    #define ADC_BITS    10  // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
 #endif
 #define ADC_RATE    (pow(2, ADC_BITS) - 1)
 #define PWM_BITS    8       // 256 [0...255]
 
+#define PRIMARY_SENSOR              PIN_TEMP_SENSOR_01  // SELECT PIN FOR ORIGINAL OVEN SENSOR
+#define SECUNDARY_SENSOR_DUMMY      true       // IF SENSOR DUMMY, THE SENSOR ALWAYS RETURNS 25ºC
 #define RESISTANCE_TEMP_SENSOR_01   100000     // 100KOhms
 #define RESISTANCE_TEMP_SENSOR_02   100000     // 100KOhms
 #define MAX_TEMPERATURE                250     // 250ºC MAX TEMPERATURE SEGURITY LOCK
@@ -57,7 +59,7 @@
 #define DIMMER_CONTROL_POWER_75    (unsigned int)(((1000000UL/AC_HERTZ)* 75)/200)
 #define DIMMER_CONTROL_POWER_100   (unsigned int)(((1000000UL/AC_HERTZ)*100)/200)
 
-// TEMPERATURE ACTIVATORS %
+// TEMPERATURE ACTIVATORS % to ºC
 #define COOL_FAN_TEMPERATURE_20    70       // ºC
 #define COOL_FAN_TEMPERATURE_33    100      // ºC
 #define COOL_FAN_TEMPERATURE_50    150      // ºC
@@ -75,5 +77,5 @@ float c3 = 5.228061052e-07;     // DEFAULT FOR NPC 100KOhms
 //         MISCELLANY CONFIGURATION:        =
 //===========================================
 
-// #define BOARD_TEST   // IF ACTIVATED, BOARD IN TEST MODE (DESACTIVATE DEFAULT)
-// #define FORMAT_EEPROM   // IF ACTIVATED, ERASE EEPROM AND FORMAT
+// #define BOARD_TEST       // IF ACTIVATED, BOARD IN TEST MODE (DESACTIVATE DEFAULT)
+// #define FORMAT_EEPROM    // IF ACTIVATED, ERASE EEPROM AND FORMAT

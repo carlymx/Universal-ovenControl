@@ -28,9 +28,9 @@ void board_test_outputs(){
         tone(PIN_SPEAKER, 2000, 500);
         delay (250);
         bool state = false;
-        for (byte i=0; i<20; i++){
+        for (byte i=0; i<6; i++){
             digitalWrite(pin_out[x], state=!state);
-            delay(250);
+            delay(2000);
         }
     }
 }

@@ -13,7 +13,7 @@
 #include <configuration.h>
 #include <eeprom_conf.h>
 #if defined BOARD_TEST
-  #include <board_config.h>
+  #include <board_test.h>
   byte last_input = 0;
 #elif defined FORMAT_EEPROM
   //EMPTY
