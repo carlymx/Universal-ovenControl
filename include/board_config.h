@@ -25,7 +25,7 @@ byte pin_in[] = {
 
 void board_test_outputs(){
     for (byte x=0; x<sizeof(pin_out); x++){
-        tone(PIN_SPEEKER, 2000, 500);
+        tone(PIN_SPEAKER, 2000, 500);
         delay (250);
         bool state = false;
         for (byte i=0; i<20; i++){
@@ -45,82 +45,9 @@ byte board_read_inputs(){
 }
 
 void board_test_inputs_verif(int inputs){
-    noTone(PIN_SPEEKER);
+    noTone(PIN_SPEAKER);
     if (inputs != 0){
         unsigned int var_tone = 200*(inputs);
-        tone(PIN_SPEEKER, var_tone);
+        tone(PIN_SPEAKER, var_tone);
     }
 }
-
-//===========================================
-//              EEPROM CONFIG:              =
-//===========================================
-
-/* THIS WILL ERASE THE ENTIRE CONTENT OF THE 
-EEPROM (WRITE ALL 0'S) AND FORMAT IT WITH THE 
-DATA REQUIRED FOR A FIRST START-UP. */
-#ifdef FORMAT_EEPROM
-    int eeprom_size = EEPROM.length();
-    int eeprom_address = 0;
-
-String project_data[]={
-    (String)PROJECT_NAME, (String)PROJECT_VERSION,
-    (String)PROJECT_URL, (String)PROJECT_TEMP_IN};
-
-byte temp_objective[]={
-    0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75,
-    80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140,
-    145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200,
-    205, 210, 215, 220, 225, 230, 235, 240, 245, 250};
-
-int temp_map_empty[51]={
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0};
-
-int temp_map00[51]={
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0};
-
-// EEPROM STRUCTURE:
-struct program_eeprom {
-    byte eepromCRC;
-    String* data;
-    byte* temp_obj;
-    bool mapped01;
-    int* temp_map01;
-    bool mapped02;
-    int* temp_map02;
-};
-
-// OBJECT IMPLEMENTATION
-struct program_eeprom BASIC_FORMAT_EEPROM = {EEPROM_CRC_CONTROL,
-    project_data, temp_objective, false, temp_map_empty, false,
-    temp_map_empty};
-
-
-void format_eeprom(){
-    Serial.print("ERASE EEPROM...\n");
-    for( int index=0; index<eeprom_size; index++){
-        EEPROM[index] = 0;
-    }
-    delay(500); Serial.print("ERASE COMPLETE.\n");
-
-    Serial.print("EEPROM FORMATING...\n");
-    eeprom_address += sizeof(program_eeprom);
-    EEPROM.put(eeprom_address, BASIC_FORMAT_EEPROM);
-    delay(500);
-    Serial.print("FORMAT COMPLETE...\n");
-    delay(1000);
-}
-
-void read_eeprom(){
-    //struct program_eeprom READ_EEPROM;
-    //EEPROM.get(eeprom_address, BASIC_FORMAT_EEPROM);
-    //Serial.println("Leyendo Estructura EEPROM:");
-    //Serial.println(BASIC_FORMAT_EEPROM.eepromCRC);
-    //Serial.println(BASIC_FORMAT_EEPROM.data);
-    //Serial.println(BASIC_FORMAT_EEPROM.temp_obj);
-}
-#endif

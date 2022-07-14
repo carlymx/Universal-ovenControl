@@ -9,12 +9,14 @@
 
 // LIB INCLUDE
 #include <Arduino.h>
-#include <EEPROM.h>
 
 #include <configuration.h>
-#if defined FORMAT_EEPROM  || defined BOARD_TEST
+#include <eeprom_conf.h>
+#if defined BOARD_TEST
   #include <board_config.h>
   byte last_input = 0;
+#elif defined FORMAT_EEPROM
+  //EMPTY
 #else // NORMAL MODE
   #include <melodys.h>
   #include <oven_control.h>
@@ -52,6 +54,7 @@ void setup() {
   #elif defined BOARD_TEST
     board_test_outputs();
   #else
+    read_eeprom();
     start_melody(&START_MELODY);
   #endif
 }
