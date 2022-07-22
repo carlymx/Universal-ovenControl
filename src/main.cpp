@@ -45,7 +45,7 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCTION, MODO);
 
   Serial.begin(BAUDRATE);
-  Serial.print ("STARTING openELECTRO for ovenCONTROL\n");
+  Serial.print ("STARTING openELECTRO for Universal ovenCONTROL\n");
   delay(2000);
   
   #if defined FORMAT_EEPROM
