@@ -47,14 +47,16 @@
 1. [x] OPEN DOOR FUNCTION
 2. [x] BUZZER FUNCTION
 
-3. [x] TEMPERATURE SENSOR 01 FUNCTION
+3. [x] TEMPERATURE SENSOR FUNCTION
    3.1 [x] COEFFICIENTS STEINHART-HART
-
-4. [x] TEMPERATURE SENSOR 02 FUNCTION
-   4.1 [ ] MAPPING SENSOR 02 WITH SENSOR 01
+   3.2 [x] DUMMY SENSOR
+   3.3 [x] READ TEMPERATURE SENSORS
+       3.3.1 [ ] MAPPING PRIMARY SENSOR WITH SECUNDARY SENSOR
 
 5. [ ] PROGRAMS OVEN CONTROL
    5.1 [ ] INTERRUPT ZERO_CROSSING FUNCTION
+    5.1.1 [x] DEFINE INTERRUPT PIN_ZERO_CROSSING
+    5.1.2 [x] DEFINE FUNCTION ZERO_CROSSING
    5.2 [ ] PID CONTROL FUNCTION
 
 6. [ ] COMUNNICATIONS FUNCTIONS
@@ -76,8 +78,8 @@ setup()
 
 loop()
     time_click()
-    read_temperature_A1()
-    read_temperature_A2()
+    read_temperature_primary()
+    read_temperature_secundary()
     control_pcb_fan()
     open_door()
 

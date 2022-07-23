@@ -18,8 +18,8 @@ byte pin_out[] = {
 
 byte pin_in[] = {
     PIN_OPEN_DOOR, PIN_PUSH_00, PIN_PUSH_01,
-    PIN_PUSH_02, PIN_PUSH_03, PIN_TEMP_SENSOR_01,
-    PIN_TEMP_SENSOR_02    
+    PIN_PUSH_02, PIN_PUSH_03, PRIMARY_SENSOR,
+    SECUNDARY_SENSOR    
 }; 
 
 

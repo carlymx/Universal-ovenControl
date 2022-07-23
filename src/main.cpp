@@ -35,14 +35,14 @@ void setup() {
   pinMode(PIN_SPEAKER, OUTPUT);
   // INPUTS PINS
   pinMode(PIN_OPEN_DOOR, INPUT);
-  pinMode(PIN_TEMP_SENSOR_01, INPUT);
-  pinMode(PIN_TEMP_SENSOR_02, INPUT);
+  pinMode(PRIMARY_SENSOR, INPUT);
+  pinMode(SECUNDARY_SENSOR, INPUT);
   pinMode(PIN_PUSH_00, INPUT);
   pinMode(PIN_PUSH_01, INPUT);
   pinMode(PIN_PUSH_02, INPUT);
   pinMode(PIN_PUSH_03, INPUT);
   //INTERRUPTIONS:
-  //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), FUNCTION, MODO);
+  attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 
   Serial.begin(BAUDRATE);
   Serial.print ("STARTING openELECTRO for Universal ovenCONTROL\n");
@@ -76,8 +76,9 @@ void loop() {
 
     // FULL CLICK TIMER ACTIONS 
     if (FULL_CLICK == true){
-      read_temperature_A1();
-      read_temperature_A2();
+      read_temperature_primary();
+      read_temperature_secundary();
+      interrupts();             // ENABLE INTERRUPTS
     }
 
     // FAST CLICK TIMER ACTIONS

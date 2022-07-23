@@ -6,13 +6,13 @@
     carlymx@gmail.com
     2022
 ***************************************************************/
-
-unsigned long timer_counter_00 = millis();      // GLOBAL
+volatile unsigned long timer_ac_sync = 0;               // TIMER MICROS FOR DIMMER CONTROL
+unsigned long timer_counter_00 = millis();              // GLOBAL
 unsigned long timer_counter_01 = timer_counter_00;      // FULL TIMER ACTION COUNTER
 unsigned long timer_counter_02 = timer_counter_00;      // FAST TIMER ACTION COUNTER
 // float res_temp01, res_temp02, log_res_temp;
-float temp_sensor_01;       // TEMPERATURE SENSOR 01
-float temp_sensor_02;       // TEMPERATURE SENSOR 02
+float temp_primary_sensor;          // TEMPERATURE SENSOR 01
+float temp_secundary_sensor;        // TEMPERATURE SENSOR 02
 bool FULL_CLICK = false;    // FULL TIME_CLICK ACTIONS (1/1)
 bool FAST_CLICK = false;    // FAST TIME_CLICK ACTIONS (1/4)
 
@@ -30,16 +30,21 @@ unsigned int power_fan [] = {
 //                FUNCTIONS                =
 //==========================================
 
+void zero_crossing() {
+    noInterrupts();             // DISABLE INTERRUPTS
+    timer_ac_sync = micros();
+}
+
 byte control_pcb_fan() {
     byte err = 0;
 
-    if (temp_sensor_01 <= 0){
+    if (temp_primary_sensor <= 0){
         analogWrite(PIN_PCB_FAN, PWM_CONTROL_POWER_100);
         err = 1;
     }
     else {
         for (unsigned int i=0; i<sizeof(temp_oven); i++){
-            if (temp_sensor_01 >= temp_oven[i]){
+            if (temp_primary_sensor >= temp_oven[i]){
                 analogWrite(PIN_PCB_FAN, power_fan[i]);
                 break;
             }
@@ -72,14 +77,27 @@ int read_temperature (byte pin, long resistance){
     return temp_sensor;
 }
 
-void read_temperature_A1(){
-    temp_sensor_01 = read_temperature(PIN_TEMP_SENSOR_01, RESISTANCE_TEMP_SENSOR_01); 
-    Serial.println("Sensor A1: " + String(temp_sensor_01));
+void read_temperature_primary(){
+    if (PRIMARY_SENSOR_DUMMY == true){
+        temp_primary_sensor = 20;
+        Serial.println("Primary Sensor (DUMMY): " + String(temp_primary_sensor));
+    }
+    else {
+        temp_primary_sensor = read_temperature(PRIMARY_SENSOR, RESISTANCE_PRIMARY_SENSOR); 
+        Serial.println("Sensor A1: " + String(temp_primary_sensor));
+    }
+    return;
 }
 
-void read_temperature_A2(){
-    temp_sensor_02 = read_temperature(PIN_TEMP_SENSOR_02, RESISTANCE_TEMP_SENSOR_02); 
-    Serial.println("Sensor A2: " + String(temp_sensor_02));
+void read_temperature_secundary(){
+    if (SECUNDARY_SENSOR_DUMMY == true){
+        temp_secundary_sensor = 25;
+        Serial.println("Secundary Sensor (DUMMY): " + String(temp_secundary_sensor));
+    }
+    else {
+        temp_secundary_sensor = read_temperature(SECUNDARY_SENSOR, RESISTANCE_SECUNDARY_SENSOR); 
+        Serial.println("Sensor A2: " + String(temp_secundary_sensor));
+    }
     return;
 }
 
