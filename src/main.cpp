@@ -87,6 +87,7 @@ void loop() {
         // TODO: Mostrar mensaje segun error...
         Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
         start_melody(&ALARM_MELODY);
+        dimmer_control(true);
       };
       
       open_door();

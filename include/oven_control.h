@@ -35,6 +35,13 @@ void zero_crossing() {
     timer_ac_sync = micros();
 }
 
+void dimmer_control(bool full) {
+    if (full == true){          // ALARM MODE
+        noInterrupts();
+        digitalWrite(PIN_COOL_FAN, HIGH);
+    }
+}
+
 byte control_pcb_fan() {
     byte err = 0;
 
