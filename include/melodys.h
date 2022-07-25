@@ -3,7 +3,7 @@
     Home appliance control, based on arduino and other MPU
 
     https://github.com/carlymx/openELECTRO
-    carlymx@gmail.com
+    jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
 
@@ -70,6 +70,7 @@ struct melody {
 // OBJECT IMPLEMENTATION (MELODIES)
 struct melody EMPTY_MELODY = {NOTE_SILENCE, 0};
 struct melody START_MELODY = {NOTE_SILENCE, 6, melody_01, note_durations_01};
+struct melody ON_TEMP_MELODY = {NOTE_SILENCE, 6, melody_01, note_durations_01};
 struct melody ALARM_MELODY = {NOTE_SILENCE, 2, melody_02, note_durations_02};
 struct melody JBELLS_MELODY = {NOTE_SILENCE, 24, melody_99, note_durations_99};
 

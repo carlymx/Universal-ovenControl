@@ -3,7 +3,7 @@
     Home appliance control, based on arduino and other MPU
 
     https://github.com/carlymx/openELECTRO
-    carlymx@gmail.com
+    jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
 
@@ -23,27 +23,16 @@ int read_temperature (byte pin, long resistance){
 }
 
 void read_temperature_primary(){
-    if (PRIMARY_SENSOR_DUMMY == true){
-        temp_primary_sensor = 20;
-        Serial.println("Primary Sensor (DUMMY): " + String(temp_primary_sensor));
-    }
-    else {
-        temp_primary_sensor = read_temperature(PRIMARY_SENSOR, RESISTANCE_PRIMARY_SENSOR); 
-        Serial.println("Sensor A1: " + String(temp_primary_sensor));
-    }
+    temp_primary_sensor = read_temperature(PRIMARY_SENSOR, RESISTANCE_PRIMARY_SENSOR); 
+    Serial.println("Sensor A1: " + String(temp_primary_sensor));
 
-    current_temp = temp_primary_sensor;
-    return;
+    if (current_temp != temp_primary_sensor){
+        current_temp = temp_primary_sensor;
+        temp_change = true;
+    }
 }
 
 void read_temperature_secundary(){
-    if (SECUNDARY_SENSOR_DUMMY == true){
-        temp_secondary_sensor = 25;
-        Serial.println("Secondary Sensor (DUMMY): " + String(temp_secondary_sensor));
-    }
-    else {
-        temp_secondary_sensor = read_temperature(SECUNDARY_SENSOR, RESISTANCE_SECUNDARY_SENSOR); 
-        Serial.println("Sensor A2: " + String(temp_secondary_sensor));
-    }
-    return;
+    temp_secondary_sensor = read_temperature(SECUNDARY_SENSOR, RESISTANCE_SECUNDARY_SENSOR); 
+    Serial.println("Sensor A2: " + String(temp_secondary_sensor));
 }

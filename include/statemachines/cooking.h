@@ -3,7 +3,7 @@
     Home appliance control, based on arduino and other MPU
 
     https://github.com/carlymx/openELECTRO
-    carlymx@gmail.com
+    jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
 
@@ -25,15 +25,15 @@
 #define MAX_TEMP     250
 #define STEP_TEMP      5
 
-#define RESIST_UP      1
-#define RESIST_DOWN    2
-#define RESIST_BOTH    3
+#define DELTA_ON  0
+#define DELTA_OFF 5
 
 byte programed_temp = DEFAULT_TEMP;
 byte cooking_state = COOKING_STATE_OFF;
-byte resistances = RESIST_BOTH;
+byte resistances = RESIST_UP + RESIST_DOWN;
 
 byte last_input_cooking = 0;
+bool beep_on_temp = true;
 
 void programed_temp_change(){
     Serial.write("Prog. temp ");
@@ -46,8 +46,9 @@ void state_machine_cooking(byte event){
         case COOKING_STATE_OFF:
             switch (event) {
                 case COOKING_EVENT_KEY_ENTER: 
+                    beep_on_temp = true;
                     if (current_temp < programed_temp){
-                        // TODO: Arrancamos resistencias...
+                        set_resistance(resistances, true);
                         cooking_state = COOKING_STATE_UNDER_TEMP;
                     }
                     else {
@@ -87,9 +88,26 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_ENTER: break;
                 case COOKING_EVENT_KEY_MINUS: break;
                 case COOKING_EVENT_KEY_PLUS: break;
-                case COOKING_EVENT_KEY_CANCEL: break;
-                case COOKING_EVENT_TEMP_CHANGE: break;
-                case COOKING_EVENT_OPEN_DOOR: break;
+
+                case COOKING_EVENT_KEY_CANCEL: 
+                    set_resistance(resistances, false);
+                    cooking_state = COOKING_STATE_OFF;
+                    break;
+
+                case COOKING_EVENT_TEMP_CHANGE: 
+                    if (current_temp >= programed_temp + DELTA_ON) {
+                        set_resistance(resistances, false);
+                        cooking_state = COOKING_STATE_ON_TEMP;                    
+                        if (beep_on_temp == true) {
+                            start_melody(&ON_TEMP_MELODY);
+                            beep_on_temp = false;
+                        }
+                    }
+                    break;
+
+                case COOKING_EVENT_OPEN_DOOR: 
+                    set_lights(is_input_active(current_inputs, DOOR_SENSOR));                 
+                    break;
             }
             break;
 
@@ -98,9 +116,26 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_ENTER: break;
                 case COOKING_EVENT_KEY_MINUS: break;
                 case COOKING_EVENT_KEY_PLUS: break;
-                case COOKING_EVENT_KEY_CANCEL: break;
-                case COOKING_EVENT_TEMP_CHANGE: break;
-                case COOKING_EVENT_OPEN_DOOR: break;
+
+                case COOKING_EVENT_KEY_CANCEL: 
+                    set_resistance(resistances, false);
+                    cooking_state = COOKING_STATE_OFF;
+                    break;
+
+                case COOKING_EVENT_TEMP_CHANGE: 
+                    if (current_temp <= programed_temp - DELTA_OFF) {
+                        set_resistance(resistances, true);
+                        cooking_state = COOKING_STATE_UNDER_TEMP;                    
+                        if (beep_on_temp == true) {
+                            start_melody(&ON_TEMP_MELODY);
+                            beep_on_temp = false;
+                        }
+                    }
+                    break;
+
+                case COOKING_EVENT_OPEN_DOOR: 
+                    set_lights(is_input_active(current_inputs, DOOR_SENSOR));                 
+                    break;
             }
             break;
 

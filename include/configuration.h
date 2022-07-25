@@ -3,7 +3,7 @@
     Home appliance control, based on arduino and other MPU
 
     https://github.com/carlymx/openELECTRO
-    carlymx@gmail.com
+    jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
 
@@ -29,8 +29,6 @@
 
 #define PRIMARY_SENSOR                PIN_TEMP_SENSOR_01  // SELECT ORIGINAL TERMISTOR OVEN SENSOR
 #define SECUNDARY_SENSOR              PIN_TEMP_SENSOR_02  // SELECT TERMISTOR NTC3950 100K
-#define PRIMARY_SENSOR_DUMMY          true       // IF SENSOR DUMMY, THE SENSOR ALWAYS RETURNS 20ºC
-#define SECUNDARY_SENSOR_DUMMY        true       // IF SENSOR DUMMY, THE SENSOR ALWAYS RETURNS 25ºC
 #define RESISTANCE_PRIMARY_SENSOR     100000     // 100KOhms
 #define RESISTANCE_SECUNDARY_SENSOR   100000     // 100KOhms
 #define MAX_TEMPERATURE               250        // 250ºC MAX TEMPERATURE SEGURITY LOCK

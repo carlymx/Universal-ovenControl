@@ -3,7 +3,8 @@
     Home appliance control, based on arduino and other MPU
 
     https://github.com/carlymx/openELECTRO
-    carlymx@gmail.com
+    By surfzone, CaRLyMx
+    jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
 
@@ -26,8 +27,13 @@ void zero_crossing() {
     timer_ac_sync = micros();
 }
 
+void activate_zero_crossing_detect() {
+    interrupts();
+}
+
 void set_fan(byte vel) {
-    analogWrite(PIN_PCB_FAN, vel);
+    //dimmer_control(vel);
+    Serial.print("Fan: "+String(vel)+"\n");
 }
 
 byte control_pcb_fan(float temp) {

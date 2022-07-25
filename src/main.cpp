@@ -3,7 +3,7 @@
     Home appliance control, based on arduino and other MPU
 
     https://github.com/carlymx/openELECTRO
-    carlymx@gmail.com
+    jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
 
@@ -13,7 +13,7 @@
 #include <configuration.h>
 #include <eeprom_conf.h>
 #include <global_vars.h>
-#include <read_inputs.h>
+#include <hardware/inputs_control.h>
 
 #if defined BOARD_TEST
   #include <board_test.h>
@@ -25,9 +25,10 @@
   #include <oven_control.h>
 #endif
 
-#include <temperature_control.h>
-#include <fan_control.h>
-#include <light_control.h>
+#include <test/resistance_control.h>
+#include <test/temperature_control.h>
+#include <hardware/fan_control.h>
+#include <hardware/light_control.h>
 #include <statemachines/cooking.h>
 
 void setup() {
@@ -86,7 +87,7 @@ void loop() {
     if (FULL_CLICK == true){
       read_temperature_primary();
       read_temperature_secundary();
-      interrupts();             // ENABLE INTERRUPTS
+      activate_zero_crossing_detect();             // ENABLE INTERRUPTS
     }
 
     // FAST CLICK TIMER ACTIONS
@@ -95,15 +96,13 @@ void loop() {
         // TODO: Mostrar mensaje segun error...
         Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
         start_melody(&ALARM_MELODY);
-        dimmer_control(true);
       };
       
       read_inputs();
     }
 
-    // Maquina d'estats
-    if (input_change) inputs_change_cooking(current_inputs);
-    if (temp_change) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
+    if (input_change == true) inputs_change_cooking(current_inputs);
+    if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
     input_change = false;
     temp_change = false;
     
