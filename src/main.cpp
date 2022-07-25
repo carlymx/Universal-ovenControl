@@ -25,6 +25,8 @@
   #include <oven_control.h>
 #endif
 
+#include <temperature_control.h>
+#include <fan_control.h>
 #include <light_control.h>
 #include <statemachines/cooking.h>
 
@@ -89,7 +91,7 @@ void loop() {
 
     // FAST CLICK TIMER ACTIONS
     if (FAST_CLICK == true){
-      if (control_pcb_fan() != 0) {
+      if (control_pcb_fan(current_temp) != 0) {
         // TODO: Mostrar mensaje segun error...
         Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
         start_melody(&ALARM_MELODY);
