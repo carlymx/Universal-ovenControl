@@ -12,6 +12,9 @@
 
 #include <configuration.h>
 #include <eeprom_conf.h>
+#include <global_vars.h>
+#include <read_inputs.h>
+
 #if defined BOARD_TEST
   #include <board_test.h>
   byte last_input = 0;
@@ -21,6 +24,9 @@
   #include <melodys.h>
   #include <oven_control.h>
 #endif
+
+#include <light_control.h>
+#include <statemachines/cooking.h>
 
 void setup() {
 
@@ -90,7 +96,14 @@ void loop() {
         dimmer_control(true);
       };
       
-      open_door();
+      read_inputs();
     }
+
+    // Maquina d'estats
+    if (input_change) inputs_change_cooking(current_inputs);
+    if (temp_change) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
+    input_change = false;
+    temp_change = false;
+    
   #endif  
 }

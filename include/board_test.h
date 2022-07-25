@@ -35,15 +35,6 @@ void board_test_outputs(){
     }
 }
 
-byte board_read_inputs(){
-    byte res = 0;
-    for (byte x=0; x<sizeof(pin_in); x++){
-        if ((bool)digitalRead(pin_in[x]) == true) 
-            res = res | (1 << x);               
-    }
-    return res;
-}
-
 void board_test_inputs_verif(int inputs){
     noTone(PIN_SPEAKER);
     if (inputs != 0){
