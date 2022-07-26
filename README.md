@@ -2,5 +2,19 @@
 
 Home appliance control, based on arduino and other MPU
 
-PreAPLHA 
-ignore... for now
+
+
+
+
+
+
+
+
+
+
+
+
+## Diagram PinOut:
+
+![diagram](https://github.com/carlymx/Universal-ovenControl/blob/main/data/Diagram%20Connections/PCB%20-%20ovenCONTROL%20Diagram.png)
+
