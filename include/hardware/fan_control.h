@@ -31,9 +31,14 @@ void activate_zero_crossing_detect() {
     interrupts();
 }
 
+byte current_vel = 0;
+
 void set_fan(byte vel) {
     //dimmer_control(vel);
-    Serial.print("Fan: "+String(vel)+"\n");
+    if (current_vel != vel) {
+        current_vel = vel;
+        Serial.print("Fan: "+String(vel)+"\n");
+    }
 }
 
 byte control_pcb_fan(float temp) {

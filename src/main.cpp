@@ -84,20 +84,26 @@ void loop() {
     process_sound();
 
     // FULL CLICK TIMER ACTIONS 
-    if (FULL_CLICK == true){
+    if (FULL_CLICK){
+      Serial.print("Full CLick: " +String(timer_counter_00) +"  " +String(timer_counter_01) +"\n");
       read_temperature_primary();
       read_temperature_secundary();
+
+      if (temp_change == true)
+        if (control_pcb_fan(current_temp) != 0) {
+          // TODO: Mostrar mensaje segun error...
+          Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
+          start_melody(&ALARM_MELODY);
+        };
+
       activate_zero_crossing_detect();             // ENABLE INTERRUPTS
     }
 
     // FAST CLICK TIMER ACTIONS
     if (FAST_CLICK == true){
-      if (control_pcb_fan(current_temp) != 0) {
-        // TODO: Mostrar mensaje segun error...
-        Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
-        start_melody(&ALARM_MELODY);
-      };
-      
+      FAST_CLICK = false;
+      Serial.print("Fast CLick: " +String(timer_counter_00) +"  " +String(timer_counter_02) +"\n");
+    
       read_inputs();
     }
 

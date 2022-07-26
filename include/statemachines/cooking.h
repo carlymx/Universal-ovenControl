@@ -36,9 +36,7 @@ byte last_input_cooking = 0;
 bool beep_on_temp = true;
 
 void programed_temp_change(){
-    Serial.write("Prog. temp ");
-    Serial.write(programed_temp);
-    Serial.write("\n");
+    Serial.print("Prog. temp " + String(programed_temp) + "\n");
 }
 
 void state_machine_cooking(byte event){

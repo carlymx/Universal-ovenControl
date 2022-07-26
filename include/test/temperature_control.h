@@ -18,11 +18,10 @@ void read_temperature_primary() {
 
     if (temp_primary_sensor < 20) temp_primary_sensor = 20;
 
-    Serial.println("Primary Sensor (DUMMY): " + String(temp_primary_sensor));
-
     if (current_temp != temp_primary_sensor){
         current_temp = temp_primary_sensor;
         temp_change = true;
+        Serial.println("Primary Sensor (DUMMY): " + String(current_temp));
     }
 }
 
