@@ -39,6 +39,28 @@ void programed_temp_change(){
     Serial.print("Prog. temp " + String(programed_temp) + "\n");
 }
 
+void verify_temp_under() {
+    if (current_temp >= programed_temp + DELTA_ON) {
+        set_resistance(resistances, false);
+        cooking_state = COOKING_STATE_ON_TEMP;                    
+        if (beep_on_temp == true) {
+            start_melody(&ON_TEMP_MELODY);
+            beep_on_temp = false;
+        }
+    }
+}
+
+void verify_temp_on() {
+    if (current_temp <= programed_temp - DELTA_OFF) {
+        set_resistance(resistances, true);
+        cooking_state = COOKING_STATE_UNDER_TEMP;                    
+        if (beep_on_temp == true) {
+            start_melody(&ON_TEMP_MELODY);
+            beep_on_temp = false;
+        }
+    }
+}
+
 void state_machine_cooking(byte event){
     switch (cooking_state) {
         case COOKING_STATE_OFF:
@@ -84,8 +106,19 @@ void state_machine_cooking(byte event){
         case COOKING_STATE_UNDER_TEMP:
             switch (event) {
                 case COOKING_EVENT_KEY_ENTER: break;
-                case COOKING_EVENT_KEY_MINUS: break;
-                case COOKING_EVENT_KEY_PLUS: break;
+
+                case COOKING_EVENT_KEY_MINUS:
+                    programed_temp -= STEP_TEMP; 
+                    if (programed_temp < MIN_TEMP) programed_temp = MIN_TEMP;
+                    programed_temp_change();
+                    verify_temp_under();
+                    break;
+
+                case COOKING_EVENT_KEY_PLUS: 
+                    programed_temp += STEP_TEMP; 
+                    if (programed_temp > MAX_TEMP) programed_temp = MAX_TEMP;
+                    programed_temp_change();
+                    break;
 
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
@@ -93,14 +126,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
-                    if (current_temp >= programed_temp + DELTA_ON) {
-                        set_resistance(resistances, false);
-                        cooking_state = COOKING_STATE_ON_TEMP;                    
-                        if (beep_on_temp == true) {
-                            start_melody(&ON_TEMP_MELODY);
-                            beep_on_temp = false;
-                        }
-                    }
+                    verify_temp_under();
                     break;
 
                 case COOKING_EVENT_OPEN_DOOR: 
@@ -112,8 +138,19 @@ void state_machine_cooking(byte event){
         case COOKING_STATE_ON_TEMP:
             switch (event) {
                 case COOKING_EVENT_KEY_ENTER: break;
-                case COOKING_EVENT_KEY_MINUS: break;
-                case COOKING_EVENT_KEY_PLUS: break;
+
+                case COOKING_EVENT_KEY_MINUS:
+                    programed_temp -= STEP_TEMP; 
+                    if (programed_temp < MIN_TEMP) programed_temp = MIN_TEMP;
+                    programed_temp_change();
+                    break;
+
+                case COOKING_EVENT_KEY_PLUS: 
+                    programed_temp += STEP_TEMP; 
+                    if (programed_temp > MAX_TEMP) programed_temp = MAX_TEMP;
+                    programed_temp_change();
+                    verify_temp_on();
+                    break;
 
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
@@ -121,14 +158,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
-                    if (current_temp <= programed_temp - DELTA_OFF) {
-                        set_resistance(resistances, true);
-                        cooking_state = COOKING_STATE_UNDER_TEMP;                    
-                        if (beep_on_temp == true) {
-                            start_melody(&ON_TEMP_MELODY);
-                            beep_on_temp = false;
-                        }
-                    }
+                    verify_temp_on();
                     break;
 
                 case COOKING_EVENT_OPEN_DOOR: 

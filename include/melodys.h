@@ -25,7 +25,7 @@
 */
 
 #define NOTE_DURATION   1500    // ms
-#define NOTE_SILENCE     250    // ms
+#define NOTE_SILENCE      50    // ms
 
 int melody_01[] = {         // START
     NOTE_C7, NOTE_D7, NOTE_E7, NOTE_E7, NOTE_D7, NOTE_C7
@@ -70,7 +70,7 @@ struct melody {
 // OBJECT IMPLEMENTATION (MELODIES)
 struct melody EMPTY_MELODY = {NOTE_SILENCE, 0};
 struct melody START_MELODY = {NOTE_SILENCE, 6, melody_01, note_durations_01};
-struct melody ON_TEMP_MELODY = {NOTE_SILENCE, 6, melody_01, note_durations_01};
+struct melody ON_TEMP_MELODY = {NOTE_SILENCE, 2, melody_02, note_durations_02};
 struct melody ALARM_MELODY = {NOTE_SILENCE, 2, melody_02, note_durations_02};
 struct melody JBELLS_MELODY = {NOTE_SILENCE, 24, melody_99, note_durations_99};
 
