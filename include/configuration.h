@@ -33,7 +33,8 @@
 #define RESISTANCE_SECUNDARY_SENSOR   100000     // 100KOhms
 #define MAX_TEMPERATURE               250        // 250ºC MAX TEMPERATURE SEGURITY LOCK
 
-#define TIME_CLICK  5000    // IN ms - DEFAULT = 5000 (5 seg)
+#define TIME_FULL_CLICK  5000    // IN ms - DEFAULT = 5000 (5 seg)
+#define TIME_FAST_CLICK   500    // IN ms - DEFAULT = 500 (0.5 seg)
 
 #define AC_HERTZ    50      // 50/60 HERTZ
 

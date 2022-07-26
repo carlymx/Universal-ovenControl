@@ -86,25 +86,39 @@ struct melody JBELLS_MELODY = {NOTE_SILENCE, 24, melody_99, note_durations_99};
 
 struct melody* _current_melody = &EMPTY_MELODY;
 int _current_idx = 0;
+bool _playing = false;
 unsigned long _timer_melody = NO_PLAYING_MELODY;
 
-void start_melody(struct melody* melodiaasonar){
+void start_melody(struct melody* melodiaasonar) {
     // Solamente tocamos si no hay una en marcha
-    if (_timer_melody == NO_PLAYING_MELODY){
+    if (_timer_melody == NO_PLAYING_MELODY) {
         _timer_melody = millis();
         _current_idx = 0;
-        _current_melody = melodiaasonar;
+        _playing = false;
+      _current_melody = melodiaasonar;
     }
 };
 
 void process_sound(){
-    if (_timer_melody < millis()){
+    if (_timer_melody < millis()) {
         if (_current_idx < _current_melody->numnotes){
-            tone(PIN_SPEAKER, _current_melody->notes[_current_idx], (NOTE_DURATION/_current_melody->duration[_current_idx]));
-            _timer_melody = millis() + _current_melody->delay;
-            _current_idx++;
+            if (_playing == false) {
+                tone(PIN_SPEAKER, _current_melody->notes[_current_idx]);
+                _timer_melody = millis() + (NOTE_DURATION/_current_melody->duration[_current_idx]);
+                _current_idx++;
+                _playing = true;
+            }
+            else
+            {
+                noTone(PIN_SPEAKER);
+                _timer_melody = millis() + _current_melody->delay;
+                _playing = false;
+            }
         }
         else
+        {
+            noTone(PIN_SPEAKER);
             _timer_melody = NO_PLAYING_MELODY;
+        }
     }
 };

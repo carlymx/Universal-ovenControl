@@ -54,7 +54,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 
   Serial.begin(BAUDRATE);
-  Serial.print ("STARTING openELECTRO for Universal ovenCONTROL\n");
+  Serial.print("STARTING openELECTRO for Universal ovenCONTROL\n");
   delay(2000);
   
   #if defined FORMAT_EEPROM
@@ -84,8 +84,8 @@ void loop() {
     process_sound();
 
     // FULL CLICK TIMER ACTIONS 
-    if (FULL_CLICK){
-      Serial.print("Full CLick: " +String(timer_counter_00) +"  " +String(timer_counter_01) +"\n");
+    if (full_click == true){
+      // Serial.print("Full CLick: " +String(timer_counter_00) +"  " +String(timer_counter_01) +"\n");
       read_temperature_primary();
       read_temperature_secundary();
 
@@ -100,13 +100,13 @@ void loop() {
     }
 
     // FAST CLICK TIMER ACTIONS
-    if (FAST_CLICK == true){
-      FAST_CLICK = false;
-      Serial.print("Fast CLick: " +String(timer_counter_00) +"  " +String(timer_counter_02) +"\n");
+    if (fast_click == true){
+      // Serial.print("Fast CLick: " +String(timer_counter_00) +"  " +String(timer_counter_02) +"\n");
     
       read_inputs();
     }
 
+    // State Machine
     if (input_change == true) inputs_change_cooking(current_inputs);
     if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
     input_change = false;
