@@ -7,11 +7,14 @@
     2022
 ***************************************************************/
 volatile unsigned long timer_ac_sync = 0;               // TIMER MICROS FOR DIMMER CONTROL
-unsigned long timer_counter_00 = millis();              // GLOBAL
-unsigned long timer_counter_01 = 0;      // FULL TIMER ACTION COUNTER
-unsigned long timer_counter_02 = 0;      // FAST TIMER ACTION COUNTER
-bool full_click = false;    // FULL TIME_CLICK ACTIONS (1/1)
-bool fast_click = false;    // FAST TIME_CLICK ACTIONS (1/4)
+
+unsigned long timer_counter = millis();              // GLOBAL
+byte fast_counter = 0;      // COUNTER FOR FAST_CLICK ACTIONS
+byte full_counter = 0;      // COUNTER FOR FULL_CLICK ACTIONS
+bool ufast_click = false;   // ULTRA FAST TIME_CLICK ACTIONS (100ms)
+bool fast_click = false;    // FAST TIME_CLICK ACTIONS (100ms x 10)
+bool full_click = false;    // FULL TIME_CLICK ACTIONS (
+
 
 //==========================================
 //                FUNCTIONS                =
@@ -25,34 +28,23 @@ void dimmer_control(bool full) {
 }
 
 void time_click() {
-    unsigned long now = millis();
+    unsigned long time_now = millis();
 
-    // ANTI OVERFLOW (UNSIGNED LONG, 50 DAYS)
-    if (timer_counter_00 > now) {
-        timer_counter_00 = millis();
-        timer_counter_01 = timer_counter_00;
-        timer_counter_02 = timer_counter_00;
+    if (time_now >= timer_counter + TIME_UFAST_CLICK){
+        ufast_click = true;
+        fast_counter++;
+        full_counter++;
+        timer_counter = millis();
     }
-    else
-        timer_counter_00 = now;
-
-    // FAST ACTIONS TIMER
-    if (timer_counter_00 >= timer_counter_02) {
+    else ufast_click = false;
+    if (fast_counter == TIME_FAST_CLICK){
+        fast_counter = 0;
         fast_click = true;
-        timer_counter_02 = timer_counter_00 + TIME_FAST_CLICK;
-        if (timer_counter_02 < timer_counter_00) timer_counter_02 = 0xffffffff;
     }
-    else {
-        fast_click = false;
-    }
-    
-    // FULL ACTION TIMER
-    if (timer_counter_00 >= timer_counter_01) {
+    else fast_click = false;
+    if (full_counter == TIME_FULL_CLICK){
+        full_counter = 0;
         full_click = true;
-        timer_counter_01 = millis() + TIME_FULL_CLICK;
-        if (timer_counter_01 < timer_counter_00) timer_counter_01 = 0xffffffff;
     }
-    else {
-        full_click = false;
-    }
+    else full_click = false;
 }

@@ -16,7 +16,7 @@ byte current_temp = 0;
 #define DOOR_SENSOR 4
 
 byte pin_in[] = {
-    PIN_PUSH_00, PIN_PUSH_01,  PIN_PUSH_02, PIN_PUSH_03, PIN_OPEN_DOOR
+    PIN_PUSH_00, PIN_PUSH_01, PIN_PUSH_02, PIN_PUSH_03, PIN_OPEN_DOOR
 }; 
 
 byte current_inputs = 0;

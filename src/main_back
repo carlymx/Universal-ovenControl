@@ -70,50 +70,46 @@ void setup() {
 
 void loop() {
   #ifdef BOARD_TEST
-// TEST MODE:============================
     byte inputs = board_read_inputs();
     board_test_inputs_verif(inputs);
     if (last_input != inputs) {
       Serial.println("Inputs: " + String(inputs));
     }
     last_input = inputs;
-//=======================================
   #elif defined FORMAT_EEPROM
     // EMPTY
-  #else
-// NORMAL MODE:==========================
+  #else // NORMAL MODE
+    // CONSTANT TIMER ACTIONS
+    time_click();
+    process_sound();
 
-// CONSTANT TIMER ACTIONS:
-  time_click();
-  process_sound();
+    // FULL CLICK TIMER ACTIONS 
+    if (full_click == true){
+      //Serial.print("Full CLick: " +String(timer_counter_00) +"  " +String(timer_counter_01) +"\n");
+      read_temperature_primary();
+      read_temperature_secundary();
 
-  // ULTRAFAST TIMER ACTIONS:
-    if (ufast_click == true){
-      read_inputs();
-    }
-  // FAST TIMER ACTIONS:
-    if (fast_click == true){
       if (temp_change == true)
         if (control_pcb_fan(current_temp) != 0) {
           // TODO: Mostrar mensaje segun error...
           Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
           start_melody(&ALARM_MELODY);
-      };
+        };
+
+      activate_zero_crossing_detect();             // ENABLE INTERRUPTS
     }
 
-  // FULL TIMER ACTIONS:
-    if (full_click == true){
-      read_temperature_primary();
-      read_temperature_secundary();
-      activate_zero_crossing_detect();  // ENABLE INTERRUPTS
+    // FAST CLICK TIMER ACTIONS
+    if (fast_click == true){
+      // Serial.print("Fast CLick: " +String(timer_counter_00) +"  " +String(timer_counter_02) +"\n");
+      read_inputs();
     }
 
-  // CONSTANT TIMER ACTIONS: State Machine
-  if (input_change == true) inputs_change_cooking(current_inputs);
-  if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
-  input_change = false;
-  temp_change = false;
-
-//=======================================
+    // CONSTANT TIMER ACTIONS: State Machine
+    if (input_change == true) inputs_change_cooking(current_inputs);
+    if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
+    input_change = false;
+    temp_change = false;
+    
   #endif  
 }
