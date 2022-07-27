@@ -36,7 +36,7 @@ byte last_input_cooking = 0;
 bool beep_on_temp = true;
 
 void programed_temp_change(){
-    Serial.print("Prog. temp " + String(programed_temp) + "\n");
+    Serial.print("Prog. temp " +String(programed_temp) +" - Max Temp: " +String(MAX_TEMP) +"\n");
 }
 
 void verify_temp_under() {
