@@ -37,7 +37,7 @@ void set_fan(byte vel) {
     //dimmer_control(vel);
     if (current_vel != vel) {
         current_vel = vel;
-        Serial.print("Fan: "+String(vel)+"\n");
+        Serial.print("Fan: "+String(vel) +" - " +String((vel*100)/255) +"%" +"\n");
     }
 }
 

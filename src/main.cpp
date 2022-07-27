@@ -93,12 +93,7 @@ void loop() {
     }
   // FAST TIMER ACTIONS:
     if (fast_click == true){
-      if (temp_change == true)
-        if (control_pcb_fan(current_temp) != 0) {
-          // TODO: Mostrar mensaje segun error...
-          Serial.print("¡¡¡ ATENCION: NO SE HA ENCONTRADO SENSOR TEMPERATURA A1 !!! \n");
-          start_melody(&ALARM_MELODY);
-      };
+      control_pcb_fan(current_temp);
     }
 
   // FULL TIMER ACTIONS:
