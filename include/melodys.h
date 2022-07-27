@@ -32,8 +32,16 @@ int melody_01[] = {         // START
 }; 
 
 int melody_02[] = {         // ALARM!!!
-    NOTE_B7, NOTE_B7
+    NOTE_B7, NOTE_B7, NOTE_B7 
 }; 
+
+int melody_03[] = {         // OVEN GO
+    NOTE_A7, NOTE_G7, NOTE_B7
+    }; 
+
+int melody_04[] = {         // OVEN GO
+    NOTE_A7, NOTE_B7, NOTE_G7
+    }; 
 
 int melody_99[] = {         // JIMBLE BELLS
     NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_E4, NOTE_G4, NOTE_C4, NOTE_D4, NOTE_E4,
@@ -50,9 +58,9 @@ int melody_99[] = {         // JIMBLE BELLS
 // It appears that 8/2.9 is more accurate than 8/3.
 
 float note_durations_01[] = { 6,6,4,4,6,6 };
-
-float note_durations_02[] = { 4,4 };
-
+float note_durations_02[] = { 4,4,4 };
+float note_durations_03[] = { 6,6,4 };
+float note_durations_04[] = { 6,6,4 };
 float note_durations_99[] = { 6,6,4,6,6,4,6,6,6,6,2,6,6,6,6,6,6,6,6,6,6,6,6,2 };
 
 
@@ -69,9 +77,13 @@ struct melody {
 
 // OBJECT IMPLEMENTATION (MELODIES)
 struct melody EMPTY_MELODY = {NOTE_SILENCE, 0};
+
 struct melody START_MELODY = {NOTE_SILENCE, 6, melody_01, note_durations_01};
-struct melody ON_TEMP_MELODY = {NOTE_SILENCE, 2, melody_02, note_durations_02};
-struct melody ALARM_MELODY = {NOTE_SILENCE, 2, melody_02, note_durations_02};
+struct melody OVEN_GO_MELODY = {NOTE_SILENCE, 3, melody_03, note_durations_03};
+struct melody CANCEL_MELODY = {NOTE_SILENCE, 4, melody_04, note_durations_04};
+struct melody ON_TEMP_MELODY = {NOTE_SILENCE, 3, melody_02, note_durations_02};
+struct melody ALARM_MELODY = {NOTE_SILENCE, 3, melody_02, note_durations_02};
+
 struct melody JBELLS_MELODY = {NOTE_SILENCE, 24, melody_99, note_durations_99};
 
 // struct melody* MELODIES[] = { START_MELODY, ALARM_MELODY };

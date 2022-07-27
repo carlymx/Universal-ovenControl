@@ -20,7 +20,7 @@
 #define COOKING_EVENT_TEMP_CHANGE 4
 #define COOKING_EVENT_OPEN_DOOR   5
 
-#define DEFAULT_TEMP 180
+#define DEFAULT_TEMP 100
 #define MIN_TEMP      30
 #define MAX_TEMP     250
 #define STEP_TEMP      5
@@ -74,7 +74,7 @@ void state_machine_cooking(byte event){
                     else {
                         cooking_state = COOKING_STATE_ON_TEMP;
                     }
-                    start_melody(&START_MELODY);
+                    start_melody(&OVEN_GO_MELODY);
                     break;
 
                 case COOKING_EVENT_KEY_MINUS:
@@ -123,6 +123,10 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
                     cooking_state = COOKING_STATE_OFF;
+                    if (beep_on_temp == true) {
+                        start_melody(&CANCEL_MELODY);
+                        beep_on_temp = false;
+                    }
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
@@ -155,6 +159,8 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
                     cooking_state = COOKING_STATE_OFF;
+                    start_melody(&CANCEL_MELODY);
+                    beep_on_temp = false;
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
