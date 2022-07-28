@@ -30,11 +30,16 @@ void dimmer_control(bool full) {
 void time_click() {
     unsigned long time_now = millis();
 
-    if (time_now >= timer_counter + TIME_UFAST_CLICK){
+    //OVERFLOW
+    if (timer_counter > time_now){
+        timer_counter = time_now;
+    }
+
+    if (time_now >= timer_counter){
         ufast_click = true;
         fast_counter++;
         full_counter++;
-        timer_counter = millis();
+        timer_counter = millis() + TIME_UFAST_CLICK;
         //OVERFLOW:
         if (timer_counter < time_now) timer_counter = 0xFFFFFFFF;
     }
