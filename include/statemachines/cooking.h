@@ -20,17 +20,18 @@
 #define COOKING_EVENT_TEMP_CHANGE 4
 #define COOKING_EVENT_OPEN_DOOR   5
 
-#define DEFAULT_TEMP 100
-#define MIN_TEMP      30
-#define MAX_TEMP     250
-#define STEP_TEMP      5
+#define DEFAULT_TEMP    100
+#define MIN_TEMP         30
+#define MAX_TEMP          MAX_TEMPERATURE
+#define STEP_TEMP         5
 
-#define DELTA_ON  0
-#define DELTA_OFF 5
+#define DELTA_ON          0
+#define DELTA_OFF         5
 
 byte programed_temp = DEFAULT_TEMP;
 byte cooking_state = COOKING_STATE_OFF;
 byte resistances = RESIST_UP + RESIST_DOWN;
+bool rear_fan = false;
 
 byte last_input_cooking = 0;
 bool beep_on_temp = true;
@@ -63,7 +64,8 @@ void verify_temp_on() {
 
 void incr_resistances() {
     resistances++;
-    if (resistances > MAX_OPT_RESISTANCE) resistances = 1; 
+    if (resistances > MAX_OPT_RESISTANCE) resistances = 1;
+    rear_fan = ((resistances & RESIST_REAR) != 0);  
 }
 
 void state_machine_cooking(byte event){

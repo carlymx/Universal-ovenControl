@@ -24,14 +24,14 @@ void read_temperature_primary() {
         Serial.println("Primary Sensor (DUMMY): " + String(current_temp));
     }
 }
-/*
+
 void read_temperature_secundary(){
     temp_secondary_sensor = 25;
 }
-*/
+
 
 // NORMAL MODE
-int read_temperature (byte pin, long resistance){
+/*int read_temperature (byte pin, long resistance){
     int temp_sensor = analogRead(pin);    // READ TERMISTOR 0-1023 (5v)
     float res_temp = resistance * (ADC_RATE - temp_sensor) / (float)temp_sensor; // TENSION TO RESISTENCE 
     float log_res_temp = log(res_temp);   // LOGARITM FOR EQUATION
@@ -47,3 +47,4 @@ void read_temperature_secundary(){
     temp_secondary_sensor = read_temperature(SECUNDARY_SENSOR, RESISTANCE_SECUNDARY_SENSOR); 
     Serial.println("Sensor A2: " + String(temp_secondary_sensor));
 }
+*/

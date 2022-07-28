@@ -26,6 +26,7 @@
 #endif
 
 #include <test/resistance_control.h>
+#include <test/dimmer_control.h>
 #include <test/temperature_control.h>
 #include <hardware/fan_control.h>
 #include <hardware/light_control.h>

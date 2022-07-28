@@ -17,16 +17,24 @@ bool fast_click = false;    // FAST TIME_CLICK ACTIONS (100ms x 10)
 bool full_click = false;    // FULL TIME_CLICK ACTIONS (
 
 
+byte temp_oven [] = {
+    COOL_FAN_TEMPERATURE_100, COOL_FAN_TEMPERATURE_75, COOL_FAN_TEMPERATURE_66,
+    COOL_FAN_TEMPERATURE_50, COOL_FAN_TEMPERATURE_33, COOL_FAN_TEMPERATURE_20, 0
+};
+
+unsigned int power_fan [] = {
+    PWM_CONTROL_POWER_100, PWM_CONTROL_POWER_75, PWM_CONTROL_POWER_66, PWM_CONTROL_POWER_50,
+    PWM_CONTROL_POWER_33, PWM_CONTROL_POWER_20, PWM_CONTROL_POWER_0
+};
+
+unsigned int dimmer_fan [] = {
+    DIMMER_CONTROL_POWER_100, DIMMER_CONTROL_POWER_75, DIMMER_CONTROL_POWER_66, DIMMER_CONTROL_POWER_50,
+    DIMMER_CONTROL_POWER_33, DIMMER_CONTROL_POWER_20, DIMMER_CONTROL_POWER_0
+};
+
 //==========================================
 //                FUNCTIONS                =
 //==========================================
-
-void dimmer_control(bool full) {
-    if (full == true){          // ALARM MODE
-        noInterrupts();
-        digitalWrite(PIN_COOL_FAN, HIGH);
-    }
-}
 
 void time_click() {
     unsigned long time_now = millis();
@@ -56,4 +64,65 @@ void time_click() {
         full_click = true;
     }
     else full_click = false;
+}
+
+
+byte get_index(float temp) {
+    for (unsigned int i=0; i<sizeof(temp_oven); i++){
+        if (temp >= temp_oven[i]) return i;
+    }            
+} 
+
+byte control_pcb_fan(float temp) {
+    byte err = 0;
+
+    if (temp == 0){ // Byte no puede ser menor
+        set_fan(PWM_CONTROL_POWER_100);
+        err = 1;
+    }
+    else {
+        for (unsigned int i=0; i<sizeof(temp_oven); i++){
+            if (temp >= temp_oven[i]){
+                set_fan(power_fan[i]);
+                break;
+            }
+        }            
+    }
+    return err;
+}
+
+byte control_pcb_fan(float temp) {
+    byte err = 0;
+
+    if (temp == 0){ // Byte no puede ser menor
+        set_fan(PWM_CONTROL_POWER_100);
+        err = 1;
+    }
+    else {
+        for (unsigned int i=0; i<sizeof(temp_oven); i++){
+            if (temp >= temp_oven[i]){
+                set_fan(power_fan[i]);
+                break;
+            }
+        }            
+    }
+    return err;
+}
+
+byte control_pcb_fan(float temp) {
+    byte err = 0;
+
+    if (temp == 0){ // Byte no puede ser menor
+        set_fan(PWM_CONTROL_POWER_100);
+        err = 1;
+    }
+    else {
+        for (unsigned int i=0; i<sizeof(temp_oven); i++){
+            if (temp >= temp_oven[i]){
+                set_fan(power_fan[i]);
+                break;
+            }
+        }            
+    }
+    return err;
 }

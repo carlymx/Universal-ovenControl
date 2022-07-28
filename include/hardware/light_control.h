@@ -8,8 +8,7 @@
 ***************************************************************/
 
 void set_lights(bool active) {
-    if (active == true) digitalWrite(PIN_LIGHT_CHAMBER, HIGH);
-    else digitalWrite(PIN_LIGHT_CHAMBER, LOW);
+    digitalWrite(PIN_LIGHT_CHAMBER, active == true ? HIGH : LOW);
 
     Serial.print((String)(active ? "PUERTA ABIERTA \n" : "PUERTA CERRADA \n")); 
 }
