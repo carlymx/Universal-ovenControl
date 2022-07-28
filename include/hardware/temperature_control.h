@@ -12,7 +12,7 @@ float temp_secondary_sensor;
 
 int read_temperature (byte pin, long resistance){
     int temp_sensor = analogRead(pin);    // READ TERMISTOR 
-    float res_temp = resistance * (ADC_RATE / (float)temp_sensor); // TENSION TO RESISTENCE 
+    float res_temp = resistance * (ADC_RATE - temp_sensor) / (float)temp_sensor; // TENSION TO RESISTENCE 
     float log_res_temp = log(res_temp);   // LOGARITM FOR EQUATION
 
     // EQUIATION Steinhart-Hart (º Kelvin):

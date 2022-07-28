@@ -9,6 +9,7 @@
 volatile unsigned long timer_ac_sync = 0;               // TIMER MICROS FOR DIMMER CONTROL
 
 unsigned long timer_counter = millis();              // GLOBAL
+unsigned long last_timer = 0;              // GLOBAL
 byte fast_counter = 0;      // COUNTER FOR FAST_CLICK ACTIONS
 byte full_counter = 0;      // COUNTER FOR FULL_CLICK ACTIONS
 bool ufast_click = false;   // ULTRA FAST TIME_CLICK ACTIONS (100ms)
@@ -31,9 +32,10 @@ void time_click() {
     unsigned long time_now = millis();
 
     //OVERFLOW
-    if (timer_counter > time_now){
+    if (last_timer > time_now){
         timer_counter = time_now;
     }
+    last_timer = time_now;
 
     if (time_now >= timer_counter){
         ufast_click = true;
