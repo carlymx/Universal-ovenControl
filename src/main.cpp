@@ -21,8 +21,7 @@
 #elif defined FORMAT_EEPROM
   //EMPTY
 #else // NORMAL MODE
-  #include <melodys.h>
-  #include <oven_control.h>
+  
 #endif
 
 #include <test/resistance_control.h>
@@ -30,7 +29,11 @@
 #include <test/temperature_control.h>
 #include <hardware/fan_control.h>
 #include <hardware/light_control.h>
+#include <melodys.h>
+
 #include <statemachines/cooking.h>
+
+#include <oven_control.h>
 
 void setup() {
 
@@ -94,13 +97,21 @@ void loop() {
     }
   // FAST TIMER ACTIONS:
     if (fast_click == true){
-      control_pcb_fan(current_temp);
-    }
+      // TODO: ESTAMOS LEYENDO CADA FULL Y ACTUALIZANDO CADA FAST?
+      //control_pcb_fan(current_temp);
+      //control_dimmer_rear(current_temp);
+      //control_dimmer_cool(current_temp);
+   }
 
   // FULL TIMER ACTIONS:
     if (full_click == true){
       read_temperature_primary();
       read_temperature_secundary();
+
+      control_pcb_fan(current_temp);
+      control_dimmer_rear(current_temp);
+      control_dimmer_cool(current_temp);
+
       activate_zero_crossing_detect();  // ENABLE INTERRUPTS
     }
 

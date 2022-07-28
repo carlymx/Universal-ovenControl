@@ -8,28 +8,16 @@
     2022
 ***************************************************************/
 
-
-
-
 //==========================================
 //                FUNCTIONS                =
 //==========================================
 
-void zero_crossing() {
-    noInterrupts();             // DISABLE INTERRUPTS
-    timer_ac_sync = micros();
-}
+byte current_vel_pcb = 0;
 
-void activate_zero_crossing_detect() {
-    interrupts();
-}
-
-byte current_vel = 0;
-
-void set_fan(byte vel) {
+void set_fan(unsigned int vel) {
     //dimmer_control(vel);
-    if (current_vel != vel) {
-        current_vel = vel;
+    if (current_vel_pcb != vel) {
+        current_vel_pcb = vel;
         Serial.print("Fan: "+String(vel) +" - " +String((vel*100)/255) +"%" +"\n");
     }
 }

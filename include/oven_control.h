@@ -16,22 +16,6 @@ bool ufast_click = false;   // ULTRA FAST TIME_CLICK ACTIONS (100ms)
 bool fast_click = false;    // FAST TIME_CLICK ACTIONS (100ms x 10)
 bool full_click = false;    // FULL TIME_CLICK ACTIONS (
 
-
-byte temp_oven [] = {
-    COOL_FAN_TEMPERATURE_100, COOL_FAN_TEMPERATURE_75, COOL_FAN_TEMPERATURE_66,
-    COOL_FAN_TEMPERATURE_50, COOL_FAN_TEMPERATURE_33, COOL_FAN_TEMPERATURE_20, 0
-};
-
-unsigned int power_fan [] = {
-    PWM_CONTROL_POWER_100, PWM_CONTROL_POWER_75, PWM_CONTROL_POWER_66, PWM_CONTROL_POWER_50,
-    PWM_CONTROL_POWER_33, PWM_CONTROL_POWER_20, PWM_CONTROL_POWER_0
-};
-
-unsigned int dimmer_fan [] = {
-    DIMMER_CONTROL_POWER_100, DIMMER_CONTROL_POWER_75, DIMMER_CONTROL_POWER_66, DIMMER_CONTROL_POWER_50,
-    DIMMER_CONTROL_POWER_33, DIMMER_CONTROL_POWER_20, DIMMER_CONTROL_POWER_0
-};
-
 //==========================================
 //                FUNCTIONS                =
 //==========================================
@@ -66,63 +50,59 @@ void time_click() {
     else full_click = false;
 }
 
+//==========================================
+//          FAN CONTROL FUNCTIONS          =
+//==========================================
 
-byte get_index(float temp) {
+byte temp_oven [] = {
+    COOL_FAN_TEMPERATURE_100, COOL_FAN_TEMPERATURE_75, COOL_FAN_TEMPERATURE_66,
+    COOL_FAN_TEMPERATURE_50, COOL_FAN_TEMPERATURE_33, COOL_FAN_TEMPERATURE_20, 0
+};
+
+unsigned int power_fan [] = {
+    PWM_CONTROL_POWER_100, PWM_CONTROL_POWER_75, PWM_CONTROL_POWER_66, PWM_CONTROL_POWER_50,
+    PWM_CONTROL_POWER_33, PWM_CONTROL_POWER_20, PWM_CONTROL_POWER_0
+};
+
+unsigned int dimmer_fan [] = {
+    DIMMER_CONTROL_POWER_100, DIMMER_CONTROL_POWER_75, DIMMER_CONTROL_POWER_66, DIMMER_CONTROL_POWER_50,
+    DIMMER_CONTROL_POWER_33, DIMMER_CONTROL_POWER_20, DIMMER_CONTROL_POWER_0
+};
+
+byte get_index(byte temp) {
     for (unsigned int i=0; i<sizeof(temp_oven); i++){
         if (temp >= temp_oven[i]) return i;
-    }            
+    } 
+
+    return (sizeof(temp_oven) + 1);           
 } 
 
-byte control_pcb_fan(float temp) {
-    byte err = 0;
-
+byte control_pcb_fan(byte temp) {
     if (temp == 0){ // Byte no puede ser menor
         set_fan(PWM_CONTROL_POWER_100);
-        err = 1;
+        return 1;
     }
-    else {
-        for (unsigned int i=0; i<sizeof(temp_oven); i++){
-            if (temp >= temp_oven[i]){
-                set_fan(power_fan[i]);
-                break;
-            }
-        }            
-    }
-    return err;
+    else set_fan(power_fan[get_index(temp)]);
+
+    return 0;
 }
 
-byte control_pcb_fan(float temp) {
-    byte err = 0;
-
+byte control_dimmer_rear(byte temp) {
     if (temp == 0){ // Byte no puede ser menor
-        set_fan(PWM_CONTROL_POWER_100);
-        err = 1;
+        set_dimmer_control_rear(DIMMER_CONTROL_POWER_0);
+        return 1;
     }
-    else {
-        for (unsigned int i=0; i<sizeof(temp_oven); i++){
-            if (temp >= temp_oven[i]){
-                set_fan(power_fan[i]);
-                break;
-            }
-        }            
-    }
-    return err;
+    else 
+        set_dimmer_control_rear(rear_fan ? DIMMER_CONTROL_POWER_100 : DIMMER_CONTROL_POWER_0);    
+    return 0;
 }
 
-byte control_pcb_fan(float temp) {
-    byte err = 0;
-
+byte control_dimmer_cool(byte temp) {
     if (temp == 0){ // Byte no puede ser menor
-        set_fan(PWM_CONTROL_POWER_100);
-        err = 1;
+        set_dimmer_control_cool(DIMMER_CONTROL_POWER_100);
+        return 1;
     }
-    else {
-        for (unsigned int i=0; i<sizeof(temp_oven); i++){
-            if (temp >= temp_oven[i]){
-                set_fan(power_fan[i]);
-                break;
-            }
-        }            
-    }
-    return err;
+    else 
+        set_fan(dimmer_fan[get_index(temp)]);
+    return 0;
 }
