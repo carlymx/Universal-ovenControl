@@ -35,6 +35,8 @@ void time_click() {
         fast_counter++;
         full_counter++;
         timer_counter = millis();
+        //OVERFLOW:
+        if (timer_counter < time_now) timer_counter = 0xFFFFFFFF;
     }
     else ufast_click = false;
     if (fast_counter == TIME_FAST_CLICK){
