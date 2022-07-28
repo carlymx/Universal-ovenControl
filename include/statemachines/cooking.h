@@ -61,6 +61,11 @@ void verify_temp_on() {
     }
 }
 
+void incr_resistances() {
+    resistances++;
+    if (resistances > MAX_OPT_RESISTANCE) resistances = 1; 
+}
+
 void state_machine_cooking(byte event){
     switch (cooking_state) {
         case COOKING_STATE_OFF:
@@ -105,7 +110,10 @@ void state_machine_cooking(byte event){
 
         case COOKING_STATE_UNDER_TEMP:
             switch (event) {
-                case COOKING_EVENT_KEY_ENTER: break;
+                case COOKING_EVENT_KEY_ENTER: 
+                    incr_resistances();
+                    set_resistance(resistances, true);
+                    break;
 
                 case COOKING_EVENT_KEY_MINUS:
                     programed_temp -= STEP_TEMP; 
@@ -122,11 +130,8 @@ void state_machine_cooking(byte event){
 
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
+                    start_melody(&CANCEL_MELODY);
                     cooking_state = COOKING_STATE_OFF;
-                    if (beep_on_temp == true) {
-                        start_melody(&CANCEL_MELODY);
-                        beep_on_temp = false;
-                    }
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
@@ -141,7 +146,10 @@ void state_machine_cooking(byte event){
 
         case COOKING_STATE_ON_TEMP:
             switch (event) {
-                case COOKING_EVENT_KEY_ENTER: break;
+                case COOKING_EVENT_KEY_ENTER: 
+                    incr_resistances();
+                    set_resistance(resistances, false);
+                    break;
 
                 case COOKING_EVENT_KEY_MINUS:
                     programed_temp -= STEP_TEMP; 
@@ -158,9 +166,8 @@ void state_machine_cooking(byte event){
 
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
-                    cooking_state = COOKING_STATE_OFF;
                     start_melody(&CANCEL_MELODY);
-                    beep_on_temp = false;
+                    cooking_state = COOKING_STATE_OFF;
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 

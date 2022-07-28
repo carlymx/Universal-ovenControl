@@ -12,13 +12,15 @@
 #define RESIST_DOWN    2
 #define RESIST_REAR    4
 
+#define MAX_OPT_RESISTANCE 7
+
 void set_resistance(byte resist, bool active) {
     if (active == true && ((resist & RESIST_UP) != 0)) digitalWrite(PIN_RESISTOR_UP, HIGH);
     else digitalWrite(PIN_RESISTOR_UP, LOW);
+
     if (active == true && ((resist & RESIST_DOWN) != 0)) digitalWrite(PIN_RESISTOR_DOWN, HIGH);
     else digitalWrite(PIN_RESISTOR_DOWN, LOW);
+    
     if (active == true && ((resist & RESIST_REAR) != 0)) digitalWrite(PIN_RESISTOR_REAR, HIGH);
     else digitalWrite(PIN_RESISTOR_REAR, LOW);
-
-
 }
