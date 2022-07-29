@@ -101,6 +101,6 @@ byte control_dimmer_cool(byte temp) {
         return 1;
     }
     else 
-        set_fan(dimmer_fan[get_index(temp)]);
+        set_dimmer_control_cool(dimmer_fan[get_index(temp)]);
     return 0;
 }
