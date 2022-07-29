@@ -30,14 +30,14 @@
 
 byte programed_temp = DEFAULT_TEMP;
 byte cooking_state = COOKING_STATE_OFF;
-byte resistances = RESIST_UP + RESIST_DOWN;
+byte resistances = RESIST_UP + RESIST_DOWN;     // PIZZA TIME!
 bool rear_fan = false;
 
 byte last_input_cooking = 0;
 bool beep_on_temp = true;
 
 void programed_temp_change(){
-    Serial.print("Prog. temp " +String(programed_temp) +" - Max Temp: " +String(MAX_TEMP) +"\n");
+    Serial.print("Prog. temp " +String(programed_temp)+"\n");
 }
 
 void verify_temp_under() {
@@ -134,6 +134,7 @@ void state_machine_cooking(byte event){
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
                     cooking_state = COOKING_STATE_OFF;
+                    rear_fan = false;
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
@@ -170,6 +171,7 @@ void state_machine_cooking(byte event){
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
                     cooking_state = COOKING_STATE_OFF;
+                    rear_fan = false;
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 

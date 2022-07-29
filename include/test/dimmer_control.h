@@ -23,13 +23,13 @@ unsigned int current_vel_rear = 0;
 void set_dimmer_control_cool(unsigned int vel) {
     if (current_vel_cool != vel) {
         current_vel_cool = vel;
-        Serial.print("Dimmer Cool: "+String(vel) +" - " +String((vel*100)/255) +"%" +"\n");
+        Serial.print("Dimmer Cool: "+String(vel) +" - " +String((vel*100)/(1000000UL/AC_HERTZ)) +"%" +"\n");
     }
 }
 
 void set_dimmer_control_rear(unsigned int vel) {
         if (current_vel_rear != vel) {
         current_vel_rear = vel;
-        Serial.print("Dimmer Rear: "+String(vel) +" - " +String((vel*100)/255) +"%" +"\n");
+        Serial.print("Dimmer Rear: "+String(vel) +" - " +String((vel*100)/(1000000UL/AC_HERTZ)) +"%" +"\n");
     }
 }

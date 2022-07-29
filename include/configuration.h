@@ -26,6 +26,7 @@
 #endif
 #define ADC_RATE    pow(2, ADC_BITS)
 #define PWM_BITS    8       // 256 [0...255]
+#define PWM_RATE    pow(2, PWM_BITS)
 
 #define PRIMARY_SENSOR                PIN_TEMP_SENSOR_01  // SELECT ORIGINAL TERMISTOR OVEN SENSOR
 #define SECUNDARY_SENSOR              PIN_TEMP_SENSOR_02  // SELECT TERMISTOR NTC3950 100K
@@ -61,7 +62,7 @@
 #define DIMMER_CONTROL_POWER_100   (unsigned int)(((1000000UL/AC_HERTZ)*100)/200)
 
 // TEMPERATURE ACTIVATORS % to ºC
-#define COOL_FAN_TEMPERATURE_20    70       // ºC
+#define COOL_FAN_TEMPERATURE_20    55       // ºC
 #define COOL_FAN_TEMPERATURE_33    100      // ºC
 #define COOL_FAN_TEMPERATURE_50    150      // ºC
 #define COOL_FAN_TEMPERATURE_66    200      // ºC
