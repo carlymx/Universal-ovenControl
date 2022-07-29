@@ -16,7 +16,7 @@ void zero_crossing() {
 
 void activate_zero_crossing_detect() {
     interrupts();               // ENABLE INTERRUPTS
-    Serial.print("ZeroCrossing Detection: ON\n");
+    //Serial.print("ZeroCrossing Detection: ON\n");
 }
 
 unsigned int current_vel_cool = 0;
@@ -31,7 +31,7 @@ void set_dimmer_control_cool(unsigned int vel) {
     if (current_vel_cool != vel) {
         current_vel_cool = vel;
         dimmer_control_power(PIN_COOL_FAN, current_vel_cool);
-        Serial.print("Dimmer Cool: "+String(vel) +" - " +String((vel*100)/(1000000UL/AC_HERTZ)) +"%" +"\n");
+        Serial.print("Dimmer Cool: "+String(vel) +" - " +String((vel*100/DIMMER_CONTROL_POWER_100)) +"%" +"\n");
     }
 }
 
@@ -39,7 +39,7 @@ void set_dimmer_control_rear(unsigned int vel) {
         if (current_vel_rear != vel) {
         current_vel_rear = vel;
         dimmer_control_power(PIN_COOL_FAN, current_vel_cool);
-        Serial.print("Dimmer Rear: "+String(vel) +" - " +String((vel*100)/(1000000UL/AC_HERTZ)) +"%" +"\n");
+        Serial.print("Dimmer Rear: "+String(vel) +" - " +String((vel*100/DIMMER_CONTROL_POWER_100)) +"%" +"\n");
     }
 }
 
