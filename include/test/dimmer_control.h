@@ -10,11 +10,13 @@
 
 void zero_crossing() {
     noInterrupts();             // DISABLE INTERRUPTS
-    // timer_ac_sync = micros();
+    timer_ac_sync = micros();
+    Serial.print("ZeroCrossing: " +String(timer_ac_sync));
 }
 
 void activate_zero_crossing_detect() {
-    interrupts();
+    interrupts();               // ENABLE INTERRUPTS
+    Serial.print("ZeroCrossing Detection: ON\n");
 }
 
 unsigned int current_vel_cool = 0;
@@ -33,3 +35,21 @@ void set_dimmer_control_rear(unsigned int vel) {
         Serial.print("Dimmer Rear: "+String(vel) +" - " +String((vel*100)/(1000000UL/AC_HERTZ)) +"%" +"\n");
     }
 }
+
+void dimmer_control_power(){
+
+}
+
+
+/*
+#define PIN_COOL_FAN        10      // 50/60Hz AC DIMMER CONTROL
+#define PIN_CHAMBER_FAN     9       // 50/60Hz AC DIMMER CONTROL
+
+//CONTROL % DIMMER CONFIGURATION: (in microseg)
+#define DIMMER_CONTROL_POWER_0     (unsigned int)(((1000000UL/AC_HERTZ)*  0)/200)
+#define DIMMER_CONTROL_POWER_20    (unsigned int)(((1000000UL/AC_HERTZ)* 20)/200)
+#define DIMMER_CONTROL_POWER_33    (unsigned int)(((1000000UL/AC_HERTZ)* 33)/200)
+#define DIMMER_CONTROL_POWER_50    (unsigned int)(((1000000UL/AC_HERTZ)* 50)/200)
+#define DIMMER_CONTROL_POWER_66    (unsigned int)(((1000000UL/AC_HERTZ)* 66)/200)
+#define DIMMER_CONTROL_POWER_75    (unsigned int)(((1000000UL/AC_HERTZ)* 75)/200)
+#define DIMMER_CONTROL_POWER_100   (unsigned int)(((1000000UL/AC_HERTZ)*100)/200)*/

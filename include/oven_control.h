@@ -6,8 +6,6 @@
     jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
-volatile unsigned long timer_ac_sync = 0;               // TIMER MICROS FOR DIMMER CONTROL
-
 unsigned long timer_counter = millis();              // GLOBAL
 unsigned long last_timer = 0;              // GLOBAL
 byte fast_counter = 0;      // COUNTER FOR FAST_CLICK ACTIONS

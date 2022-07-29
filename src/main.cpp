@@ -106,14 +106,14 @@ void loop() {
 
   // FULL TIMER ACTIONS:
     if (full_click == true){
+      activate_zero_crossing_detect();  // ENABLE INTERRUPTS
+      
       read_temperature_primary();
       read_temperature_secundary();
 
       control_pcb_fan(current_temp);
       control_dimmer_rear(current_temp);
       control_dimmer_cool(current_temp);
-
-      activate_zero_crossing_detect();  // ENABLE INTERRUPTS
     }
 
   // CONSTANT TIMER ACTIONS: State Machine

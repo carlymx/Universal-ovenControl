@@ -25,6 +25,7 @@
     #define ADC_BITS    10  // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
 #endif
 #define ADC_RATE    pow(2, ADC_BITS)
+
 #define PWM_BITS    8       // 256 [0...255]
 #define PWM_RATE    pow(2, PWM_BITS)
 
