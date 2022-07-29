@@ -11,7 +11,7 @@
 void zero_crossing() {
     noInterrupts();             // DISABLE INTERRUPTS
     timer_ac_sync = micros();
-    Serial.print("ZeroCrossing: " +String(timer_ac_sync));
+    //Serial.print("ZeroCrossing: " +String(timer_ac_sync));
 }
 
 void activate_zero_crossing_detect() {
@@ -24,7 +24,17 @@ unsigned int current_vel_rear = 0;
 
 void dimmer_control_power(byte pin, byte vel){
     // ToDo: Control por micro segundos de los ventiladores
-return;
+    // ToDo: Llamar desde el bucle principal siempre que este en activo.
+    
+    unsigned long micros_now = micros();
+    if (micros_now >= timer_ac_sync+(DIMMER_CONTROL_POWER_100-vel)){
+        digitalWrite(pin, HIGH);
+    }
+    else if (micros_now >= timer_ac_sync+DIMMER_CONTROL_POWER_100){
+        digitalWrite(pin, LOW);
+        timer_ac_sync = micros_now;
+    }
+
 }
 
 void set_dimmer_control_cool(unsigned int vel) {
