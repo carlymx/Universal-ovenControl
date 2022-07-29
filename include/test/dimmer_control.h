@@ -31,30 +31,15 @@ void set_dimmer_control_cool(unsigned int vel) {
     if (current_vel_cool != vel) {
         current_vel_cool = vel;
         dimmer_control_power(PIN_COOL_FAN, current_vel_cool);
-        Serial.print("Dimmer Cool: "+String(vel) +" - " +String((vel*100/DIMMER_CONTROL_POWER_100)) +"%" +"\n");
+        Serial.print("Dimmer Cool: "+String(vel) +" - " +String(vel/(DIMMER_CONTROL_POWER_100/100)) +"%" +"\n");
     }
 }
 
 void set_dimmer_control_rear(unsigned int vel) {
         if (current_vel_rear != vel) {
         current_vel_rear = vel;
-        dimmer_control_power(PIN_COOL_FAN, current_vel_cool);
-        Serial.print("Dimmer Rear: "+String(vel) +" - " +String((vel*100/DIMMER_CONTROL_POWER_100)) +"%" +"\n");
+        dimmer_control_power(PIN_CHAMBER_FAN, current_vel_rear);
+        Serial.print("Dimmer Rear: "+String(vel) +" - " +String(vel/(DIMMER_CONTROL_POWER_100/100)) +"%" +"\n");
     }
 }
 
-
-
-
-/*
-#define PIN_COOL_FAN        10      // 50/60Hz AC DIMMER CONTROL
-#define PIN_CHAMBER_FAN     9       // 50/60Hz AC DIMMER CONTROL
-
-//CONTROL % DIMMER CONFIGURATION: (in microseg)
-#define DIMMER_CONTROL_POWER_0     (unsigned int)(((1000000UL/AC_HERTZ)*  0)/200)
-#define DIMMER_CONTROL_POWER_20    (unsigned int)(((1000000UL/AC_HERTZ)* 20)/200)
-#define DIMMER_CONTROL_POWER_33    (unsigned int)(((1000000UL/AC_HERTZ)* 33)/200)
-#define DIMMER_CONTROL_POWER_50    (unsigned int)(((1000000UL/AC_HERTZ)* 50)/200)
-#define DIMMER_CONTROL_POWER_66    (unsigned int)(((1000000UL/AC_HERTZ)* 66)/200)
-#define DIMMER_CONTROL_POWER_75    (unsigned int)(((1000000UL/AC_HERTZ)* 75)/200)
-#define DIMMER_CONTROL_POWER_100   (unsigned int)(((1000000UL/AC_HERTZ)*100)/200)*/
