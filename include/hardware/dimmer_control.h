@@ -9,17 +9,61 @@
 
 // NORMAL MODE:
 
+unsigned int next_zero = 0;
+
 void zero_crossing() {
     noInterrupts();             // DISABLE INTERRUPTS
-    // timer_ac_sync = micros();
+    timer_ac_sync = micros();
+    next_zero = timer_ac_sync + DIMMER_CONTROL_POWER_100;
 }
 
 void activate_zero_crossing_detect() {
     interrupts();
 }
 
+bool cool_active = false;
+bool rear_active = false;
 unsigned int current_vel_cool = 0;
 unsigned int current_vel_rear = 0;
+
+void dimmer_control_power(byte pin, unsigned int vel, bool active){
+    // ToDo: Control por micro segundos de los ventiladores
+    // ToDo: Llamar desde el bucle principal siempre que este en activo.
+    if(vel == DIMMER_CONTROL_POWER_100)
+    {
+        if(active == false) digitalWrite(pin, HIGH);
+    }
+    else if(vel == DIMMER_CONTROL_POWER_0)
+    {
+        if(active == true) digitalWrite(pin, HIGH);
+    }
+    else
+    {    
+        unsigned long micros_now = micros();
+
+        if(active == true)
+        {
+            // Desactivamos cuando pasa por 0?
+            if(micros_now >= next_zero) {
+                digitalWrite(pin, LOW); 
+                active = false;
+                next_zero += DIMMER_CONTROL_POWER_100;
+            }
+        }
+        else
+        {
+            if(micros_now >= next_zero - vel){
+                digitalWrite(pin, HIGH);
+                active = true;
+            }
+        }
+    }
+}
+
+void dimmer_control_fans(){
+    dimmer_control_power(PIN_COOL_FAN, current_vel_cool, cool_active);
+    dimmer_control_power(PIN_CHAMBER_FAN, current_vel_rear, rear_active);
+}
 
 void set_dimmer_control_cool(unsigned int vel) {
 /*    if (vel == 0){          // ALARM MODE

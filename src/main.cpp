@@ -25,7 +25,7 @@
 #endif
 
 #include <test/resistance_control.h>
-#include <test/dimmer_control.h>
+#include <hardware/dimmer_control.h>
 #include <test/temperature_control.h>
 #include <hardware/fan_control.h>
 #include <hardware/light_control.h>
@@ -116,7 +116,9 @@ void loop() {
       control_dimmer_cool(current_temp);
     }
 
-  // CONSTANT TIMER ACTIONS: State Machine
+  dimmer_control_fans();
+
+ // CONSTANT TIMER ACTIONS: State Machine
   if (input_change == true) inputs_change_cooking(current_inputs);
   if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
   input_change = false;

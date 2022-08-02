@@ -6,6 +6,7 @@
     jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
+
 // TEST MODE:
 
 void zero_crossing() {
@@ -22,19 +23,7 @@ void activate_zero_crossing_detect() {
 unsigned int current_vel_cool = 0;
 unsigned int current_vel_rear = 0;
 
-void dimmer_control_power(byte pin, byte vel){
-    // ToDo: Control por micro segundos de los ventiladores
-    // ToDo: Llamar desde el bucle principal siempre que este en activo.
-    
-    unsigned long micros_now = micros();
-    if (micros_now >= timer_ac_sync+(DIMMER_CONTROL_POWER_100-vel)){
-        digitalWrite(pin, HIGH);
-    }
-    else if (micros_now >= timer_ac_sync+DIMMER_CONTROL_POWER_100){
-        digitalWrite(pin, LOW);
-        timer_ac_sync = micros_now;
-    }
-
+void dimmer_control_fans(){
 }
 
 void set_dimmer_control_cool(unsigned int vel) {
