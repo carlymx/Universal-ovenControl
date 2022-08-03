@@ -20,7 +20,7 @@
 #define COOKING_EVENT_TEMP_CHANGE 4
 #define COOKING_EVENT_OPEN_DOOR   5
 
-#define DEFAULT_TEMP    100
+#define DEFAULT_TEMP    180
 #define MIN_TEMP         30
 #define MAX_TEMP          MAX_TEMPERATURE
 #define STEP_TEMP         5
