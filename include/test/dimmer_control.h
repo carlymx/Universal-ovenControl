@@ -11,8 +11,8 @@
 
 void zero_crossing() {
     noInterrupts();             // DISABLE INTERRUPTS
-    timer_ac_sync = micros();
-    //Serial.print("ZeroCrossing: " +String(timer_ac_sync));
+    zero_crossing_timer = micros();
+    //Serial.print("ZeroCrossing: " +String(zero_crossing_timer));
 }
 
 void activate_zero_crossing_detect() {

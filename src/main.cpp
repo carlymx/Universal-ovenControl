@@ -19,7 +19,7 @@
   #include <board_test.h>
   byte last_input = 0;
 #elif defined FORMAT_EEPROM
-  //EMPTY
+  //EMPTY AT THE MOMENT
 #else // NORMAL MODE
   
 #endif
@@ -84,7 +84,7 @@ void loop() {
     last_input = inputs;
 //=======================================
   #elif defined FORMAT_EEPROM
-    // EMPTY
+    // EMPTY AT THE MOMENT
   #else
 // NORMAL MODE:==========================
 
@@ -99,10 +99,7 @@ void loop() {
     }
   // FAST TIMER ACTIONS:
     if (fast_click == true){
-      // TODO: ESTAMOS LEYENDO CADA FULL Y ACTUALIZANDO CADA FAST?
-      //control_pcb_fan(current_temp);
-      //control_dimmer_rear(current_temp);
-      //control_dimmer_cool(current_temp);
+      // EMPTY AT THE MOMENT
    }
 
   // FULL TIMER ACTIONS:
