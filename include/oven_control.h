@@ -15,7 +15,7 @@ bool fast_click = false;    // FAST TIME_CLICK ACTIONS (100ms x 10)
 bool full_click = false;    // FULL TIME_CLICK ACTIONS (
 
 //==========================================
-//                FUNCTIONS                =
+//            TIMER FUNCTIONS              =
 //==========================================
 
 void time_click() {

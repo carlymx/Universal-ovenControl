@@ -91,6 +91,7 @@ void loop() {
 // CONSTANT TIMER ACTIONS:
   time_click();
   process_sound();
+  dimmer_control_fans();
 
   // ULTRAFAST TIMER ACTIONS:
     if (ufast_click == true){
@@ -115,8 +116,6 @@ void loop() {
       control_dimmer_rear(current_temp);
       control_dimmer_cool(current_temp);
     }
-
-  dimmer_control_fans();
 
  // CONSTANT TIMER ACTIONS: State Machine
   if (input_change == true) inputs_change_cooking(current_inputs);
