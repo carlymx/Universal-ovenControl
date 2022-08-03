@@ -86,9 +86,12 @@ byte control_pcb_fan(byte temp) {
 }
 
 byte control_dimmer_rear(byte temp) {
-    if (temp <= 50){ // Byte no puede ser menor
-        set_dimmer_control_rear(DIMMER_CONTROL_POWER_0);
+    if(current_temp < COOL_FAN_TEMPERATURE_20) {
+        digitalWrite(PIN_CHAMBER_FAN, LOW);
         rear_active = false;
+    }
+    if (temp == 0){ // Byte no puede ser menor
+        set_dimmer_control_rear(DIMMER_CONTROL_POWER_0);
         return 1;
     }
     else 
@@ -97,6 +100,10 @@ byte control_dimmer_rear(byte temp) {
 }
 
 byte control_dimmer_cool(byte temp) {
+    if(current_temp < COOL_FAN_TEMPERATURE_20) {
+        digitalWrite(PIN_COOL_FAN, LOW);
+        rear_active = false;
+    }
     if (temp == 0){ // Byte no puede ser menor
         set_dimmer_control_cool(DIMMER_CONTROL_POWER_100);
         return 1;

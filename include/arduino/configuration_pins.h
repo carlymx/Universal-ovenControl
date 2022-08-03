@@ -18,8 +18,8 @@
 #define PIN_RESISTOR_DOWN   8       // ON/OFF - RELAY
 #define PIN_RESISTOR_REAR   7       // ON/OFF - RELAY
 // OUTPUTS DIMMER:
-#define PIN_COOL_FAN        10      // 50/60Hz AC DIMMER CONTROL
-#define PIN_CHAMBER_FAN     9       // 50/60Hz AC DIMMER CONTROL
+#define PIN_COOL_FAN        9      // 50/60Hz AC DIMMER CONTROL
+#define PIN_CHAMBER_FAN     10       // 50/60Hz AC DIMMER CONTROL
 // PCB CONTROL:
 #define PIN_PCB_FAN         6       // PCB FAN (PWM PIN REQUIRED) (IN UNO, MINI or NANO: PIN 6 TIMER-0)
 #define PIN_SPEAKER         5       // Piezoelectric (PWM PIN REQUIRED) (IN UNO, MINI or NANO: PIN 5 TIMER-0)

@@ -29,11 +29,7 @@ unsigned int current_vel_rear = 0;
 void dimmer_control_power(byte pin, unsigned int vel, bool active){
     // [ ] ToDo: Control por micro segundos de los ventiladores
     // [-] ToDo: Llamar desde el bucle principal siempre que este en activo.
-    if(current_temp < COOL_FAN_TEMPERATURE_20) {
-        digitalWrite(pin, LOW);
-        cool_active = false;
-        rear_active = false;
-    }
+
     if(vel == DIMMER_CONTROL_POWER_100) {
         if(active == false) digitalWrite(pin, HIGH);
     }
