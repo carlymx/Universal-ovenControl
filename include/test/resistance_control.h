@@ -20,7 +20,7 @@ bool resistance_active = false;
 
 void set_resistance(byte resist, bool active) {
     resistance_active = active;
-    Serial.print("Res: " + (String)(active ? "ON " : "OFF ")
+    Serial.print("Resistances " + (String)(active ? "ON!: " : "OFF!: ")
                     + (String)((resist & RESIST_UP) != 0 ? "UP " : "   ")
                     + (String)((resist & RESIST_DOWN) != 0 ? "DO " : "   ")
                     + (String)((resist & RESIST_REAR) != 0 ? "RE " : "   ") + "\n");

@@ -36,6 +36,8 @@ bool rear_fan = false;
 byte last_input_cooking = 0;
 bool beep_on_temp = true;
 
+byte reset_resistance_counter = 0;
+
 void programed_temp_change(){
     Serial.print("Prog. temp " +String(programed_temp)+"\n");
 }
@@ -66,6 +68,16 @@ void incr_resistances() {
     resistances++;
     if (resistances > MAX_OPT_RESISTANCE) resistances = 1;
     rear_fan = ((resistances & RESIST_REAR) != 0);  
+}
+
+void reset_resistances(){
+    reset_resistance_counter++;
+    if (reset_resistance_counter == 2) {
+        resistances = 3;
+        Serial.print("Reset!!! ");
+        set_resistance(resistances, false);
+        reset_resistance_counter = 0;
+    }
 }
 
 void state_machine_cooking(byte event){
@@ -99,6 +111,7 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     programed_temp = DEFAULT_TEMP;
                     programed_temp_change();
+                    reset_resistances();
                     // TODO: Aqui podriamos ir al menu de settings
                     break;
 
