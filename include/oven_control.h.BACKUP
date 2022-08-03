@@ -86,9 +86,8 @@ byte control_pcb_fan(byte temp) {
 }
 
 byte control_dimmer_rear(byte temp) {
-    if (temp <= 50){ // Byte no puede ser menor
+    if (temp == 0){ // Byte no puede ser menor
         set_dimmer_control_rear(DIMMER_CONTROL_POWER_0);
-        rear_active = false;
         return 1;
     }
     else 
