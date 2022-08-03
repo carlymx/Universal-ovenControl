@@ -36,7 +36,7 @@
 
 #define TIME_UFAST_CLICK  100    // IN ms - DEFAULT = 100 (0.1 seg)
 #define TIME_FAST_CLICK     5    // UFAST MULTIPLIER - DEFAULT = 5 (0.5 seg)
-#define TIME_FULL_CLICK    50    // UFAST MULTIPLIER - DEFAULT = 50 (5 seg)
+#define TIME_FULL_CLICK    10    // UFAST MULTIPLIER - DEFAULT = 50 (5 seg)
 
 #define AC_HERTZ    50      // 50/60 HERTZ
 
