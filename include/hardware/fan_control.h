@@ -18,6 +18,7 @@ void set_fan(unsigned int vel) {
     //dimmer_control(vel);
     if (current_vel_pcb != vel) {
         current_vel_pcb = vel;
+        analogWrite(PIN_PCB_FAN, vel);
         Serial.print("PCB Fan: "+String(vel) +"/" +String((int)PWM_RATE-1) +" - " +String((int)((vel*100)/(PWM_RATE-1))) +"%" +"\n");
     }
 }
