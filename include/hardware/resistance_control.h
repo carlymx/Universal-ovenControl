@@ -8,6 +8,8 @@
     2022
 ***************************************************************/
 
+// NORMAL MODE
+
 #define RESIST_UP      1
 #define RESIST_DOWN    2
 #define RESIST_REAR    4
