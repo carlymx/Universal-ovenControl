@@ -9,26 +9,6 @@
 
 // TEST MODE:
 
-void zero_crossing() {
-    zero_crossing_timer = micros();
-    zero_crossing_detected = true;
-    //Serial.print("ZeroCrossing: " +String(zero_crossing_timer));
-}
-
-void activate_zero_crossing_detect(bool active) {
-    if(active == true) {
-        zero_crossing_detected = false;
-        zero_crossing_active = true;
-        interrupts();               // ENABLE INTERRUPTS        
-    }
-    else {
-        zero_crossing_active = false;
-        noInterrupts();             // DISABLE INTERRUPTS
-    }
-
-    //Serial.print("ZeroCrossing Detection: ON\n");
-}
-
 unsigned int current_vel_cool = 0;
 unsigned int current_vel_rear = 0;
 
@@ -50,4 +30,3 @@ void set_dimmer_control_rear(unsigned int vel) {
         Serial.print("Dimmer Rear: "+String(vel) +" - " +String(vel/(DIMMER_CONTROL_POWER_100/100)) +"%" +"\n");
     }
 }
-
