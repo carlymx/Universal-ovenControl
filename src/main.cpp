@@ -93,6 +93,10 @@ void loop() {
   process_sound();
   dimmer_control_fans();
 
+  // Si esta activo y he detectado un zero_crossing, lo paramos
+  if((zero_crossing_active == true) && (zero_crossing_detected == true))
+    activate_zero_crossing_detect(false);
+
   // ULTRAFAST TIMER ACTIONS:
     if (ufast_click == true){
       read_inputs();
@@ -104,7 +108,7 @@ void loop() {
 
   // FULL TIMER ACTIONS:
     if (full_click == true){
-      activate_zero_crossing_detect();  // ENABLE INTERRUPTS
+      activate_zero_crossing_detect(true);  // ENABLE INTERRUPTS
       
       read_temperature_primary();
       read_temperature_secundary();

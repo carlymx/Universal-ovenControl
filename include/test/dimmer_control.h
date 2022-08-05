@@ -10,13 +10,22 @@
 // TEST MODE:
 
 void zero_crossing() {
-    noInterrupts();             // DISABLE INTERRUPTS
     zero_crossing_timer = micros();
+    zero_crossing_detected = true;
     //Serial.print("ZeroCrossing: " +String(zero_crossing_timer));
 }
 
-void activate_zero_crossing_detect() {
-    interrupts();               // ENABLE INTERRUPTS
+void activate_zero_crossing_detect(bool active) {
+    if(active == true) {
+        zero_crossing_detected = false;
+        zero_crossing_active = true;
+        interrupts();               // ENABLE INTERRUPTS        
+    }
+    else {
+        zero_crossing_active = false;
+        noInterrupts();             // DISABLE INTERRUPTS
+    }
+
     //Serial.print("ZeroCrossing Detection: ON\n");
 }
 
