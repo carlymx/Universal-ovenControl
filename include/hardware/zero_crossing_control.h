@@ -9,7 +9,7 @@
 
 // NORMAL MODE:
 
-unsigned int next_zero = 0;
+volatile unsigned int next_zero = 0;
 
 void zero_crossing() {
     zero_crossing_timer = micros();

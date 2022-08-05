@@ -28,6 +28,6 @@ bool is_input_active(byte inputs, byte sensor){
 bool temp_change = false;
 bool input_change = false;
 
-bool zero_crossing_detected = false;
+volatile bool zero_crossing_detected = false;
 bool zero_crossing_active = false;
 volatile unsigned long zero_crossing_timer = 0;   // TIMER MICROS FOR DIMMER CONTROL
