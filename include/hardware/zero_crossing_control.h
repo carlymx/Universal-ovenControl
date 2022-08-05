@@ -15,7 +15,6 @@ void zero_crossing() {
     zero_crossing_timer = micros();
     zero_crossing_detected = true;
     next_zero = zero_crossing_timer + DIMMER_CONTROL_POWER_100;
-    //Serial.print("ZeroCrossing: " +String(zero_crossing_timer));
 }
 
 void activate_zero_crossing_detect(bool active) {
@@ -28,6 +27,12 @@ void activate_zero_crossing_detect(bool active) {
         zero_crossing_active = false;
         noInterrupts();             // DISABLE INTERRUPTS
     }
-
-    //Serial.print("ZeroCrossing Detection: ON\n");
 }
+
+/*
+// https://tinyurl.com/arduino-interrupt
+// LOW dispara la interruoción cuando el pin está a nivel bajo.
+// CHANGE dispara la interrupción cuando el pin cambia su valor.
+// RISING dispara la interrupción cuando el pin pasa de nivel bajo a nivel alto.
+// FALLING dispara la interrupción cuando el pin pasa de nivel alto a nivel bajo.
+*/

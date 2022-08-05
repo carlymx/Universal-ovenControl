@@ -55,6 +55,7 @@ void setup() {
   pinMode(PIN_PUSH_01, INPUT);
   pinMode(PIN_PUSH_02, INPUT);
   pinMode(PIN_PUSH_03, INPUT);
+  pinMode(PIN_ZERO_CROSSING, INPUT);
   //INTERRUPTIONS:
   attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 
