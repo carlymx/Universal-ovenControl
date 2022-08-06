@@ -12,9 +12,9 @@
 volatile unsigned int next_zero = 0;
 
 void zero_crossing() {
-    zero_crossing_timer = micros();
+    //zero_crossing_timer = micros();
     zero_crossing_detected = true;
-    next_zero = zero_crossing_timer + DIMMER_CONTROL_POWER_100;
+ //  next_zero = zero_crossing_timer + DIMMER_CONTROL_POWER_100;
 }
 
 void activate_zero_crossing_detect(bool active) {

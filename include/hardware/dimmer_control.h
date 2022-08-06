@@ -34,7 +34,7 @@ bool dimmer_control_power(byte pin, unsigned int vel, bool active){
         unsigned long micros_now = micros();
 
         if(active == true) {
-            // Desactivamos cuando pasa por 0? - SI.
+            // Desactivamos cuando pasa por 0.
             if(micros_now >= next_zero) {
                 digitalWrite(pin, LOW); 
                 active = false;

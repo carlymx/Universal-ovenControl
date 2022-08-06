@@ -101,6 +101,7 @@ byte control_dimmer_cool(byte temp) {
         return 1;
     }
     else 
-        set_dimmer_control_cool(dimmer_fan[get_index(temp)]);
+        //set_dimmer_control_cool(dimmer_fan[get_index(temp)]);
+        set_dimmer_control_cool(temp >= COOL_FAN_TEMPERATURE_20 ? DIMMER_CONTROL_POWER_100 : DIMMER_CONTROL_POWER_0);    
     return 0;
 }

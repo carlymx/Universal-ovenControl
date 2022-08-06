@@ -96,8 +96,11 @@ void loop() {
   dimmer_control_fans();
 
   // Si esta activo y he detectado un zero_crossing, lo paramos
-  if((zero_crossing_active == true) && (zero_crossing_detected == true))
+  if((zero_crossing_active == true) && (zero_crossing_detected == true)){
+    zero_crossing_timer = micros();
+    next_zero = zero_crossing_timer + DIMMER_CONTROL_POWER_100;
     activate_zero_crossing_detect(false);
+  }
 
   // ULTRAFAST TIMER ACTIONS:
     if (ufast_click == true){
