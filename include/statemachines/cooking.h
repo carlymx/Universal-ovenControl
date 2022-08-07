@@ -74,7 +74,7 @@ void reset_resistances(){
     reset_resistance_counter++;
     if (reset_resistance_counter == 2) {
         resistances = RESIST_UP + RESIST_DOWN;
-        Serial.print("Reset!!! ");
+        Serial.println("Reset!!! ");
         set_resistance(resistances, false);
         reset_resistance_counter = 0;
     }
@@ -83,6 +83,7 @@ void reset_resistances(){
 void calibrate_mode(){
     calibrate_mode_counter++;
     if (calibrate_mode_counter == 4) {
+        Serial.println("Setup MODE");
         active_state_machine = STATE_MACHINE_CALIBRATE;
         active_state_machine_change = true;
         calibrate_mode_counter = 0;

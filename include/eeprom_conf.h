@@ -38,7 +38,7 @@ struct program_eeprom {
 struct program_eeprom prog_eeprom_actual;
 
 void init_program_eeprom(program_eeprom* a){
-    a->lon_temp = TEMP_NUM;
+    a->lon_temp = TEMP_NUM;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     a->mapped01 = false;
 
     // Tabla de temperaturas cada 5 grados    

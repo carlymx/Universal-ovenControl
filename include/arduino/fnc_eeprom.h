@@ -51,12 +51,12 @@ int read_eeprom(){
     int eeprom_address = 0;
 
     int err = 0;
-    int iread;
+    byte bread;
     String aux;
     //struct program_eeprom READ_EEPROM;
-    EEPROM.get(eeprom_address, iread);
+    EEPROM.get(eeprom_address, bread);
     eeprom_address += sizeof(EEPROM_CRC_CONTROL);
-    if (iread != EEPROM_CRC_CONTROL) err = 1;
+    if (bread != EEPROM_CRC_CONTROL) err = 1;
 
 /*    if (err == 0) {
         EEPROM.get(eeprom_address, aux);
