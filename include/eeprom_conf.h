@@ -17,7 +17,7 @@ DATA REQUIRED FOR A FIRST START-UP. */
 
 #define EEPROM_CRC_CONTROL      123     // ALEATORY NUMBER FOR ADDITION CRC
 #define PROJECT_NAME            "openELECTRO: oven CONTROL"
-#define PROJECT_VERSION         "v0.60a"
+#define PROJECT_VERSION         "v0.90b"
 #define PROJECT_URL             "https://github.com/carlymx/openELECTRO"
 #define PROJECT_TEMP_IN         "ºC"
 
