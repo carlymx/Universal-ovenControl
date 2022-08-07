@@ -33,6 +33,7 @@
 #include <melodys.h>
 
 #include <statemachines/cooking.h>
+#include <statemachines/calibrate.h>
 
 #include <oven_control.h>
 
@@ -99,32 +100,54 @@ void loop() {
     activate_zero_crossing_detect(false);
 
   // ULTRAFAST TIMER ACTIONS:
-    if (ufast_click == true){
+  if (ufast_click == true){
       read_inputs();
-    }
+  }
   // FAST TIMER ACTIONS:
-    if (fast_click == true){
+  if (fast_click == true){
       // EMPTY AT THE MOMENT
-   }
+  }
 
   // FULL TIMER ACTIONS:
-    if (full_click == true){
-      activate_zero_crossing_detect(true);  // ENABLE INTERRUPTS
-      
-      read_temperature_primary();
-      read_temperature_secundary();
-
-      control_pcb_fan(current_temp);
-      control_dimmer_rear(current_temp);
-      control_dimmer_cool(current_temp);
+  if (full_click == true){
+    activate_zero_crossing_detect(true);  // ENABLE INTERRUPTS
+    
+    read_temperature_primary();
+    read_temperature_secundary();
+    
+    // Utilizamos ventiladores segun el sensor
+    if(active_state_machine == STATE_MACHINE_CALIBRATE){
+      current_temp = current_temp_secondary;
+      temp_change = temp_change_secondary;
+    }
+    else {
+      current_temp = current_temp_primary;
+      temp_change = temp_change_primary;
     }
 
- // CONSTANT TIMER ACTIONS: State Machine
-  if (input_change == true) inputs_change_cooking(current_inputs);
-  if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
+    control_pcb_fan(current_temp);
+    control_dimmer_rear(current_temp);
+    control_dimmer_cool(current_temp);
+  }
+
+  // CONSTANT TIMER ACTIONS: State Machine
+  switch (active_state_machine) {
+      case STATE_MACHINE_COOKING:
+        if (input_change == true) inputs_change_cooking(current_inputs);
+        if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
+        break;
+
+      case STATE_MACHINE_CALIBRATE:
+        if (input_change == true) inputs_change_calibrate(current_inputs);
+        if (temp_change == true) state_machine_calibrate(COOKING_EVENT_TEMP_CHANGE);
+        break;
+  }
+  
   input_change = false;
   temp_change = false;
+  temp_change_primary = false;
+  temp_change_secondary = false;
 
-//=======================================
-  #endif  
+  //=======================================
+    #endif  
 }

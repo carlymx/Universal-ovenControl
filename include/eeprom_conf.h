@@ -42,7 +42,7 @@ void init_program_eeprom(program_eeprom* a){
     a->mapped01 = false;
 
     // Tabla de temperaturas cada 5 grados    
-    for (int i = TEMP_INI / TEMP_INTERVAL; i < TEMP_NUM; i++) {
+    for (byte i = TEMP_INI / TEMP_INTERVAL; i < TEMP_NUM; i++) {
         a->temp_obj[i] = i * TEMP_INTERVAL;
         a->temp_map01[i] = 0;
     }

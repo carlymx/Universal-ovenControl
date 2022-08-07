@@ -13,16 +13,7 @@
 
 #include <EEPROM.h>
 
-void format_eeprom(){
-    int eeprom_size = EEPROM.length();
-
-    Serial.print("ERASE EEPROM...\n");
-    for( int index=0; index<eeprom_size; index++){
-        EEPROM[index] = 0;
-    }
-    delay(500); Serial.print("ERASE COMPLETE.\n");
-
-    Serial.print("EEPROM FORMATING...\n");
+void write_eeprom(){
     int eeprom_address = 0;
     EEPROM.put(eeprom_address, EEPROM_CRC_CONTROL);
         eeprom_address += sizeof(EEPROM_CRC_CONTROL);
@@ -36,6 +27,19 @@ void format_eeprom(){
         eeprom_address += sizeof(PROJECT_TEMP_IN);   
     EEPROM.put(eeprom_address, prog_eeprom_actual);
         eeprom_address += sizeof(program_eeprom);
+}
+
+void format_eeprom(){
+    int eeprom_size = EEPROM.length();
+
+    Serial.print("ERASE EEPROM...\n");
+    for( int index=0; index<eeprom_size; index++){
+        EEPROM[index] = 0;
+    }
+    delay(500); Serial.print("ERASE COMPLETE.\n");
+
+    Serial.print("EEPROM FORMATING...\n");
+    write_eeprom();
     delay(500);
     Serial.print("FORMAT COMPLETE...\n");
     delay(1000);

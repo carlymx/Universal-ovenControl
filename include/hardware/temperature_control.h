@@ -7,11 +7,7 @@
     2022
 ***************************************************************/
 
-float temp_primary_sensor;
-float temp_secondary_sensor;
-
-int read_temperature (byte pin, long resistance){
-    int temp_sensor = analogRead(pin);    // READ TERMISTOR 
+int read_temperature (int temp_sensor, long resistance){
     float res_temp = resistance * (ADC_RATE - temp_sensor) / (float)temp_sensor; // TENSION TO RESISTENCE 
     float log_res_temp = log(res_temp);   // LOGARITM FOR EQUATION
 
@@ -23,16 +19,24 @@ int read_temperature (byte pin, long resistance){
 }
 
 void read_temperature_primary(){
-    temp_primary_sensor = read_temperature(PRIMARY_SENSOR, RESISTANCE_PRIMARY_SENSOR); 
-    Serial.println("Sensor A1: " + String(temp_primary_sensor));
+    raw_primary_sensor = analogRead(PRIMARY_SENSOR);    // READ TERMISTOR 
+    //  TODO: Buscar segun tabla
+    temp_primary_sensor = read_temperature(raw_primary_sensor, RESISTANCE_PRIMARY_SENSOR); 
+    Serial.println("Sensor A1: " + String(temp_primary_sensor) + "Raw: " + String(raw_primary_sensor));
 
-    if (current_temp != temp_primary_sensor){
-        current_temp = temp_primary_sensor;
-        temp_change = true;
+    if (current_temp_primary != temp_primary_sensor){
+        current_temp_primary = temp_primary_sensor;
+        temp_change_primary = true;
     }
 }
 
 void read_temperature_secundary(){
-    temp_secondary_sensor = read_temperature(SECUNDARY_SENSOR, RESISTANCE_SECUNDARY_SENSOR); 
-    Serial.println("Sensor A2: " + String(temp_secondary_sensor));
+    raw_secondary_sensor = analogRead(SECUNDARY_SENSOR);  
+    temp_secondary_sensor = read_temperature(raw_secondary_sensor, RESISTANCE_SECUNDARY_SENSOR); 
+    Serial.println("Sensor A2: " + String(temp_secondary_sensor + "Raw: " + String(raw_secondary_sensor));
+
+    if (current_temp_secondary != temp_primary_secondary){
+        current_temp_secondary = temp_primary_secondary;
+        temp_change_secondary = true;
+    }
 }
