@@ -57,7 +57,7 @@ void setup() {
   pinMode(PIN_PUSH_03, INPUT);
   pinMode(PIN_ZERO_CROSSING, INPUT);
   //INTERRUPTIONS:
-  attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
+  //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 
   Serial.begin(BAUDRATE);
   Serial.print("STARTING Universal ovenCONTROL\n");
