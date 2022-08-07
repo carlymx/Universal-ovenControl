@@ -46,6 +46,8 @@ void state_machine_calibrate(byte event){
 
                     cur_idx_calibrate = 0;
                     set_map_temp(&prog_eeprom_actual);
+
+                    resistances = RESIST_UP + RESIST_DOWN;
                     set_resistance(resistances, true);
 
                     calibrate_state = CALIBRATE_STATE_CALIBRATE;

@@ -9,5 +9,5 @@
 
 void set_lights(bool active) {
     digitalWrite(PIN_LIGHT_CHAMBER, active == true ? HIGH : LOW);
-    Serial.print((String)(active ? "PUERTA ABIERTA \n" : "PUERTA CERRADA \n")); 
+    Serial.print("Light: " + (String)(active ? "ON" : "OFF") + "\n"); 
 }
