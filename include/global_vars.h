@@ -32,7 +32,7 @@ bool temp_change_primary = false;
 bool temp_change_secondary = false;
 bool input_change = false;
 
-bool zero_crossing_detected = false;
+volatile bool zero_crossing_detected = false;
 bool zero_crossing_active = false;
 volatile unsigned long zero_crossing_timer = 0;   // TIMER MICROS FOR DIMMER CONTROL
 

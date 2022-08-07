@@ -24,10 +24,10 @@
   
 #endif
 
-#include <test/resistance_control.h>
+#include <hardware/resistance_control.h>
 #include <hardware/zero_crossing_control.h>
 #include <hardware/dimmer_control.h>
-#include <test/temperature_control.h>
+#include <hardware/temperature_control.h>
 #include <hardware/fan_control.h>
 #include <hardware/light_control.h>
 #include <melodys.h>
@@ -56,8 +56,9 @@ void setup() {
   pinMode(PIN_PUSH_01, INPUT);
   pinMode(PIN_PUSH_02, INPUT);
   pinMode(PIN_PUSH_03, INPUT);
+  pinMode(PIN_ZERO_CROSSING, INPUT);
   //INTERRUPTIONS:
-  attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
+  //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 
   Serial.begin(BAUDRATE);
   Serial.print("STARTING Universal ovenCONTROL\n");
@@ -96,8 +97,11 @@ void loop() {
   dimmer_control_fans();
 
   // Si esta activo y he detectado un zero_crossing, lo paramos
-  if((zero_crossing_active == true) && (zero_crossing_detected == true))
+  if((zero_crossing_active == true) && (zero_crossing_detected == true)){
+    zero_crossing_timer = micros();
+    next_zero = zero_crossing_timer + DIMMER_CONTROL_POWER_100;
     activate_zero_crossing_detect(false);
+  }
 
   // ULTRAFAST TIMER ACTIONS:
   if (ufast_click == true){

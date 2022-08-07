@@ -34,7 +34,7 @@ bool dimmer_control_power(byte pin, unsigned int vel, bool active){
         unsigned long micros_now = micros();
 
         if(active == true) {
-            // Desactivamos cuando pasa por 0? - SI.
+            // Desactivamos cuando pasa por 0.
             if(micros_now >= next_zero) {
                 digitalWrite(pin, LOW); 
                 active = false;
@@ -58,10 +58,6 @@ void dimmer_control_fans(){
 }
 
 void set_dimmer_control_cool(unsigned int vel) {
-/*    if (vel == 0){          // ALARM MODE
-        digitalWrite(PIN_COOL_FAN, LOW);
-    } */
- 
     if (current_vel_cool != vel) {
         current_vel_cool = vel;
         Serial.print("Dimmer Cool: "+String(vel) +" - " +String(vel/(10000/(AC_HERTZ*2))) +"%" +"\n");
@@ -69,7 +65,7 @@ void set_dimmer_control_cool(unsigned int vel) {
 }
 
 void set_dimmer_control_rear(unsigned int vel) {
-        if (current_vel_rear != vel) {
+    if (current_vel_rear != vel) {
         current_vel_rear = vel;
         Serial.print("Dimmer Rear: "+String(vel) +" - " +String(vel/(10000/(AC_HERTZ*2))) +"%" +"\n");
     }

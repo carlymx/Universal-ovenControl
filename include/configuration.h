@@ -36,7 +36,7 @@
 
 #define TIME_UFAST_CLICK  100    // IN ms - DEFAULT = 100 (0.1 seg)
 #define TIME_FAST_CLICK     5    // UFAST MULTIPLIER - DEFAULT = 5 (0.5 seg)
-#define TIME_FULL_CLICK    10    // UFAST MULTIPLIER - DEFAULT = 50 (5 seg)
+#define TIME_FULL_CLICK    50    // UFAST MULTIPLIER - DEFAULT = 50 (5 seg)
 
 #define AC_HERTZ    50      // 50/60 HERTZ
 
@@ -63,7 +63,7 @@
 #define DIMMER_CONTROL_POWER_100   (unsigned int)(((1000000UL/AC_HERTZ)*100)/200)
 
 // TEMPERATURE ACTIVATORS % to ºC
-#define COOL_FAN_TEMPERATURE_20    55       // ºC
+#define COOL_FAN_TEMPERATURE_20     70      // ºC
 #define COOL_FAN_TEMPERATURE_33    100      // ºC
 #define COOL_FAN_TEMPERATURE_50    150      // ºC
 #define COOL_FAN_TEMPERATURE_66    200      // ºC
