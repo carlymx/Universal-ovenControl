@@ -20,15 +20,15 @@
 #define COOKING_EVENT_TEMP_CHANGE 4
 #define COOKING_EVENT_OPEN_DOOR   5
 
-#define DEFAULT_TEMP    180
-#define MIN_TEMP         30
-#define MAX_TEMP          MAX_TEMPERATURE
-#define STEP_TEMP         5
+#define DEFAULT_TEMP_COOK  180
+#define MIN_TEMP_COOK       30
+#define MAX_TEMP_COOK      240  
+#define STEP_TEMP_COOK       5
 
 #define DELTA_ON          0
 #define DELTA_OFF         5
 
-byte programed_temp = DEFAULT_TEMP;
+byte programed_temp = DEFAULT_TEMP_COOK;
 byte cooking_state = COOKING_STATE_OFF;
 byte resistances = RESIST_UP + RESIST_DOWN;     // PIZZA TIME!
 bool rear_fan = false;
@@ -108,19 +108,19 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_KEY_MINUS:
-                    programed_temp -= STEP_TEMP; 
-                    if (programed_temp < MIN_TEMP) programed_temp = MIN_TEMP;
+                    programed_temp -= STEP_TEMP_COOK; 
+                    if (programed_temp < MIN_TEMP_COOK) programed_temp = MIN_TEMP_COOK;
                     programed_temp_change();
                     break;
 
                 case COOKING_EVENT_KEY_PLUS: 
-                    programed_temp += STEP_TEMP; 
-                    if (programed_temp > MAX_TEMP) programed_temp = MAX_TEMP;
+                    programed_temp += STEP_TEMP_COOK; 
+                    if (programed_temp > MAX_TEMP_COOK) programed_temp = MAX_TEMP_COOK;
                     programed_temp_change();
                     break;
 
                 case COOKING_EVENT_KEY_CANCEL: 
-                    programed_temp = DEFAULT_TEMP;
+                    programed_temp = DEFAULT_TEMP_COOK;
                     programed_temp_change();
                     reset_resistances();
                     // TODO: Aqui podriamos ir al menu de settings
@@ -143,15 +143,15 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_KEY_MINUS:
-                    programed_temp -= STEP_TEMP; 
-                    if (programed_temp < MIN_TEMP) programed_temp = MIN_TEMP;
+                    programed_temp -= STEP_TEMP_COOK; 
+                    if (programed_temp < MIN_TEMP_COOK) programed_temp = MIN_TEMP_COOK;
                     programed_temp_change();
                     verify_temp_under();
                     break;
 
                 case COOKING_EVENT_KEY_PLUS: 
-                    programed_temp += STEP_TEMP; 
-                    if (programed_temp > MAX_TEMP) programed_temp = MAX_TEMP;
+                    programed_temp += STEP_TEMP_COOK; 
+                    if (programed_temp > MAX_TEMP_COOK) programed_temp = MAX_TEMP_COOK;
                     programed_temp_change();
                     break;
 
@@ -181,14 +181,14 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_KEY_MINUS:
-                    programed_temp -= STEP_TEMP; 
-                    if (programed_temp < MIN_TEMP) programed_temp = MIN_TEMP;
+                    programed_temp -= STEP_TEMP_COOK; 
+                    if (programed_temp < MIN_TEMP_COOK) programed_temp = MIN_TEMP_COOK;
                     programed_temp_change();
                     break;
 
                 case COOKING_EVENT_KEY_PLUS: 
-                    programed_temp += STEP_TEMP; 
-                    if (programed_temp > MAX_TEMP) programed_temp = MAX_TEMP;
+                    programed_temp += STEP_TEMP_COOK; 
+                    if (programed_temp > MAX_TEMP_COOK) programed_temp = MAX_TEMP_COOK;
                     programed_temp_change();
                     verify_temp_on();
                     break;

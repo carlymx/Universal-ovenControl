@@ -62,7 +62,7 @@ void setup() {
 
   Serial.begin(BAUDRATE);
   Serial.print("STARTING Universal ovenCONTROL\n");
-  Serial.print("Min Temp: " +String(MIN_TEMP) +" - Max Temp: " +String(MAX_TEMP) +"\n");
+  Serial.print("Min Temp: " +String(MIN_TEMP_COOK) +" - Max Temp: " +String(MAX_TEMP_COOK) +"\n");
   delay(2000);
   
   #if defined FORMAT_EEPROM
