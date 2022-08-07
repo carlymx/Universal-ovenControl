@@ -10,7 +10,7 @@
 byte board_read_inputs(){
     byte res = 0;
     for (byte x=0; x<sizeof(pin_in); x++){
-        if ((bool)digitalRead(pin_in[x]) == true) 
+        if ((bool)digitalRead(pin_in[x]) == pin_res[x]) 
             res = res | (1 << x);               
     }
     return res;

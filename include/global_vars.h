@@ -21,6 +21,10 @@ byte pin_in[] = {
     PIN_PUSH_00, PIN_PUSH_01, PIN_PUSH_02, PIN_PUSH_03, PIN_OPEN_DOOR
 }; 
 
+bool pin_res[] = { // Si queremos activo con high (true) o low (false)
+    true, true, true, true, true
+};
+
 byte current_inputs = 0;
 
 bool is_input_active(byte inputs, byte sensor){
