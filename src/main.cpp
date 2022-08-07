@@ -13,6 +13,7 @@
 #include <configuration.h>
 #include <eeprom_conf.h>
 #include <global_vars.h>
+#include <melodys.h>
 #include <hardware/inputs_control.h>
 
 #if defined BOARD_TEST
@@ -30,12 +31,10 @@
 #include <hardware/temperature_control.h>
 #include <hardware/fan_control.h>
 #include <hardware/light_control.h>
-#include <melodys.h>
+#include <oven_control.h>
 
 #include <statemachines/cooking.h>
 #include <statemachines/calibrate.h>
-
-#include <oven_control.h>
 
 void setup() {
 
@@ -130,6 +129,8 @@ void loop() {
       temp_change = temp_change_primary;
     }
 
+    Serial.println("Current_temp: " + String(current_temp));
+
     control_pcb_fan(current_temp);
     control_dimmer_rear(current_temp);
     control_dimmer_cool(current_temp);
@@ -138,11 +139,13 @@ void loop() {
   // CONSTANT TIMER ACTIONS: State Machine
   switch (active_state_machine) {
       case STATE_MACHINE_COOKING:
+        if (active_state_machine_change == true) activate_cooking();
         if (input_change == true) inputs_change_cooking(current_inputs);
         if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
         break;
 
       case STATE_MACHINE_CALIBRATE:
+        if (active_state_machine_change == true) activate_calibrate();
         if (input_change == true) inputs_change_calibrate(current_inputs);
         if (temp_change == true) state_machine_calibrate(COOKING_EVENT_TEMP_CHANGE);
         break;
@@ -152,6 +155,7 @@ void loop() {
   temp_change = false;
   temp_change_primary = false;
   temp_change_secondary = false;
+  active_state_machine_change = false;
 
   //=======================================
     #endif  

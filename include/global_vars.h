@@ -50,3 +50,6 @@ int raw_primary_sensor = 0;
 int raw_secondary_sensor = 0;
 
 byte active_state_machine = STATE_MACHINE_COOKING;
+bool active_state_machine_change =  false;
+
+bool rear_fan = false;

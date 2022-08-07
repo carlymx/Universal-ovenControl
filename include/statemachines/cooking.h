@@ -31,7 +31,6 @@
 byte programed_temp = DEFAULT_TEMP_COOK;
 byte cooking_state = COOKING_STATE_OFF;
 byte resistances = RESIST_UP + RESIST_DOWN;     // PIZZA TIME!
-bool rear_fan = false;
 
 byte last_input_cooking = 0;
 bool beep_on_temp = true;
@@ -84,10 +83,14 @@ void reset_resistances(){
 void calibrate_mode(){
     calibrate_mode_counter++;
     if (calibrate_mode_counter == 4) {
-        Serial.print("Calibrate mode\n");
         active_state_machine = STATE_MACHINE_CALIBRATE;
+        active_state_machine_change = true;
         calibrate_mode_counter = 0;
     }
+}
+
+void activate_cooking(){
+    Serial.println("Cooking mode");
 }
 
 void state_machine_cooking(byte event){
