@@ -120,7 +120,8 @@ void loop() {
     read_temperature_secundary();
     
     // Utilizamos ventiladores segun el sensor
-    if(active_state_machine == STATE_MACHINE_CALIBRATE){
+    if((active_state_machine == STATE_MACHINE_CALIBRATE) ||
+       (prog_eeprom_actual.mapped01 == false)){
       current_temp = current_temp_secondary;
       temp_change = temp_change_secondary;
     }

@@ -64,6 +64,7 @@ void state_machine_calibrate(byte event){
                     set_map_temp(&prog_eeprom_actual);
 
                     if(cur_idx_calibrate >= TEMP_NUM){
+                        prog_eeprom_actual.mapped01 = true;
                         write_eeprom(); 
                         set_resistance(resistances, false);
                         start_melody(&ON_TEMP_MELODY);
