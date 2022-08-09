@@ -8,7 +8,9 @@
 ***************************************************************/
 
 int read_temperature (int temp_sensor, long resistance){
-    float res_temp = resistance * (ADC_RATE - temp_sensor) / (float)temp_sensor; // TENSION TO RESISTENCE 
+    // float res_temp = resistance * (ADC_RATE - temp_sensor) / (float)temp_sensor; // TENSION TO RESISTENCE 
+
+    float res_temp = resistance / (((ADC_RATE - 1) / (float)temp_sensor) - 1);
     float log_res_temp = log(res_temp);   // LOGARITM FOR EQUATION
 
     // EQUIATION Steinhart-Hart (º Kelvin):
