@@ -9,6 +9,7 @@
 
 // LIB INCLUDE
 #include <Arduino.h>
+#include <math.h>
 
 #include <configuration.h>
 #include <eeprom_conf.h>
