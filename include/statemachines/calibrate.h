@@ -68,7 +68,9 @@ void state_machine_calibrate(byte event){
                     switch (sel_menu[menu_opt]) {
                         case CALIBRATE_STATE_CALIBRATE:
                             // Empezamos calibracion
-                            Serial.print("Start Calibration\n");
+                            Serial.print("\n=========================\n");
+                            Serial.print("  Start Calibration:...\n");
+                            Serial.print("=========================\n\n");
                             set_lights(true);
                             start_melody(&OVEN_GO_MELODY);
                             init_program_eeprom(&prog_eeprom_actual); // reseteamos actual
@@ -77,7 +79,8 @@ void state_machine_calibrate(byte event){
                             cur_idx_calibrate = 0;
                             set_map_temp(&prog_eeprom_actual);
 
-                            resistances = RESIST_UP + RESIST_DOWN;
+                            resistances = RESIST_DOWN;
+                            //resistances = RESIST_UP + RESIST_DOWN;
                             set_resistance(resistances, true);
 
                             calibrate_state = CALIBRATE_STATE_CALIBRATE;
@@ -124,7 +127,9 @@ void state_machine_calibrate(byte event){
                         set_resistance(resistances, false);
                         start_melody(&ON_TEMP_MELODY);
                         set_lights(is_input_active(current_inputs, DOOR_SENSOR));
-                        Serial.print("End Calibration\n");
+                        Serial.print("\n=========================\n");
+                        Serial.print(" ¡¡¡ End Calibration !!!\n");
+                        Serial.print("=========================\n\n");
                         calibrate_state = CALIBRATE_STATE_OFF;
                     }                   
                     break;

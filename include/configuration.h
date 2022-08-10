@@ -31,8 +31,8 @@
 
 #define PRIMARY_SENSOR                PIN_TEMP_SENSOR_01  // SELECT ORIGINAL TERMISTOR OVEN SENSOR
 #define SECUNDARY_SENSOR              PIN_TEMP_SENSOR_02  // SELECT TERMISTOR NTC3950 100K
-#define RESISTANCE_SECUNDARY_SENSOR   100000     // 100KOhms
-#define MAX_TEMPERATURE               250        // 250ºC MAX TEMPERATURE SEGURITY LOCK
+#define RESISTANCE_SECUNDARY_SENSOR   4700                // FOR NTC3950-100KOhms
+#define MAX_TEMPERATURE                250                // 250ºC MAX TEMPERATURE SEGURITY LOCK
 
 #define TIME_UFAST_CLICK  100    // IN ms - DEFAULT = 100 (0.1 seg)
 #define TIME_FAST_CLICK     5    // UFAST MULTIPLIER - DEFAULT = 5 (0.5 seg)
@@ -71,10 +71,12 @@
 #define COOL_FAN_TEMPERATURE_100   250      // ºC
 
 
-// COEFFICIENTS STEINHART-HART (https://tinyurl.com/SHH-Calculator)
-float c1 = 2.114990448e-03;     // DEFAULT FOR NPC 100KOhms
-float c2 = 0.3832381228e-04;    // DEFAULT FOR NPC 100KOhms
-float c3 = 5.228061052e-07;     // DEFAULT FOR NPC 100KOhms
+// COEFFICIENTS STEINHART-HART 
+//(https://tinyurl.com/SHH-Calculator - https://tinyurl.com/SSH-MultiCalculator)
+float c1 = 0.4393641565e-3;       // COEFFICIENT A NTC 25/50 Beta3950 100KOhms
+float c2 = 2.531626655e-4;        // COEFFICIENT B NTC 25/50 Beta3950 100KOhms
+float c3 = 0.00006146459005e-7;   // COEFFICIENT C NTC 25/50 Beta3950 100KOhms
+
 
 //===========================================
 //         MISCELLANY CONFIGURATION:        =
