@@ -25,8 +25,8 @@
 #define MAX_TEMP_COOK      240  
 #define STEP_TEMP_COOK       5
 
-#define DELTA_ON          0
-#define DELTA_OFF         5
+#define DELTA_ON          -5
+#define DELTA_OFF         1
 
 byte programed_temp = DEFAULT_TEMP_COOK;
 byte cooking_state = COOKING_STATE_OFF;
