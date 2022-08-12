@@ -7,8 +7,14 @@
     2022
 ***************************************************************/
 
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
-
+#if defined(ARDUINO) && ARDUINO >= 100
+#define printByte(args)  write(args);
+#else
+#define printByte(args)  print(args,BYTE);
+#endif
 
 //==================================//
 //           FUNCTIONS:             //
@@ -16,7 +22,7 @@
 
 void lcd_init() {
   lcd.begin();
-  //Todo: Aquí se usaria la estrcutura de datos con un FOR.
+  //Todo: Aquí se usaria la estrcutura de datos con un FOR?.
   lcd.createChar(0, resistance_up);
   lcd.createChar(1, resistance_down);
   lcd.createChar(2, resistance_rear);
@@ -27,4 +33,12 @@ void lcd_init() {
   lcd.createChar(7, bell);
   lcd.home();
   lcd.write(0);
+}
+
+void clear_screen(){
+
+}
+
+write_screen(){
+
 }
