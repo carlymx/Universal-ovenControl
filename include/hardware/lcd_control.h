@@ -23,7 +23,7 @@ LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars
 //           FUNCTIONS:             //
 //==================================//
 
-void lcd1602_init(){
+void screen_init(){
   lcd.init();                      // initialize the lcd 
   lcd.backlight();
   
@@ -39,10 +39,30 @@ void lcd1602_init(){
   lcd.home();
 }
 
-void clear_screen(){
+void screen_clear(){
 
 }
 
-void write_screen(){
+void screen_refresh(){
+
+}
+
+void screen_text(String msg){
+
+}
+
+void screen_resistances(byte resist){
+
+}
+
+void screen_current_temp(int temp){
+
+}
+
+void screen_back_light(bool active){
+  lcd.backlight();
+}
+
+void screen_prog_temp(int temp){
 
 }
