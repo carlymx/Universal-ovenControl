@@ -21,9 +21,15 @@
   #include <board_test.h>
   byte last_input = 0;
 #elif defined FORMAT_EEPROM
-  //EMPTY AT THE MOMENT
+  // EMPTY AT THE MOMENT
 #else // NORMAL MODE
-  
+  // EMPTY AT THE MOMENT
+#endif
+
+#if defined LCD_1602_I2C
+  #include <Wire.h>
+  #include <LiquidCrystal_I2C.h>
+  #include <hardware/lcd_control.h>
 #endif
 
 #include <hardware/resistance_control.h>
