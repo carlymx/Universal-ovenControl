@@ -12,7 +12,7 @@
 //ToDo: CREAR ESTRUCTURAS DE DATOS PARA MOSTRAR EN PANTALLA
 
 // [ ] * * 2 0 0 / 2 0 0 * * * * *
-// [ ] * * * * * * * * * * * * * *
+// [ ] * C A L E N T A N D O * * *
 
 // LCD 1602 (COLUM, FILE)
 byte char_resis_a = lcd.setCursor(0,0);
