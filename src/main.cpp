@@ -33,10 +33,10 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 
   #ifdef USB_SERIAL_PORT
-    usb_serial_init()
+    usb_serial_init();
   #endif
   #ifdef SCREEN_CONTROL
-    screen_init()
+    screen_init();
   #endif
 
   delay(2000);
