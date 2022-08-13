@@ -67,7 +67,7 @@ void loop() {
   #else
 // NORMAL MODE:==========================
 
-// CONSTANT TIMER ACTIONS:
+  // CONSTANT TIMER ACTIONS:
   time_click();
   process_sound();
   dimmer_control_fans();
@@ -135,5 +135,5 @@ void loop() {
   active_state_machine_change = false;
 
   //=======================================
-    #endif  
+  #endif  
 }
