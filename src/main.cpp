@@ -40,10 +40,10 @@ void setup() {
   #endif
   #ifdef SCREEN_CONTROL
     screen_init();
-    screen_write("STARTING Universal ovenCONTROL");
+    screen_write("STARTING...");
+    delay(1500);
+    screen_write("Universal ovenCONTROL");
   #endif
-
-  delay(2000);
   
   #if defined FORMAT_EEPROM
     format_eeprom();

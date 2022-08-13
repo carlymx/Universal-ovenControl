@@ -27,12 +27,13 @@ LiquidCrystal_I2C lcd(0x27,20,4);
 void screen_init(){
   lcd.init();                      // initialize the lcd 
   lcd.backlight();
-  
-  for (byte i=0; i<sizeof(resis_pos); i++){
-    lcd.createChar(resis_pos[i], resis_char[i]);
+
+  // CARGAR CARACTERES 
+  for (byte i=0; i<sizeof(resis_char); i++){
+    lcd.createChar(i, resis_char[i]);
   };
 
-  lcd.createChar(7, bell);
+  lcd.createChar(32, bell);
   lcd.home();
 }
 

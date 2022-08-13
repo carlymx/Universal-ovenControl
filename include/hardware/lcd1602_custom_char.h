@@ -21,26 +21,20 @@
 
 // LCD 1602 (COLUM, FILE) [ lcd.setCursor(0,0) ]
 byte position_resis_a[2] = {0,0};
-byte position_resis_b[2] = {1,0};
+// byte position_resis_b[2] = {1,0};
 byte position_resis_c[2] = {0,1};
-byte position_resis_d[2] = {1,1};
+// byte position_resis_d[2] = {1,1};
 
 byte position_current_temp[2]   = {5,0};
 byte position_slash[2]          = {8,0};
 byte position_prog_temp[2]      = {9,0};
 byte position_text[2]           = {4,1};
 
-byte* position_data[8] = {
-    position_resis_a, position_resis_b, position_resis_c, position_resis_d,
-    position_current_temp, position_slash, position_prog_temp,
-    position_text };
-
-
 //=============================//
 //     CUSTOM CHARACTERS:      //
 //=============================//
 // https://maxpromer.github.io/LCD-Character-Creator/
-
+/*
 #define RESIS_UL_R0 0
 #define RESIS_UR_R0 1
 #define RESIS_DL_R0 2
@@ -82,8 +76,8 @@ byte* resis_pos[28] {
     RESIS_DL_R2, RESIS_DR_R2, RESIS_UL_R3, RESIS_UR_R3, RESIS_DL_R3,
     RESIS_DR_R3, RESIS_UL_R4, RESIS_UR_R4, RESIS_DL_R4, RESIS_DR_R4,
     RESIS_UL_R5, RESIS_UR_R5, RESIS_DL_R5, RESIS_DR_R5, RESIS_UL_R6,
-    RESIS_UR_R6, RESIS_DL_R6, RESIS_DR_R6}
-
+    RESIS_UR_R6, RESIS_DL_R6, RESIS_DR_R6};
+*/
 // 2X2 - RESISTANCES: (7x4 = 28 CHARACTES)
 // UP -- --
 byte resis_up_a[8] = {0x1F,0x19,0x10,0x00,0x00,0x00,0x00,0x00};
@@ -128,18 +122,17 @@ byte* resis_char[28] = {
     resis_updo_d, resis_upre_a, resis_upre_b, resis_upre_c,
     resis_upre_d, resis_dore_a, resis_dore_b, resis_dore_c,
     resis_dore_d, resis_updore_a, resis_updore_b, resis_updore_c,
-    resis_updore_d }
+    resis_updore_d};
 
 //1X1 - MISC:
-uint8_t bell[8]  = {0x4,0xe,0xe,0xe,0x1f,0x0,0x4};
+byte bell[8]  = {0x4,0xe,0xe,0xe,0x1f,0x0,0x4};
 
 //1X1 - RESISTANCES: 
-uint8_t resistance_up[8] = {0x1F,0x11,0x00,0x00,0x00,0x00,0x00,0x00};
-uint8_t resistance_down[8] = {0x00,0x00,0x00,0x00,0x00,0x00,0x0A,0x1F};
-uint8_t resistance_rear[8] = {0x00,0x00,0x0E,0x1B,0x0E,0x00,0x00,0x00};
-uint8_t resistance_up_down[8] = {0x1F,0x11,0x00,0x00,0x00,0x00,0x0A,0x1F};
-uint8_t resistance_up_rear[8] = {0x1F,0x11,0x0E,0x1B,0x0E,0x00,0x00,0x00};
-uint8_t resistance_down_rear[8] = {0x00,0x00,0x0E,0x1B,0x0E,0x00,0x0A,0x1F};
-uint8_t resistance_up_down_rear[8] = {0x1F,0x11,0x0E,0x1B,0x0E,0x00,0x0A,0x1F};
-
+byte resistance_up[8] = {0x1F,0x11,0x00,0x00,0x00,0x00,0x00,0x00};
+byte resistance_down[8] = {0x00,0x00,0x00,0x00,0x00,0x00,0x0A,0x1F};
+byte resistance_rear[8] = {0x00,0x00,0x0E,0x1B,0x0E,0x00,0x00,0x00};
+byte resistance_up_down[8] = {0x1F,0x11,0x00,0x00,0x00,0x00,0x0A,0x1F};
+byte resistance_up_rear[8] = {0x1F,0x11,0x0E,0x1B,0x0E,0x00,0x00,0x00};
+byte resistance_down_rear[8] = {0x00,0x00,0x0E,0x1B,0x0E,0x00,0x0A,0x1F};
+byte resistance_up_down_rear[8] = {0x1F,0x11,0x0E,0x1B,0x0E,0x00,0x0A,0x1F};
 
