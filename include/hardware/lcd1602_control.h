@@ -32,7 +32,6 @@ void screen_init(){
   for (byte i=0; i<sizeof(resis_char); i++){
     lcd.createChar(i, resis_char[i]);
   };
-
   lcd.createChar(32, bell);
   lcd.home();
 }
@@ -57,13 +56,56 @@ void screen_text(String msg){
 }
 
 void screen_resistances(byte resist){
-  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
   byte res = resist * 4;
+  // UP -- --
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
   lcd.printByte(res);
   lcd.printByte(res + 1);
   lcd.setCursor(position_resis_c[0], position_resis_c[1]);
   lcd.printByte(res + 2);
   lcd.printByte(res + 3);
+  // -- DO --
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
+  lcd.printByte(res + 4);
+  lcd.printByte(res + 5);
+  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
+  lcd.printByte(res + 6);
+  lcd.printByte(res + 7);
+  // -- -- RE
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
+  lcd.printByte(res + 8);
+  lcd.printByte(res + 9);
+  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
+  lcd.printByte(res + 10);
+  lcd.printByte(res + 11);
+  // UP DO --
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
+  lcd.printByte(res + 12);
+  lcd.printByte(res + 13);
+  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
+  lcd.printByte(res + 14);
+  lcd.printByte(res + 15);
+  // UP -- RE
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
+  lcd.printByte(res + 16);
+  lcd.printByte(res + 17);
+  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
+  lcd.printByte(res + 18);
+  lcd.printByte(res + 19);
+  // -- DO RE
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
+  lcd.printByte(res + 20);
+  lcd.printByte(res + 21);
+  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
+  lcd.printByte(res + 22);
+  lcd.printByte(res + 23);
+  // UP DO RE
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
+  lcd.printByte(res + 24);
+  lcd.printByte(res + 25);
+  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
+  lcd.printByte(res + 26);
+  lcd.printByte(res + 27);
 }
 
 void screen_current_temp(int temp){
