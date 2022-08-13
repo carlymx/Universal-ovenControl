@@ -37,8 +37,8 @@ void screen_init(){
   lcd.home();
 }
 
-void screen_clear(){
-
+void screen_clear(bool active){
+  if (active == true) lcd.clear();
 }
 
 void screen_refresh(){
@@ -110,7 +110,8 @@ void screen_resistances(byte resist){
 }
 
 void screen_current_temp(int temp){
-
+  lcd.setCursor(position_current_temp[0], position_current_temp[1]);
+  lcd.print(temp);
 }
 
 void screen_backlight(bool active){
@@ -119,7 +120,10 @@ void screen_backlight(bool active){
 }
 
 void screen_prog_temp(int temp){
-
+  lcd.setCursor(position_slash[0], position_slash[1]);
+  lcd.print("/");
+  lcd.setCursor(position_prog_temp[0], position_prog_temp[1]);
+  lcd.print(temp);
 }
 
 void screen_alarm(byte alarm){
