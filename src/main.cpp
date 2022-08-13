@@ -40,6 +40,7 @@ void setup() {
   #endif
   #ifdef SCREEN_CONTROL
     screen_init();
+    screen_write("STARTING Universal ovenCONTROL");
   #endif
 
   delay(2000);

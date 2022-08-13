@@ -28,14 +28,10 @@ void screen_init(){
   lcd.init();                      // initialize the lcd 
   lcd.backlight();
   
-  //Todo: Aquí se usaria la estrcutura de datos con un FOR?.
-  lcd.createChar(0, resistance_up);
-  lcd.createChar(1, resistance_down);
-  lcd.createChar(2, resistance_rear);
-  lcd.createChar(3, resistance_up_down);
-  lcd.createChar(4, resistance_up_rear);
-  lcd.createChar(5, resistance_down_rear);
-  lcd.createChar(6, resistance_up_down_rear);
+  for (byte i=0; i<sizeof(resis_pos); i++){
+    lcd.createChar(resis_pos[i], resis_char[i]);
+  };
+
   lcd.createChar(7, bell);
   lcd.home();
 }
@@ -48,20 +44,34 @@ void screen_refresh(){
 
 }
 
-void screen_text(String msg){
+void screen_write(String msg){
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(msg);
+}
 
+void screen_text(String msg){
+  lcd.setCursor(position_text[0], position_text[1]);
+  lcd.print(msg);
 }
 
 void screen_resistances(byte resist){
-
+  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
+  byte res = resist * 4;
+  lcd.printByte(res);
+  lcd.printByte(res + 1);
+  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
+  lcd.printByte(res + 2);
+  lcd.printByte(res + 3);
 }
 
 void screen_current_temp(int temp){
 
 }
 
-void screen_back_light(bool active){
-  lcd.backlight();
+void screen_backlight(bool active){
+  if (active == true) lcd.backlight();
+  else lcd.noBacklight(); 
 }
 
 void screen_prog_temp(int temp){

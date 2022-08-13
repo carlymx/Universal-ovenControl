@@ -68,6 +68,7 @@ void incr_resistances() {
     resistances++;
     if (resistances > MAX_OPT_RESISTANCE) resistances = 1;
     rear_fan = ((resistances & RESIST_REAR) != 0);  
+    screen_resistances(resistances);
 }
 
 void reset_resistances(){
@@ -77,6 +78,7 @@ void reset_resistances(){
         Serial.println("Reset!!! ");
         set_resistance(resistances, false);
         reset_resistance_counter = 0;
+        screen_resistances(resistances);
     }
 }
 
@@ -92,6 +94,7 @@ void calibrate_mode(){
 
 void activate_cooking(){
     Serial.println("Cooking mode");
+    screen_resistances(resistances);
 }
 
 void state_machine_cooking(byte event){
