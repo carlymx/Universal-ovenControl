@@ -7,41 +7,7 @@
     2022
 ***************************************************************/
 
-// LIB INCLUDE
-#include <Arduino.h>
-#include <math.h>
-
-#include <configuration.h>
-#include <eeprom_conf.h>
-#include <global_vars.h>
-#include <melodys.h>
-#include <hardware/inputs_control.h>
-
-#if defined BOARD_TEST
-  #include <board_test.h>
-  byte last_input = 0;
-#elif defined FORMAT_EEPROM
-  // EMPTY AT THE MOMENT
-#else // NORMAL MODE
-  // EMPTY AT THE MOMENT
-#endif
-
-#if defined LCD_1602_I2C
-  #include <Wire.h>
-  #include <LiquidCrystal_I2C.h>
-  #include <hardware/lcd_control.h>
-#endif
-
-#include <hardware/resistance_control.h>
-#include <hardware/zero_crossing_control.h>
-#include <hardware/dimmer_control.h>
-#include <hardware/temperature_control.h>
-#include <hardware/fan_control.h>
-#include <hardware/light_control.h>
-#include <oven_control.h>
-
-#include <statemachines/cooking.h>
-#include <statemachines/calibrate.h>
+#include <includes.h>
 
 void setup() {
 
@@ -66,9 +32,13 @@ void setup() {
   //INTERRUPTIONS:
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 
-  Serial.begin(BAUDRATE);
-  Serial.print("STARTING Universal ovenCONTROL\n");
-  Serial.print("Min Temp: " +String(MIN_TEMP_COOK) +" - Max Temp: " +String(MAX_TEMP_COOK) +"\n");
+  #ifdef USB_SERIAL_PORT
+    usb_serial_init()
+  #endif
+  #ifdef SCREEN_CONTROL
+    screen_init()
+  #endif
+
   delay(2000);
   
   #if defined FORMAT_EEPROM

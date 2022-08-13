@@ -30,9 +30,10 @@ byte position_slash[2]          = {8,0};
 byte position_prog_temp[2]      = {9,0};
 byte position_text[2]           = {4,1};
 
-byte* position_data[8] = {position_resis_a, position_resis_b,
-    position_resis_c, position_resis_d, position_sensor,
-    position_slash, position_temp, position_text};
+byte* position_data[8] = {
+    position_resis_a, position_resis_b, position_resis_c, position_resis_d,
+    position_current_temp, position_slash, position_prog_temp,
+    position_text };
 
 
 //=============================//

@@ -7,7 +7,7 @@
     2022
 ***************************************************************/
 
-#include <hardware/lcd_custom_characters.h>
+#include <hardware/lcd1602_custom_char.h>
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args)  write(args);
