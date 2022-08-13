@@ -11,7 +11,7 @@
 
 //      0 1 3 4 5 6 7 8 9 A B C D E F G
 //    ===================================
-// 0: | [ ] * * 1 8 0 / 2 0 0 * * * * * |
+// 0: | [ ] * * 1 8 0 / 2 0 0 * * 0 0 b |
 // 1: | [ ] * C A L E N T A N D O * * * |
 //    ===================================
 
@@ -34,7 +34,7 @@ byte position_text[2]           = {4,1};
 //     CUSTOM CHARACTERS:      //
 //=============================//
 // https://maxpromer.github.io/LCD-Character-Creator/
-/*
+
 #define RESIS_UL_R0 0
 #define RESIS_UR_R0 1
 #define RESIS_DL_R0 2
@@ -70,14 +70,15 @@ byte position_text[2]           = {4,1};
 #define RESIS_DL_R6 26
 #define RESIS_DR_R6 27
 
-byte* resis_pos[28] {
+byte resis_pos[28] {
     RESIS_UL_R0, RESIS_UR_R0, RESIS_DL_R0, RESIS_DR_R0, RESIS_UL_R1,
     RESIS_UR_R1, RESIS_DL_R1, RESIS_DR_R1, RESIS_UL_R2, RESIS_UR_R2,
     RESIS_DL_R2, RESIS_DR_R2, RESIS_UL_R3, RESIS_UR_R3, RESIS_DL_R3,
     RESIS_DR_R3, RESIS_UL_R4, RESIS_UR_R4, RESIS_DL_R4, RESIS_DR_R4,
     RESIS_UL_R5, RESIS_UR_R5, RESIS_DL_R5, RESIS_DR_R5, RESIS_UL_R6,
-    RESIS_UR_R6, RESIS_DL_R6, RESIS_DR_R6};
-*/
+    RESIS_UR_R6, RESIS_DL_R6, RESIS_DR_R6
+    };
+
 // 2X2 - RESISTANCES: (7x4 = 28 CHARACTES)
 // UP -- --
 byte resis_up_a[8] = {0x1F,0x19,0x10,0x00,0x00,0x00,0x00,0x00};

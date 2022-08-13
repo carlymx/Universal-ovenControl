@@ -29,7 +29,8 @@ void screen_init(){
   lcd.backlight();
 
   // CARGAR CARACTERES 
-  for (byte i=0; i<sizeof(resis_char); i++){
+  //for (byte i=0; i<sizeof(resis_char); i++){ // ASÍ ME DA UN PROBLEMA QUE NO CONOZCO AL COMPILAR.
+  for (byte i=0; i<28; i++){
     lcd.createChar(i, resis_char[i]);
   };
   lcd.createChar(32, bell);
@@ -119,4 +120,10 @@ void screen_backlight(bool active){
 
 void screen_prog_temp(int temp){
 
+}
+
+void screen_alarm(byte alarm){
+  lcd.setCursor(13, 0);
+  lcd.print(alarm);
+  lcd.printByte(32);
 }
