@@ -34,6 +34,9 @@ void setup() {
 
   #ifdef USB_SERIAL_PORT
     usb_serial_init();
+    Serial.print("STARTING Universal ovenCONTROL\n");
+    Serial.print("Min Temp: " +String(MIN_TEMP_COOK) +" - Max Temp: " +String(MAX_TEMP_COOK) +"\n");
+
   #endif
   #ifdef SCREEN_CONTROL
     screen_init();

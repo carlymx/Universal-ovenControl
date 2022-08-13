@@ -17,6 +17,10 @@
 #include <melodys.h>
 #include <hardware/inputs_control.h>
 
+//======================================
+//            MISC INCLUDES:           =
+//======================================
+
 #if defined BOARD_TEST          // TEST MODE
   #include <board_test.h>
   byte last_input = 0;
@@ -24,6 +28,26 @@
   // EMPTY AT THE MOMENT
 #else                           // NORMAL MODE
   // EMPTY AT THE MOMENT
+#endif
+
+//======================================
+//       COMUNICATIONS INCLUDES:       =
+//======================================
+
+#ifdef USB_SERIAL_PORT
+    #include <hardware/usb_serial_control.h>
+#endif
+
+#if defined SCREEN_CONTROL
+    #if defined LCD_1602_I2C
+        #include <hardware/lcd1602_control.h>
+    #endif
+    #ifdef OLED_12832_I2C
+        // EMPTY AT TH MOMENT
+    #endif
+    #ifdef OLED_12864_I2C
+        // EMPTY AT TH MOMENT
+    #endif
 #endif
 
 //======================================
@@ -44,25 +68,3 @@
 
 #include <statemachines/cooking.h>
 #include <statemachines/calibrate.h>
-
-//======================================
-//       COMUNICATIONS INCLUDES:       =
-//======================================
-
-#ifdef USB_SERIAL_PORT
-    #include <hardware/usb_serial_control.h>
-#endif
-
-#if defined SCREEN_CONTROL
-    #if defined LCD_1602_I2C
-        #include <Wire.h>
-        #include <LiquidCrystal_I2C.h>
-        #include <hardware/lcd1602_control.h>
-    #endif
-    #ifdef OLED_12832_I2C
-        // EMPTY AT TH MOMENT
-    #endif
-    #ifdef OLED_12864_I2C
-        // EMPTY AT TH MOMENT
-    #endif
-#endif
