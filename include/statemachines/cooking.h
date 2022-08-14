@@ -39,8 +39,10 @@ byte reset_resistance_counter = 0;
 byte calibrate_mode_counter = 0;
 
 void programed_temp_change(){
-    Serial.println(String(RESSTR_PROG_TEMP) + ": " + String(programed_temp));
     screen_prog_temp(programed_temp);
+    Serial.print(RESSTR_PROG_TEMP);
+    Serial.print(": ");
+    Serial.println(String(programed_temp));
 }
 
 void verify_temp_under() {

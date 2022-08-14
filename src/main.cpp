@@ -34,14 +34,23 @@ void setup() {
 
   #ifdef USB_SERIAL_PORT
     usb_serial_init();
-    Serial.println(String(RESSTR_STARTING) + " " + String(RESSTR_APP_NAME));
-    Serial.println(String(RESSTR_MIN_TEMP) + ": " + String(MIN_TEMP_COOK) + " - " + String(RESSTR_MAX_TEMP) + ": " + String(MAX_TEMP_COOK));
+    Serial.print(RESSTR_STARTING);
+    Serial.print(" ");
+    Serial.println(RESSTR_APP_NAME);
+
+    Serial.print(RESSTR_MIN_TEMP);
+    Serial.print(": ");
+    Serial.print(MIN_TEMP_COOK);
+    Serial.print(" - ");
+    Serial.print(RESSTR_MAX_TEMP);
+    Serial.print(": ");
+    Serial.println(MAX_TEMP_COOK);
   #endif
 
   screen_init();
   screen_backlight(true);
-  screen_write(0, 0, String(RESSTR_STARTING) + "...");
-  screen_write(0, 1, String(RESSTR_APP_NAME));
+  screen_write(0, 0, RESSTR_STARTING);
+  screen_write(0, 1, RESSTR_APP_NAME);
   delay(3000);
   
   #if defined FORMAT_EEPROM
@@ -112,7 +121,9 @@ void loop() {
       temp_change = temp_change_primary;
     }
 
-    Serial.println(String(RESSTR_CURR_TEMP) + ": " + String(current_temp));
+    Serial.print(RESSTR_CURR_TEMP); 
+    Serial.print(": ");
+    Serial.println(String(current_temp));
 
     control_pcb_fan(current_temp);
     control_dimmer_rear(current_temp);

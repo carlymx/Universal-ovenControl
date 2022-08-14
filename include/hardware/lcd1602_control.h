@@ -96,7 +96,8 @@ void screen_text(String msg){
   _screen_index_zero = 0;
 
   lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
-  lcd.print(msg + "         ");
+  lcd.print(msg);
+  lcd.print("         ");
 }
 
 void screen_resistances(byte resist){

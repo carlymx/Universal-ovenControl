@@ -10,14 +10,6 @@
 
 // NORMAL MODE
 
-#define RESIST_UP      1
-#define RESIST_DOWN    2
-#define RESIST_REAR    4
-
-#define MAX_OPT_RESISTANCE 7
-
-bool resistance_active = false;
-
 void set_resistance(byte resist, bool active) {
     resistance_active = active;
     if (active == true && ((resist & RESIST_UP) != 0)) digitalWrite(PIN_RESISTOR_UP, HIGH);
@@ -29,5 +21,7 @@ void set_resistance(byte resist, bool active) {
     if (active == true && ((resist & RESIST_REAR) != 0)) digitalWrite(PIN_RESISTOR_REAR, HIGH);
     else digitalWrite(PIN_RESISTOR_REAR, LOW);
  
-    Serial.println("Resistances " + (String)(active ? " ON!: " : "OFF!: ") + resistances_to_text(resist));
+    Serial.print("Resistances ");
+    Serial.print((String)(active ? " ON!: " : "OFF!: "));
+    Serial.println(resistances_to_text(resist));
 }
