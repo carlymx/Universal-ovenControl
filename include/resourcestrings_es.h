@@ -17,3 +17,8 @@
 #define RESSTR_COOKING_MODE   "Modo Cocinar" 
 #define RESSTR_SETUP          "Configurar" 
 #define RESSTR_SETUP_MODE     "Modo Configurar" 
+
+#define RESSTR_SETUP_MENU_CALIBRATE      "Calibrate"
+#define RESSTR_SETUP_MENU_TEST_FAN       "Test fan"
+#define RESSTR_SETUP_MENU_TEST_REAR_FAN  "Test rear fan"
+#define RESSTR_SETUP_MENU_TEST_COOL_FAN  "Test cool fan"    

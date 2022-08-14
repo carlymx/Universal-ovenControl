@@ -10,6 +10,7 @@
 // DUMMY MODE
 
 void read_temperature_primary() {
+    // TODO: Usar el raw tambien
     if (resistance_active == true) temp_primary_sensor += 5;
     else temp_primary_sensor -= 4;
 
@@ -23,6 +24,7 @@ void read_temperature_primary() {
 }
 
 void read_temperature_secundary(){
+    // TODO: Usar el raw tambien
     if (resistance_active == true) temp_secondary_sensor += 5;
     else temp_secondary_sensor -= 4;
 

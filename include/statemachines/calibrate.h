@@ -27,7 +27,7 @@ byte sel_menu[] = {
 };
 
 String sel_text[] = {
-    "Calibrate", "Test fan", "Test rear fan", "Test cool fan"    
+    RESSTR_SETUP_MENU_CALIBRATE, RESSTR_SETUP_MENU_TEST_FAN, RESSTR_SETUP_MENU_TEST_REAR_FAN, RESSTR_SETUP_MENU_TEST_COOL_FAN  
 };
 
 byte menu_opt = 0;
@@ -51,13 +51,15 @@ void add_menu(byte a){
 void set_map_temp(program_eeprom* prog) {
     while((cur_idx_calibrate < TEMP_NUM) && (prog->temp_obj[cur_idx_calibrate] <= current_temp_secondary)){
         prog->temp_map01[cur_idx_calibrate] = raw_primary_sensor;
-        Serial.print(String(prog->temp_obj[cur_idx_calibrate]) + ":" + String(prog->temp_map01[cur_idx_calibrate]) + "\n");
+        Serial.println(String(prog->temp_obj[cur_idx_calibrate]) + ":" + String(prog->temp_map01[cur_idx_calibrate]));
         cur_idx_calibrate++;
     }
 }
 
 void activate_calibrate(){
     Serial.println(RESSTR_SETUP_MODE);
+    screen_prog_temp(0);
+    screen_current_temp(current_temp);
     menu_opt = 0;
     add_menu(0);
 }
@@ -121,6 +123,7 @@ void state_machine_calibrate(byte event){
         case CALIBRATE_STATE_CALIBRATE:
             switch (event) {
                 case CALIBRATE_EVENT_TEMP_CHANGE: 
+                    screen_current_temp(current_temp);
                     set_map_temp(&prog_eeprom_actual);
 
                     if(cur_idx_calibrate >= TEMP_NUM){

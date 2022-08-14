@@ -15,18 +15,10 @@ void usb_serial_init(){
     Serial.begin(BAUDRATE);
 }    
 
-void serial_text(String msg){
-
+void serial_print(String msg){
+    Serial.print(msg);
 }
 
-void serial_resistances(byte resist){
-
-}
-
-void serial_current_temp(int temp){
-
-}
-
-void serial_prog_temp(int temp){
-
+void serial_println(String msg){
+    Serial.println(msg);
 }
