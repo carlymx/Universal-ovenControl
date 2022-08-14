@@ -93,6 +93,8 @@ void calibrate_mode(){
 }
 
 void activate_cooking(){
+    screen_clear();
+    screen_text("Cooking");
     Serial.println("Cooking mode");
     screen_resistances(resistances);
 }

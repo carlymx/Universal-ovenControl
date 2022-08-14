@@ -54,6 +54,8 @@ void setup() {
     read_eeprom();
     start_melody(&START_MELODY);
   #endif
+
+  active_state_machine_change = true;
 }
 
 void loop() {

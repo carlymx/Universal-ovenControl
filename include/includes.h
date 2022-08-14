@@ -54,10 +54,10 @@
 //          HARDWARE INCLUDES:         =
 //======================================
 
-#include <hardware/resistance_control.h>
+#include <test/resistance_control.h>
 #include <hardware/zero_crossing_control.h>
 #include <hardware/dimmer_control.h>
-#include <hardware/temperature_control.h>
+#include <test/temperature_control.h>
 #include <hardware/fan_control.h>
 #include <hardware/light_control.h>
 #include <oven_control.h>
