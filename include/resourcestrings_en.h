@@ -6,7 +6,7 @@
     jordi@surfzone.org, carlymx@gmail.com
     2022
 ***************************************************************/
-#define RESSTR_APP_NAME       "Universal ovenCONTROL"
+#define RESSTR_APP_NAME       "Univ ovenCONTROL"
 #define RESSTR_STARTING       "STARTING"
 #define RESSTR_MIN_TEMP       "Min Temp" 
 #define RESSTR_MAX_TEMP       "Max Temp" 

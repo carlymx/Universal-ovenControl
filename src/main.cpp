@@ -39,8 +39,10 @@ void setup() {
   #endif
 
   screen_init();
+  screen_backlight(true);
   screen_write(0, 0, String(RESSTR_STARTING) + "...");
   screen_write(0, 1, String(RESSTR_APP_NAME));
+  delay(3000);
   
   #if defined FORMAT_EEPROM
     format_eeprom();
@@ -89,9 +91,7 @@ void loop() {
   }
   // FAST TIMER ACTIONS:
   if (fast_click == true){
-    #ifdef SCREEN_CONTROL
       screen_refresh();
-    #endif  
   }
 
   // FULL TIMER ACTIONS:
@@ -112,7 +112,7 @@ void loop() {
       temp_change = temp_change_primary;
     }
 
-    Serial.println("Current_temp: " + String(current_temp));
+    Serial.println(String(RESSTR_CURR_TEMP) + ": " + String(current_temp));
 
     control_pcb_fan(current_temp);
     control_dimmer_rear(current_temp);
