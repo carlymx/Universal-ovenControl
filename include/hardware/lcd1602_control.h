@@ -10,6 +10,26 @@
 #include <LiquidCrystal_I2C.h>
 #include <hardware/lcd1602_custom_char.h>
 
+//      0 1 3 4 5 6 7 8 9 A B C D E F G
+//    ===================================
+// 0: | [ ] * * 1 8 0 / 2 0 0 * * 0 0 b |
+// 1: | [ ] * C A L E N T A N D O * * * |
+//    ===================================
+
+#define LCD_POS_RES_L1_X    0
+#define LCD_POS_RES_L1_Y    0
+#define LCD_POS_RES_L2_X    0
+#define LCD_POS_RES_L2_Y    1
+#define LCD_POS_TXT_X       4
+#define LCD_POS_TXT_Y       1
+#define LCD_POS_TXT_LEN    13
+#define LCD_POS_CTEMP_X     5
+#define LCD_POS_CTEMP_Y     0
+#define LCD_POS_CTEMP_LEN   3
+#define LCD_POS_PTEMP_X     9
+#define LCD_POS_PTEMP_Y     0
+#define LCD_POS_PTEMP_LEN   3
+
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args)  write(args);
 #else
@@ -19,6 +39,11 @@
 // LCD1602 I2C [ adress: 0x27 ]
 LiquidCrystal_I2C lcd(0x27,20,4);
 
+String _screen_text = "";
+byte _screen_index = 0;
+byte _screen_resist = 0;
+int _screen_current_temp = 0;
+int _screen_prog_temp = 0;
 
 //==================================//
 //           FUNCTIONS:             //
@@ -35,40 +60,7 @@ void screen_init(){
   };
   lcd.createChar(32, bell);
   lcd.home();
-}
-
-void screen_clear(){
   lcd.clear();
-}
-
-void screen_refresh(){
-
-}
-
-void screen_write(String msg){
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(msg);
-  }
-
-void screen_text(String msg){
-  lcd.setCursor(position_text[0], position_text[1]);
-  lcd.print(msg);
-}
-
-void screen_resistances(byte resist){
-  byte res = (resist - 1) * 4;
-  lcd.setCursor(position_resis_a[0], position_resis_a[1]);
-  lcd.printByte(res);
-  lcd.printByte(res + 1);
-  lcd.setCursor(position_resis_c[0], position_resis_c[1]);
-  lcd.printByte(res + 2);
-  lcd.printByte(res + 3);
-}
-
-void screen_current_temp(int temp){
-  lcd.setCursor(position_current_temp[0], position_current_temp[1]);
-  lcd.print(temp);
 }
 
 void screen_backlight(bool active){
@@ -76,11 +68,68 @@ void screen_backlight(bool active){
   else lcd.noBacklight(); 
 }
 
+void screen_clear(){
+  lcd.clear();
+}
+
+void screen_refresh(){
+  if(_screen_text.length() > LCD_POS_TXT_LEN) {
+    _screen_index++;
+    if (_screen_text.length() - _screen_index < LCD_POS_TXT_LEN) _screen_index = 0;
+
+    lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
+    lcd.print(_screen_text.substring(_screen_index));
+  }
+}
+
+void screen_write(byte x, byte y, String msg){
+  lcd.setCursor(x, y);
+  lcd.print(msg);
+}
+
+void screen_text(String msg){
+  _screen_text = msg;
+  _screen_index = 0;
+
+  lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
+  lcd.print(msg + "         ");
+}
+
+void screen_resistances(byte resist){
+  _screen_resist = resist;
+
+  if (resist == 0) {
+    lcd.setCursor(LCD_POS_RES_L1_X, LCD_POS_RES_L1_Y);
+    lcd.print("  ");
+    lcd.setCursor(LCD_POS_RES_L1_X, LCD_POS_RES_L1_Y);
+    lcd.print("  ");
+  }
+  else {
+    byte res = (int(resist) - 1) * 4;
+    lcd.setCursor(LCD_POS_RES_L1_X, LCD_POS_RES_L1_Y);
+    lcd.printByte(res);
+    lcd.printByte(res + 1);
+    lcd.setCursor(LCD_POS_RES_L1_X, LCD_POS_RES_L1_Y);
+    lcd.printByte(res + 2);
+    lcd.printByte(res + 3);
+  }
+}
+
+void screen_print_temp(int ctemp, int ptemp){
+  char buff[7];
+  sprintf(buff, "%.3d/%.3d", ctemp, ptemp);
+  lcd.setCursor(LCD_POS_CTEMP_X, LCD_POS_CTEMP_Y);
+  lcd.print(String(buff));
+}
+
+void screen_current_temp(int temp){
+  _screen_current_temp = temp;
+  screen_print_temp(temp, _screen_prog_temp);
+}
+
 void screen_prog_temp(int temp){
-  lcd.setCursor(position_slash[0], position_slash[1]);
-  lcd.print("/");
-  lcd.setCursor(position_prog_temp[0], position_prog_temp[1]);
-  lcd.print(temp);
+  _screen_prog_temp = temp;
+  screen_print_temp(_screen_current_temp, temp);
 }
 
 void screen_alarm(byte alarm){

@@ -29,9 +29,5 @@ void set_resistance(byte resist, bool active) {
     if (active == true && ((resist & RESIST_REAR) != 0)) digitalWrite(PIN_RESISTOR_REAR, HIGH);
     else digitalWrite(PIN_RESISTOR_REAR, LOW);
  
- 
-    Serial.print("Resistances " + (String)(active ? " ON!: " : "OFF!: ")
-                    + (String)((resist & RESIST_UP) != 0 ? "UP " : "   ")
-                    + (String)((resist & RESIST_DOWN) != 0 ? "DO " : "   ")
-                    + (String)((resist & RESIST_REAR) != 0 ? "RE " : "   ") + "\n");
+    Serial.println("Resistances " + (String)(active ? " ON!: " : "OFF!: ") + resistances_to_text(resist));
 }

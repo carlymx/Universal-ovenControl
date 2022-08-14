@@ -34,16 +34,13 @@ void setup() {
 
   #ifdef USB_SERIAL_PORT
     usb_serial_init();
-    Serial.print("STARTING Universal ovenCONTROL\n");
-    Serial.print("Min Temp: " +String(MIN_TEMP_COOK) +" - Max Temp: " +String(MAX_TEMP_COOK) +"\n");
+    Serial.println(String(RESSTR_STARTING) + " " + String(RESSTR_APP_NAME));
+    Serial.println(String(RESSTR_MIN_TEMP) + ": " + String(MIN_TEMP_COOK) + " - " + String(RESSTR_MAX_TEMP) + ": " + String(MAX_TEMP_COOK));
+  #endif
 
-  #endif
-  #ifdef SCREEN_CONTROL
-    screen_init();
-    screen_write("STARTING...");
-    delay(1500);
-    screen_write("Universal ovenCONTROL");
-  #endif
+  screen_init();
+  screen_write(0, 0, String(RESSTR_STARTING) + "...");
+  screen_write(0, 1, String(RESSTR_APP_NAME));
   
   #if defined FORMAT_EEPROM
     format_eeprom();
@@ -55,6 +52,7 @@ void setup() {
     start_melody(&START_MELODY);
   #endif
 
+  // Para forzar activacion
   active_state_machine_change = true;
 }
 
@@ -91,7 +89,9 @@ void loop() {
   }
   // FAST TIMER ACTIONS:
   if (fast_click == true){
-      // EMPTY AT THE MOMENT
+    #ifdef SCREEN_CONTROL
+      screen_refresh();
+    #endif  
   }
 
   // FULL TIMER ACTIONS:

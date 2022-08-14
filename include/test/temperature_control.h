@@ -23,5 +23,14 @@ void read_temperature_primary() {
 }
 
 void read_temperature_secundary(){
-    temp_secondary_sensor = 25;
+    if (resistance_active == true) temp_secondary_sensor += 5;
+    else temp_secondary_sensor -= 4;
+
+    if (temp_secondary_sensor < 20) temp_secondary_sensor = 20;
+
+    if (temp_secondary_sensor != temp_secondary_sensor){
+        temp_secondary_sensor = temp_secondary_sensor;
+        temp_secondary_sensor = true;
+        Serial.println("Secondary Sensor (DUMMY): " + String(temp_secondary_sensor));
+    }
 }

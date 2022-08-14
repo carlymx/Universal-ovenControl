@@ -26,7 +26,7 @@
 #define STEP_TEMP_COOK       5
 
 #define DELTA_ON          -5
-#define DELTA_OFF         1
+#define DELTA_OFF          1
 
 byte programed_temp = DEFAULT_TEMP_COOK;
 byte cooking_state = COOKING_STATE_OFF;
@@ -39,7 +39,8 @@ byte reset_resistance_counter = 0;
 byte calibrate_mode_counter = 0;
 
 void programed_temp_change(){
-    Serial.print("Prog. temp " +String(programed_temp)+"\n");
+    Serial.println(String(RESSTR_PROG_TEMP) + ": " + String(programed_temp));
+    screen_prog_temp(programed_temp);
 }
 
 void verify_temp_under() {
@@ -85,7 +86,6 @@ void reset_resistances(){
 void calibrate_mode(){
     calibrate_mode_counter++;
     if (calibrate_mode_counter == 4) {
-        Serial.println("Setup MODE");
         active_state_machine = STATE_MACHINE_CALIBRATE;
         active_state_machine_change = true;
         calibrate_mode_counter = 0;
@@ -93,10 +93,12 @@ void calibrate_mode(){
 }
 
 void activate_cooking(){
+    Serial.println(RESSTR_COOKING_MODE);
     screen_clear();
-    screen_text("Cooking");
-    Serial.println("Cooking mode");
+    screen_text(RESSTR_COOKING);
     screen_resistances(resistances);
+    screen_prog_temp(programed_temp);
+    screen_prog_temp(current_temp);
 }
 
 void state_machine_cooking(byte event){
@@ -136,7 +138,9 @@ void state_machine_cooking(byte event){
                     calibrate_mode();
                     break;
 
-                case COOKING_EVENT_TEMP_CHANGE: break;
+                case COOKING_EVENT_TEMP_CHANGE: 
+                    screen_prog_temp(current_temp);
+                    break;
 
                 case COOKING_EVENT_OPEN_DOOR: 
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));                 
@@ -173,6 +177,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
+                    screen_prog_temp(current_temp);
                     verify_temp_under();
                     break;
 
@@ -211,6 +216,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
+                    screen_prog_temp(current_temp);
                     verify_temp_on();
                     break;
 

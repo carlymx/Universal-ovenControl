@@ -44,7 +44,8 @@ void add_menu(byte a){
     if(menu_opt >= sizeof(sel_menu))
         menu_opt = a > 0 ? 0 : sizeof(sel_menu);
 
-    Serial.println(sel_text[menu_opt]);    
+    Serial.println(sel_text[menu_opt]);
+    screen_text(sel_text[menu_opt]);
 }
 
 void set_map_temp(program_eeprom* prog) {
@@ -56,6 +57,7 @@ void set_map_temp(program_eeprom* prog) {
 }
 
 void activate_calibrate(){
+    Serial.println(RESSTR_SETUP_MODE);
     menu_opt = 0;
     add_menu(0);
 }

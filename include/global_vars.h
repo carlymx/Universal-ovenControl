@@ -7,6 +7,11 @@
     2022
 ***************************************************************/
 
+#define RESIST_UP      1
+#define RESIST_DOWN    2
+#define RESIST_REAR    4
+#define MAX_OPT_RESISTANCE 7
+
 #define KEY_ENTER   0
 #define KEY_CANCEL  1
 #define KEY_PLUS    2
@@ -40,9 +45,9 @@ volatile bool zero_crossing_detected = false;
 bool zero_crossing_active = false;
 volatile unsigned long zero_crossing_timer = 0;   // TIMER MICROS FOR DIMMER CONTROL
 
-byte current_temp = 0;
-byte current_temp_primary = 0;
-byte current_temp_secondary = 0;
+int current_temp = 0;
+int current_temp_primary = 0;
+int current_temp_secondary = 0;
 
 float temp_primary_sensor;
 float temp_secondary_sensor;

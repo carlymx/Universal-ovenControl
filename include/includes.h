@@ -11,9 +11,12 @@
 #include <Arduino.h>
 #include <math.h>
 
+//#include <resourcestrings_en.h>
+#include <resourcestrings_es.h>
 #include <configuration.h>
 #include <eeprom_conf.h>
 #include <global_vars.h>
+#include <text_funcs.h>
 #include <melodys.h>
 #include <hardware/inputs_control.h>
 
@@ -48,6 +51,8 @@
     #ifdef OLED_12864_I2C
         // EMPTY AT TH MOMENT
     #endif
+#else
+  #include <hardware/lcdserial_control.h>
 #endif
 
 //======================================

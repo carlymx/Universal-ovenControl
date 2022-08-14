@@ -67,7 +67,7 @@ unsigned int dimmer_fan [] = {  // DIMMER FAN
     DIMMER_CONTROL_POWER_33, DIMMER_CONTROL_POWER_20, DIMMER_CONTROL_POWER_0
 };
 
-byte get_index(byte temp) {
+byte get_index(int temp) {
     for (unsigned int i=0; i<sizeof(temp_oven); i++){
         if (temp >= temp_oven[i]) return i;
     } 
@@ -75,8 +75,8 @@ byte get_index(byte temp) {
     return (sizeof(temp_oven) + 1);           
 } 
 
-byte control_pcb_fan(byte temp) {
-    if (temp == 0){ // Byte no puede ser menor
+byte control_pcb_fan(int temp) {
+    if (temp <= 0){ // Byte no puede ser menor
         set_fan(PWM_CONTROL_POWER_100);
         return 1;
     }
@@ -85,8 +85,8 @@ byte control_pcb_fan(byte temp) {
     return 0;
 }
 
-byte control_dimmer_rear(byte temp) {
-    if (temp == 0){ // Byte no puede ser menor
+byte control_dimmer_rear(int temp) {
+    if (temp <= 0){ // Byte no puede ser menor
         set_dimmer_control_rear(DIMMER_CONTROL_POWER_0);
         return 1;
     }
@@ -95,8 +95,8 @@ byte control_dimmer_rear(byte temp) {
     return 0;
 }
 
-byte control_dimmer_cool(byte temp) {
-    if (temp == 0){ // Byte no puede ser menor
+byte control_dimmer_cool(int temp) {
+    if (temp <= 0){ // Byte no puede ser menor
         set_dimmer_control_cool(DIMMER_CONTROL_POWER_100);
         return 1;
     }
