@@ -44,6 +44,7 @@ LiquidCrystal_I2C lcd(0x27,16,2);
 
 String _screen_text = "";
 byte _screen_index = 0;
+byte _screen_index_zero = 0;
 byte _screen_resist = 0;
 int _screen_current_temp = 0;
 int _screen_prog_temp = 0;
@@ -70,11 +71,17 @@ void screen_clear(){
 
 void screen_refresh(){
   if(_screen_text.length() > LCD_POS_TXT_LEN) {
-    _screen_index++;
-    if (_screen_text.length() - _screen_index - 1 < LCD_POS_TXT_LEN) _screen_index = 0;
+    _screen_index_zero++;
+    if (_screen_index_zero > 2){
+      _screen_index++;
+      if (_screen_text.length() - _screen_index + 1 < LCD_POS_TXT_LEN) {
+        _screen_index = 0;
+        _screen_index_zero = 0;
+      }
 
-    lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
-    lcd.print(_screen_text.substring(_screen_index));
+      lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
+      lcd.print(_screen_text.substring(_screen_index));
+    }
   }
 }
 
@@ -86,6 +93,7 @@ void screen_write(byte x, byte y, String msg){
 void screen_text(String msg){
   _screen_text = msg;
   _screen_index = 0;
+  _screen_index_zero = 0;
 
   lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
   lcd.print(msg + "         ");
@@ -117,8 +125,13 @@ void screen_resistances(byte resist){
 }
 
 void screen_print_temp(int ctemp, int ptemp){
-  char buff[8];
-  sprintf(buff, "%3.3d/%3.3dC", ctemp, ptemp);
+  char buff[12];
+
+  if(ptemp != 0)
+    sprintf(buff, "%3d/%3d%s", ctemp, ptemp, "ºC");
+  else 
+    sprintf(buff, "    %3d%s  ", ctemp, "ºC");
+
   lcd.setCursor(LCD_POS_CTEMP_X, LCD_POS_CTEMP_Y);
   lcd.print(String(buff));
 }
