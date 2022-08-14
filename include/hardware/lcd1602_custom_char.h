@@ -34,6 +34,7 @@ byte position_text[2]           = {4,1};
 //     CUSTOM CHARACTERS:      //
 //=============================//
 // https://maxpromer.github.io/LCD-Character-Creator/
+
 /*
 #define RESIS_UL_R0 0
 #define RESIS_UR_R0 1
