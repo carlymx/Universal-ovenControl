@@ -12,7 +12,7 @@
 #define RESSTR_MAX_TEMP       "Temp Max" 
 
 #define RESSTR_PROG_TEMP      "Temp Prog." 
-#define RESSTR_CURR_TEMP      "Temp Actual"
+String RESSTR_CURR_TEMP   =   "Temp Actual";
 #define RESSTR_COOKING        "Selecciona temperatura" 
 #define RESSTR_COOKING_MODE   "Modo Cocinar" 
 #define RESSTR_SETUP          "Configurar" 

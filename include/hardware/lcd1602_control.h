@@ -125,12 +125,12 @@ void screen_resistances(byte resist){
 }
 
 void screen_print_temp(int ctemp, int ptemp){
-  char buff[12];
+  char buff[9];
 
   if(ptemp != 0)
-    sprintf(buff, "%3d/%3d%s", ctemp, ptemp, "ºC");
+    sprintf(buff, "%3d/%3d%s", ctemp, ptemp, " C");
   else 
-    sprintf(buff, "    %3d%s  ", ctemp, "ºC");
+    sprintf(buff, "    %3d%s  ", ctemp, " C");
 
   lcd.setCursor(LCD_POS_CTEMP_X, LCD_POS_CTEMP_Y);
   lcd.print(String(buff));

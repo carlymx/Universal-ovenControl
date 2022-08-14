@@ -39,8 +39,10 @@ byte reset_resistance_counter = 0;
 byte calibrate_mode_counter = 0;
 
 void programed_temp_change(){
-    Serial.println(String(RESSTR_PROG_TEMP) + ": " + String(programed_temp));
     screen_prog_temp(programed_temp);
+    Serial.print(RESSTR_PROG_TEMP);
+    Serial.print(": ");
+    Serial.println(String(programed_temp));
 }
 
 void verify_temp_under() {
@@ -95,10 +97,10 @@ void calibrate_mode(){
 void activate_cooking(){
     Serial.println(RESSTR_COOKING_MODE);
     screen_clear();
-    screen_text(RESSTR_COOKING);
     screen_resistances(resistances);
     screen_prog_temp(programed_temp);
-    screen_prog_temp(current_temp);
+    screen_current_temp(current_temp);
+    screen_text(RESSTR_COOKING);
 }
 
 void state_machine_cooking(byte event){
@@ -139,7 +141,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
-                    screen_prog_temp(current_temp);
+                    screen_current_temp(current_temp);
                     break;
 
                 case COOKING_EVENT_OPEN_DOOR: 
@@ -177,7 +179,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
-                    screen_prog_temp(current_temp);
+                    screen_current_temp(current_temp);
                     verify_temp_under();
                     break;
 
@@ -216,7 +218,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
-                    screen_prog_temp(current_temp);
+                    screen_current_temp(current_temp);
                     verify_temp_on();
                     break;
 

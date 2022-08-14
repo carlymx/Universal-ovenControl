@@ -40,7 +40,7 @@ void setup() {
 
   screen_init();
   screen_backlight(true);
-  screen_write(0, 0, String(RESSTR_STARTING) + "...");
+  screen_write(0, 0, String(RESSTR_STARTING));
   screen_write(0, 1, String(RESSTR_APP_NAME));
   delay(3000);
   
