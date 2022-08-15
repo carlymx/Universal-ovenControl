@@ -76,8 +76,11 @@ void screen_clear(){
 }
 
 void screen_write_len(String msg, byte len){
-  lcd.print(msg.substring(0, len - 1));
-  for(int i=msg.length(); i < len; i++) lcd.print(' ');
+  if(msg.length() <= len) {
+    lcd.print(msg);
+    for(int i=msg.length(); i < len; i++) lcd.print(" ");
+  }
+  else lcd.print(msg.substring(0, len - 1));
 }
 
 void screen_refresh(){
