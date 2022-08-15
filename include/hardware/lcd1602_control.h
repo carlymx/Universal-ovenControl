@@ -80,7 +80,7 @@ void screen_refresh(){
       }
 
       lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
-      lcd.print(_screen_text.substring(_screen_index));
+      lcd.print(_screen_text.substring(_screen_index, _screen_index + LCD_POS_TXT_LEN));
     }
   }
 }
@@ -96,8 +96,8 @@ void screen_text(String msg){
   _screen_index_zero = 0;
 
   lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
-  lcd.print(msg);
-  lcd.print("         ");
+  lcd.print(msg.substring(0, LCD_POS_TXT_LEN));
+  for(int i=msg.length(); i < LCD_POS_TXT_LEN; i++) lcd.print(' ');
 }
 
 void screen_resistances(byte resist){
