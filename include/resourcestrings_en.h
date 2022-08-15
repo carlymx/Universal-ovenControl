@@ -15,6 +15,8 @@
 #define RESSTR_CURR_TEMP      "Current Temp"
 #define RESSTR_COOKING        "Cooking" 
 #define RESSTR_COOKING_MODE   "Cooking Mode" 
+#define RESSTR_SEL_TEMP       "Select Temp." 
+#define RESSTR_WARM_UP        "Warming Up" 
 #define RESSTR_SETUP          "Setup" 
 #define RESSTR_SETUP_MODE     "Setup Mode" 
 

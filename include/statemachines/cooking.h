@@ -52,6 +52,7 @@ void verify_temp_under() {
         if (beep_on_temp == true) {
             start_melody(&ON_TEMP_MELODY);
             beep_on_temp = false;
+            screen_text(RESSTR_COOKING);
         }
     }
 }
@@ -63,6 +64,7 @@ void verify_temp_on() {
         if (beep_on_temp == true) {
             start_melody(&ON_TEMP_MELODY);
             beep_on_temp = false;
+            screen_text(RESSTR_COOKING);
         }
     }
 }
@@ -100,7 +102,7 @@ void activate_cooking(){
     screen_resistances(resistances);
     screen_prog_temp(programed_temp);
     screen_current_temp(current_temp);
-    screen_text(RESSTR_COOKING);
+    screen_text(RESSTR_SEL_TEMP);
 }
 
 void state_machine_cooking(byte event){
@@ -118,6 +120,7 @@ void state_machine_cooking(byte event){
                     }
                     set_lights(true);
                     start_melody(&OVEN_GO_MELODY);
+                    screen_text(RESSTR_WARM_UP);
                     break;
 
                 case COOKING_EVENT_KEY_MINUS:
@@ -173,6 +176,7 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
+                    screen_text(RESSTR_SEL_TEMP);
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));
                     cooking_state = COOKING_STATE_OFF;
                     rear_fan = false;
@@ -212,6 +216,7 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
+                    screen_text(RESSTR_SEL_TEMP);
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));
                     cooking_state = COOKING_STATE_OFF;
                     rear_fan = false;
