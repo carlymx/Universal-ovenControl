@@ -23,6 +23,9 @@
 #define LCD_POS_TXT_X       4
 #define LCD_POS_TXT_Y       1
 #define LCD_POS_TXT_LEN    12
+#define LCD_POS_INFO_X      4
+#define LCD_POS_INFO_Y      0
+#define LCD_POS_INFO_LEN   12
 #define LCD_POS_CTEMP_X     5
 #define LCD_POS_CTEMP_Y     0
 #define LCD_POS_CTEMP_LEN   3
@@ -43,9 +46,12 @@
 LiquidCrystal_I2C lcd(0x27,16,2);
 
 String _screen_text = "";
-byte _screen_index = 0;
-byte _screen_index_zero = 0;
+byte _screen_text_index = 0;
+byte _screen_text_index_zero = 0;
 byte _screen_resist = 0;
+String _screen_info = "";
+byte _screen_info_index = 0;
+byte _screen_info_index_zero = 0;
 int _screen_current_temp = 0;
 int _screen_prog_temp = 0;
 
@@ -69,18 +75,37 @@ void screen_clear(){
   lcd.clear();
 }
 
+void screen_write_len(String msg, byte len){
+  lcd.print(msg.substring(0, len - 1));
+  for(int i=msg.length(); i < len; i++) lcd.print(' ');
+}
+
 void screen_refresh(){
   if(_screen_text.length() > LCD_POS_TXT_LEN) {
-    _screen_index_zero++;
-    if (_screen_index_zero > 2){
-      _screen_index++;
-      if (_screen_text.length() - _screen_index + 1 < LCD_POS_TXT_LEN) {
-        _screen_index = 0;
-        _screen_index_zero = 0;
+    _screen_text_index_zero++;
+    if (_screen_text_index_zero > 2){
+      _screen_text_index++;
+      if (_screen_text.length() - _screen_text_index + 1 < LCD_POS_TXT_LEN) {
+        _screen_text_index = 0;
+        _screen_text_index_zero = 0;
       }
 
       lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
-      lcd.print(_screen_text.substring(_screen_index, _screen_index + LCD_POS_TXT_LEN));
+      lcd.print(_screen_text.substring(_screen_text_index, _screen_text_index + LCD_POS_TXT_LEN - 1));
+    }
+  }
+
+  if(_screen_info.length() > LCD_POS_INFO_LEN) {
+    _screen_info_index_zero++;
+    if (_screen_info_index_zero > 2){
+      _screen_info_index++;
+      if (_screen_info.length() - _screen_info_index + 1 < LCD_POS_INFO_LEN) {
+        _screen_info_index = 0;
+        _screen_info_index_zero = 0;
+      }
+
+      lcd.setCursor(LCD_POS_INFO_X, LCD_POS_INFO_Y);
+      lcd.print(_screen_info.substring(_screen_info_index, _screen_info_index + LCD_POS_INFO_LEN - 1));
     }
   }
 }
@@ -92,12 +117,20 @@ void screen_write(byte x, byte y, String msg){
 
 void screen_text(String msg){
   _screen_text = msg;
-  _screen_index = 0;
-  _screen_index_zero = 0;
+  _screen_text_index = 0;
+  _screen_text_index_zero = 0;
 
   lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
-  lcd.print(msg.substring(0, LCD_POS_TXT_LEN));
-  for(int i=msg.length(); i < LCD_POS_TXT_LEN; i++) lcd.print(' ');
+  screen_write_len(msg, LCD_POS_TXT_LEN);
+}
+
+void screen_info(String msg){
+  _screen_info = msg;
+  _screen_info_index = 0;
+  _screen_info_index_zero = 0;
+
+  lcd.setCursor(LCD_POS_INFO_X, LCD_POS_INFO_Y);
+  screen_write_len(msg, LCD_POS_INFO_LEN);
 }
 
 void screen_resistances(byte resist){
@@ -131,10 +164,9 @@ void screen_print_temp(int ctemp, int ptemp){
   if(ptemp != 0)
     sprintf(buff, "%3d/%3d%s", ctemp, ptemp, " C");
   else 
-    sprintf(buff, "    %3d%s  ", ctemp, " C");
+    sprintf(buff, "    %3d%s", ctemp, " C");
 
-  lcd.setCursor(LCD_POS_CTEMP_X, LCD_POS_CTEMP_Y);
-  lcd.print(String(buff));
+  screen_info(buff);
 }
 
 void screen_current_temp(int temp){

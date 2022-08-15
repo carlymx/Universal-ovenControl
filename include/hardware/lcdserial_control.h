@@ -31,6 +31,10 @@ void screen_text(String msg){
     Serial.println(msg);
 }
 
+void screen_info(String msg){
+    Serial.println(msg);
+}
+
 void screen_resistances(byte resist){
     Serial.println(String(resist));
 }
