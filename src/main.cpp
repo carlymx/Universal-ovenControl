@@ -23,7 +23,7 @@ void setup() {
   // INPUTS PINS
   pinMode(PIN_OPEN_DOOR, INPUT);
   pinMode(PRIMARY_SENSOR, INPUT);
-  pinMode(SECUNDARY_SENSOR, INPUT);
+  pinMode(SECONDARY_SENSOR, INPUT);
   pinMode(PIN_PUSH_00, INPUT);
   pinMode(PIN_PUSH_01, INPUT);
   pinMode(PIN_PUSH_02, INPUT);
@@ -111,7 +111,7 @@ void loop() {
     activate_zero_crossing_detect(true);  // ENABLE INTERRUPTS
     
     read_temperature_primary();
-    read_temperature_secundary();
+    read_temperature_secondary();
     
     // Utilizamos ventiladores segun el sensor
     if((active_state_machine == STATE_MACHINE_CALIBRATE) ||
