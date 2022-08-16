@@ -16,10 +16,10 @@ EEPROM (WRITE ALL 0'S) AND FORMAT IT WITH THE
 DATA REQUIRED FOR A FIRST START-UP. */
 
 #define EEPROM_CRC_CONTROL      123     // ALEATORY NUMBER FOR ADDITION CRC
-#define PROJECT_NAME            "Universal ovenCONTROL"
-#define PROJECT_VERSION         "v0.92b"
-#define PROJECT_URL             "https://github.com/carlymx/Universal-ovenControl"
-#define PROJECT_TEMP_IN         "ºC"
+//#define PROJECT_NAME            "Universal ovenCONTROL"
+//#define PROJECT_VERSION         "v0.92b"
+//#define PROJECT_URL             "https://github.com/carlymx/Universal-ovenControl"
+//#define PROJECT_TEMP_IN         "ºC"
 
 #define TEMP_INTERVAL 5
 #define TEMP_INI 0

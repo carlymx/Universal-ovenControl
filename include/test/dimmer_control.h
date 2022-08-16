@@ -19,7 +19,13 @@ void set_dimmer_control_cool(unsigned int vel) {
     if (current_vel_cool != vel) {
         current_vel_cool = vel;
         dimmer_control_power(PIN_COOL_FAN, current_vel_cool);
-        Serial.print("Dimmer Cool: "+String(vel) +" - " +String(vel/(DIMMER_CONTROL_POWER_100/100)) +"%" +"\n");
+        #ifdef DEBUG_LOG
+        Serial.print("Dimmer Cool TEST: ");
+        Serial.print(vel);
+        Serial.print(" - ");
+        Serial.print(vel/(DIMMER_CONTROL_POWER_100/100)));
+        Serial.println("%");
+        #endif        
     }
 }
 
@@ -27,6 +33,11 @@ void set_dimmer_control_rear(unsigned int vel) {
         if (current_vel_rear != vel) {
         current_vel_rear = vel;
         dimmer_control_power(PIN_CHAMBER_FAN, current_vel_rear);
-        Serial.print("Dimmer Rear: "+String(vel) +" - " +String(vel/(DIMMER_CONTROL_POWER_100/100)) +"%" +"\n");
-    }
+        #ifdef DEBUG_LOG
+        Serial.print("Dimmer Rear TEST: ");
+        Serial.print(vel);
+        Serial.print(" - ");
+        Serial.print(vel/(DIMMER_CONTROL_POWER_100/100)));
+        Serial.println("%");
+        #endif    }
 }

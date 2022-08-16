@@ -9,5 +9,8 @@
 
 void set_lights(bool active) {
     digitalWrite(PIN_LIGHT_CHAMBER, active == true ? HIGH : LOW);
-    Serial.print("Light: " + (String)(active ? "ON" : "OFF") + "\n"); 
+    #ifdef DEBUG_LOG
+    Serial.print("Light: ");
+    Serial.println((String)(active ? "ON" : "OFF");
+    #endif
 }

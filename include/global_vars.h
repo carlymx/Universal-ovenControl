@@ -49,8 +49,6 @@ int current_temp = 0;
 int current_temp_primary = 0;
 int current_temp_secondary = 0;
 
-float temp_primary_sensor;
-float temp_secondary_sensor;
 int raw_primary_sensor = 0;
 int raw_secondary_sensor = 0;
 

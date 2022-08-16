@@ -31,17 +31,22 @@ void write_eeprom(){
 
 void format_eeprom(){
     int eeprom_size = EEPROM.length();
-
-    Serial.print("ERASE EEPROM...\n");
+    #ifdef DEBUG_LOG
+    Serial.println("ERASE EEPROM...");
+    #endif
     for( int index=0; index<eeprom_size; index++){
         EEPROM[index] = 0;
     }
-    delay(500); Serial.print("ERASE COMPLETE.\n");
-
-    Serial.print("EEPROM FORMATING...\n");
+    delay(500); 
+    #ifdef DEBUG_LOG
+    Serial.println("ERASE COMPLETE.");
+    Serial.println("EEPROM FORMATING...");
+    #endif
     write_eeprom();
     delay(500);
-    Serial.print("FORMAT COMPLETE...\n");
+    #ifdef DEBUG_LOG
+    Serial.println("FORMAT COMPLETE...");
+    #endif
     delay(1000);
 }
 
@@ -79,17 +84,22 @@ int read_eeprom(){
         if (aux != PROJECT_TEMP_IN) err = 5;
     } */
 
-    Serial.println("Err: " + String(err));
+    #ifdef DEBUG_LOG
+    Serial.print("EEPROM Err: ");
+    Serial.println(err);
+    #endif
 
-    if (err == 0) {    
+    if (err == 0)
         EEPROM.get(eeprom_address, prog_eeprom_actual);
-    }
 
-    Serial.println("Eeprom: " + String(prog_eeprom_actual.mapped01));
+    #ifdef DEBUG_LOG
+    Serial.print("Eeprom: ");
+    Serial.println(prog_eeprom_actual.mapped01);
     //Serial.println("Leyendo Estructura EEPROM:");
     //Serial.println(BASIC_FORMAT_EEPROM.eepromCRC);
     //Serial.println(BASIC_FORMAT_EEPROM.data);
     //Serial.println(BASIC_FORMAT_EEPROM.temp_obj);
+    #endif
 
     return err;
 }

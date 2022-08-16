@@ -31,11 +31,14 @@ int read_temperature_map(int raw_temp, program_eeprom* prog) {
 void read_temperature_primary(){
     raw_primary_sensor = analogRead(PRIMARY_SENSOR);    // READ TERMISTOR 
     //  TODO: Buscar según tabla
-    temp_primary_sensor = read_temperature_map(raw_primary_sensor, &prog_eeprom_actual); // read_temperature(raw_primary_sensor, RESISTANCE_PRIMARY_SENSOR); 
+    int temp_primary_sensor = read_temperature_map(raw_primary_sensor, &prog_eeprom_actual); // read_temperature(raw_primary_sensor, RESISTANCE_PRIMARY_SENSOR); 
+
+    #ifdef DEBUG_LOG
     Serial.print("Sensor A1: "); 
     Serial.print(temp_primary_sensor);
     Serial.print(" Raw: ");
     Serial.println(raw_primary_sensor);
+    #endif  
     
     if (current_temp_primary != temp_primary_sensor){
         current_temp_primary = temp_primary_sensor;
@@ -45,11 +48,14 @@ void read_temperature_primary(){
 
 void read_temperature_secundary(){
     raw_secondary_sensor = analogRead(SECUNDARY_SENSOR);  
-    temp_secondary_sensor = read_temperature(raw_secondary_sensor, RESISTANCE_SECUNDARY_SENSOR); 
+    int temp_secondary_sensor = read_temperature(raw_secondary_sensor, RESISTANCE_SECUNDARY_SENSOR); 
+
+    #ifdef DEBUG_LOG
     Serial.print("Sensor A2: "); 
     Serial.print(temp_secondary_sensor);
     Serial.print(" Raw: ");
     Serial.println(raw_secondary_sensor);
+    #endif
 
     if (current_temp_secondary != temp_secondary_sensor){
         current_temp_secondary = temp_secondary_sensor;

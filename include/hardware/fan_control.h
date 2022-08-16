@@ -19,6 +19,14 @@ void set_fan(unsigned int vel) {
     if (current_vel_pcb != vel) {
         current_vel_pcb = vel;
         analogWrite(PIN_PCB_FAN, vel);
-        Serial.print("PCB Fan: "+String(vel) +"/" +String((int)PWM_RATE-1) +" - " +String((int)((vel*100)/(PWM_RATE-1))) +"%" +"\n");
+        #ifdef DEBUG_LOG
+        Serial.print("PCB Fan: ");
+        Serial.print(vel);
+        Serial.print("/");
+        Serial.print((int)PWM_RATE-1);
+        Serial.print(" - ");
+        Serial.print((int)((vel*100)/(PWM_RATE-1));
+        Serial.println("%");
+        #endif
     }
 }

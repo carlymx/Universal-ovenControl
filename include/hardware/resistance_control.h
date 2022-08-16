@@ -21,7 +21,9 @@ void set_resistance(byte resist, bool active) {
     if (active == true && ((resist & RESIST_REAR) != 0)) digitalWrite(PIN_RESISTOR_REAR, HIGH);
     else digitalWrite(PIN_RESISTOR_REAR, LOW);
  
+    #ifdef DEBUG_LOG
     Serial.print("Resistances ");
     Serial.print((String)(active ? " ON!: " : "OFF!: "));
     Serial.println(resistances_to_text(resist));
+    #endif
 }

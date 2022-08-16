@@ -34,17 +34,20 @@ void setup() {
 
   #ifdef USB_SERIAL_PORT
     usb_serial_init();
-    Serial.print(RESSTR_STARTING);
-    Serial.print(" ");
-    Serial.println(RESSTR_APP_NAME);
+  #endif
 
-    Serial.print(RESSTR_MIN_TEMP);
-    Serial.print(": ");
-    Serial.print(MIN_TEMP_COOK);
-    Serial.print(" - ");
-    Serial.print(RESSTR_MAX_TEMP);
-    Serial.print(": ");
-    Serial.println(MAX_TEMP_COOK);
+  #ifdef DEBUG_LOG
+  Serial.print(RESSTR_STARTING);
+  Serial.print(" ");
+  Serial.println(RESSTR_APP_NAME);
+
+  Serial.print(RESSTR_MIN_TEMP);
+  Serial.print(": ");
+  Serial.print(MIN_TEMP_COOK);
+  Serial.print(" - ");
+  Serial.print(RESSTR_MAX_TEMP);
+  Serial.print(": ");
+  Serial.println(MAX_TEMP_COOK);
   #endif
 
   screen_init();
@@ -121,9 +124,11 @@ void loop() {
       temp_change = temp_change_primary;
     }
 
+    #ifdef DEBUG_LOG
     Serial.print(RESSTR_CURR_TEMP); 
     Serial.print(": ");
     Serial.println(current_temp);
+    #endif
 
     control_pcb_fan(current_temp);
     control_dimmer_rear(current_temp);
