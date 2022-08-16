@@ -18,7 +18,7 @@
 #include <global_vars.h>
 #include <text_funcs.h>
 #include <melodys.h>
-#include <hardware/inputs_control.h>
+#include <temperature_func.h>
 
 //======================================
 //            MISC INCLUDES:           =
@@ -59,6 +59,7 @@
 //          HARDWARE INCLUDES:         =
 //======================================
 
+#include <hardware/inputs_control.h>
 #include <hardware/resistance_control.h>
 #include <hardware/zero_crossing_control.h>
 #include <hardware/dimmer_control.h>
