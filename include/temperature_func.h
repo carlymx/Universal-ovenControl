@@ -43,7 +43,7 @@ int read_temperature_beta(int temp_sensor, long resistance, long therm_r0, int t
 
 int read_temperature_map(int raw_temp, program_eeprom* prog) {
     for (unsigned int i=0; i<prog->lon_temp; i++){
-        if (raw_temp <= prog->temp_map01[i]) 
+        if (raw_temp < prog->temp_map01[i]) 
             return TEMP_INI + ((i == 0 ? 0 : i-1) * TEMP_INTERVAL);
     } 
 
