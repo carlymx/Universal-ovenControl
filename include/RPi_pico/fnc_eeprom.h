@@ -13,12 +13,13 @@
 
 // #include <EEPROM.h> <- (want for raspberrypi PICO)
 
-void format_eeprom(){
+void write_eeprom(){
+}
 
+void format_eeprom(){
 }
 
 void read_eeprom(){
-
 }
 
 /* https://raspberrypi.github.io/pico-sdk-doxygen/group__hardware__flash.html

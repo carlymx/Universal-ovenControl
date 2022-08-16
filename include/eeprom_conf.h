@@ -46,11 +46,10 @@ void init_program_eeprom(program_eeprom* a){
     }
 }
 
-#if defined ARDUINO_BOARDS
-    #include <arduino/fnc_eeprom.h>
-#if defined RASPBERRYPI_PICO
-    #include <RPi_pico/fnc_eeprom.h>
 #if defined LGT8F328P
     #include <LGT8F328P/fnc_eeprom.h>
+#elif defined RASPBERRYPI_PICO
+    #include <RPi_pico/fnc_eeprom.h>
+#elif defined ARDUINO_BOARDS
+    #include <arduino/fnc_eeprom.h>
 #endif
-
