@@ -123,7 +123,7 @@ void loop() {
 
     Serial.print(RESSTR_CURR_TEMP); 
     Serial.print(": ");
-    Serial.println(String(current_temp));
+    Serial.println(current_temp);
 
     control_pcb_fan(current_temp);
     control_dimmer_rear(current_temp);

@@ -49,11 +49,11 @@ void add_menu(byte a){
 }
 
 void set_map_temp(program_eeprom* prog) {
-    while((cur_idx_calibrate < TEMP_NUM) && (prog->temp_obj[cur_idx_calibrate] <= current_temp_secondary)){
+    while((cur_idx_calibrate < TEMP_NUM) && (TEMP_INI + (cur_idx_calibrate * TEMP_INTERVAL) <= current_temp_secondary)){
         prog->temp_map01[cur_idx_calibrate] = raw_primary_sensor;
-        Serial.print(String(prog->temp_obj[cur_idx_calibrate]));
+        Serial.print(TEMP_INI + (cur_idx_calibrate * TEMP_INTERVAL));
         Serial.print(": ");
-        Serial.println(String(prog->temp_map01[cur_idx_calibrate]));
+        Serial.println(prog->temp_map01[cur_idx_calibrate]);
         cur_idx_calibrate++;
     }
 }

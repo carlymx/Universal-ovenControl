@@ -42,7 +42,7 @@ void programed_temp_change(){
     screen_prog_temp(programed_temp);
     Serial.print(RESSTR_PROG_TEMP);
     Serial.print(": ");
-    Serial.println(String(programed_temp));
+    Serial.println(programed_temp);
 }
 
 void verify_temp_under() {
@@ -90,6 +90,7 @@ void reset_resistances(){
 void calibrate_mode(){
     calibrate_mode_counter++;
     if (calibrate_mode_counter == 4) {
+        Serial.println("Calibrate mode");
         active_state_machine = STATE_MACHINE_CALIBRATE;
         active_state_machine_change = true;
         calibrate_mode_counter = 0;
