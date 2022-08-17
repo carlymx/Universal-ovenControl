@@ -26,10 +26,13 @@ DATA REQUIRED FOR A FIRST START-UP. */
 #define TEMP_FIN 255 
 #define TEMP_NUM ((TEMP_FIN - TEMP_INI) / TEMP_INTERVAL) + 1
 
+#define EEPROM_OPT_MAPPED     1
+#define EEPROM_OPT_DESCENDING 2
+
 // EEPROM STRUCTURE:
 struct program_eeprom {
     byte lon_temp;
-    bool mapped01;
+    byte options;
     int temp_map01[TEMP_NUM];
 };
 
@@ -38,7 +41,7 @@ struct program_eeprom prog_eeprom_actual;
 
 void init_program_eeprom(program_eeprom* a){
     a->lon_temp = TEMP_NUM;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-    a->mapped01 = false;
+    a->options = 0;
 
     // Tabla de temperaturas cada 5 grados    
     for (byte i = TEMP_INI / TEMP_INTERVAL; i < TEMP_NUM; i++) {

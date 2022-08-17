@@ -24,3 +24,6 @@
 #define RESSTR_SETUP_MENU_TEST_FAN       "Test fan"
 #define RESSTR_SETUP_MENU_TEST_REAR_FAN  "Test rear fan"
 #define RESSTR_SETUP_MENU_TEST_COOL_FAN  "Test cool fan"    
+
+#define RESSTR_CALIBRATION_START         "Calibration Start"
+#define RESSTR_CALIBRATION_END           "Calibration End"
