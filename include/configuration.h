@@ -7,11 +7,14 @@
     2022
 ***************************************************************/
 
-#ifdef ARDUINO_BOARDS   // FOR ARDUINO AVR BOARDS (UNO, NANO, MINI...)
-    #include <arduino/configuration_pins.h>
-#else                   // FOR RASPBERRY PI PICO /W
-    #include <RPi_pico/configuration_pins.h>
+#if defined LGT8F328P           // FOR LGT8F328P (ARDUINO COMPATIBLE)
+    #include <boards/LGT8F328P/configuration_pins.h>
+#elif defined RASPBERRYPI_PICO  // FOR RASPBERRY PI PICO /W
+    #include <boards/RPi_pico/configuration_pins.h>
+#elif defined ARDUINO_BOARDS    // FOR ARDUINO AVR BOARDS (UNO, NANO, MINI...)
+    #include <boards/arduino/configuration_pins.h>
 #endif
+
 
 //===========================================
 //         HARDWARE CONFIGURATION:          =
