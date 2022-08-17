@@ -74,6 +74,7 @@ void state_machine_calibrate(byte event){
                     switch (sel_menu[menu_opt]) {
                         case CALIBRATE_STATE_CALIBRATE:
                             // Empezamos calibracion
+                            screen_text(RESSTR_CALIBRATION_START);
                             Serial.print("\n=========================\n");
                             Serial.print("  Start Calibration:...\n");
                             Serial.print("=========================\n\n");
@@ -129,7 +130,10 @@ void state_machine_calibrate(byte event){
                     set_map_temp(&prog_eeprom_actual);
 
                     if(cur_idx_calibrate >= TEMP_NUM){
-                        prog_eeprom_actual.mapped01 = true;
+                        prog_eeprom_actual.options = EEPROM_OPT_MAPPED;
+                        if(prog_eeprom_actual.temp_map01[0] > prog_eeprom_actual.temp_map01[TEMP_NUM])
+                            prog_eeprom_actual.options += EEPROM_OPT_DESCENDING;
+
                         write_eeprom(); 
                         set_resistance(resistances, false);
                         start_melody(&ON_TEMP_MELODY);
@@ -137,6 +141,7 @@ void state_machine_calibrate(byte event){
                         Serial.print("\n=========================\n");
                         Serial.print(" ¡¡¡ End Calibration !!!\n");
                         Serial.print("=========================\n\n");
+                        screen_text(RESSTR_CALIBRATION_END);
                         calibrate_state = CALIBRATE_STATE_OFF;
                     }                   
                     break;
