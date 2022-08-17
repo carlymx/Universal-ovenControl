@@ -104,24 +104,32 @@ void loop() {
   // FAST TIMER ACTIONS:
   if (fast_click == true){
       screen_refresh();
+
+      // Si calibramos, miramos en fastclick
+      if(active_state_machine == STATE_MACHINE_CALIBRATE){
+        read_temperature_primary();
+        read_temperature_secondary();
+
+        current_temp = current_temp_secondary;
+        temp_change = temp_change_secondary;
+      }
   }
 
   // FULL TIMER ACTIONS:
   if (full_click == true){
     activate_zero_crossing_detect(true);  // ENABLE INTERRUPTS
     
-    read_temperature_primary();
-    read_temperature_secondary();
-    
-    // Utilizamos ventiladores segun el sensor
-    if((active_state_machine == STATE_MACHINE_CALIBRATE) ||
-       (prog_eeprom_actual.mapped01 == false)){
-      current_temp = current_temp_secondary;
-      temp_change = temp_change_secondary;
-    }
-    else {
-      current_temp = current_temp_primary;
-      temp_change = temp_change_primary;
+    if(active_state_machine != STATE_MACHINE_CALIBRATE){
+      if((prog_eeprom_actual.options & EEPROM_OPT_MAPPED) == 0){
+        read_temperature_secondary();
+        current_temp = current_temp_secondary;
+        temp_change = temp_change_secondary;
+      }
+      else {
+        read_temperature_primary();
+        current_temp = current_temp_primary;
+        temp_change = temp_change_primary;
+      }
     }
 
     #ifdef DEBUG_LOG
