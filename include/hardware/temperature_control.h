@@ -27,9 +27,9 @@ void read_temperature_primary(){
 
 void read_temperature_secondary(){
     raw_secondary_sensor = analogRead(SECONDARY_SENSOR);  
-    int temp_secondary_sensor = read_temperature(raw_secondary_sensor, RESISTANCE_SECONDARY_SENSOR, c1, c2, c3, PULLUP_SECONDARY == 1); 
-    //int temp_secondary_sensor2 = read_temperature_beta(raw_secondary_sensor, RESISTANCE_SECONDARY_SENSOR, THERMISTOR_SECONDARY_RESIST, 
-    //                                                  THERMISTOR_SECONDARY_TEMP, THERMISTOR_SECONDARY_BETA, PULLUP_SECONDARY == 1); 
+    //int temp_secondary_sensor = read_temperature(raw_secondary_sensor, RESISTANCE_SECONDARY_SENSOR, c1, c2, c3, PULLUP_SECONDARY == 1); 
+    int temp_secondary_sensor = read_temperature_beta(raw_secondary_sensor, RESISTANCE_SECONDARY_SENSOR, THERMISTOR_SECONDARY_RESIST, 
+                                                      THERMISTOR_SECONDARY_TEMP, THERMISTOR_SECONDARY_BETA, PULLUP_SECONDARY == 1); 
     #ifdef DEBUG_LOG
     Serial.print("Sensor A2: "); 
     Serial.print(temp_secondary_sensor);
