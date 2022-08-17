@@ -19,6 +19,7 @@
 #include <text_funcs.h>
 #include <melodys.h>
 #include <temperature_func.h>
+#include <timer_control.h>
 
 //======================================
 //            MISC INCLUDES:           =
@@ -73,4 +74,4 @@
 //======================================
 
 #include <statemachines/cooking.h>
-#include <statemachines/calibrate.h>
+#include <statemachines/setup.h>

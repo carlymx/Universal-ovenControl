@@ -37,11 +37,13 @@
 #define THERMISTOR_SECONDARY_BETA       3950              // FOR NTC3950-100KOhms
 #define PULLUP_SECONDARY                   0              // PULLDOWN = 0 / PULLUP = 1
 
-#define MAX_TEMPERATURE                250                // 250ºC MAX TEMPERATURE SEGURITY LOCK
+#define MAX_TEMPERATURE                  250              // 250ºC MAX TEMPERATURE SEGURITY LOCK
 
 #define TIME_UFAST_CLICK  100    // IN ms - DEFAULT = 100 (0.1 seg)
 #define TIME_FAST_CLICK     5    // UFAST MULTIPLIER - DEFAULT = 5 (0.5 seg)
 #define TIME_FULL_CLICK    50    // UFAST MULTIPLIER - DEFAULT = 50 (5 seg)
+
+#define TIMER_INACTIVE    30000  // IN ms 
 
 
 //===========================================
@@ -112,5 +114,4 @@ float c3 = 0.00006146459005e-7;   // COEFFICIENT C NTC 25/50 Beta3950 100KOhms
 //===========================================
 
 // #define BOARD_TEST       // IF ACTIVATED, BOARD IN TEST MODE (DESACTIVATE DEFAULT)
-// #define FORMAT_EEPROM    // IF ACTIVATED, ERASE EEPROM AND FORMAT
 // #define DEBUG_LOG        // IF ACTIVATED, SERIAL.PRINT FOR DEBUGING

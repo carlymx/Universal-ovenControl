@@ -37,17 +37,9 @@ void format_eeprom(){
     for( int index=0; index<eeprom_size; index++){
         EEPROM[index] = 0;
     }
-    delay(500); 
     #ifdef DEBUG_LOG
     Serial.println("ERASE COMPLETE.");
-    Serial.println("EEPROM FORMATING...");
     #endif
-    write_eeprom();
-    delay(500);
-    #ifdef DEBUG_LOG
-    Serial.println("FORMAT COMPLETE...");
-    #endif
-    delay(1000);
 }
 
 int read_eeprom(){

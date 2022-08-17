@@ -9,8 +9,9 @@
 
 // STATES
 #define COOKING_STATE_OFF         0
-#define COOKING_STATE_UNDER_TEMP  1
-#define COOKING_STATE_ON_TEMP     2
+#define COOKING_STATE_SET_TEMP    1
+#define COOKING_STATE_UNDER_TEMP  2
+#define COOKING_STATE_ON_TEMP     3
 
 // EVENTS
 #define COOKING_EVENT_KEY_PLUS    0
@@ -19,6 +20,8 @@
 #define COOKING_EVENT_KEY_CANCEL  3
 #define COOKING_EVENT_TEMP_CHANGE 4
 #define COOKING_EVENT_OPEN_DOOR   5
+#define COOKING_EVENT_INACTIVE    6
+#define COOKING_EVENT_TIMER       7
 
 #define DEFAULT_TEMP_COOK  180
 #define MIN_TEMP_COOK       30
@@ -103,45 +106,40 @@ void activate_cooking(){
     screen_resistances(resistances);
     screen_prog_temp(programed_temp);
     screen_current_temp(current_temp);
-    screen_text(RESSTR_SEL_TEMP);
+    screen_text(RESSTR_APP_NAME);
+}
+
+void state_machine_cooking_set_state(byte state){
+    switch(state) {
+        case COOKING_STATE_OFF:
+            screen_backlight(false);
+            screen_text(RESSTR_APP_NAME);
+            break;
+
+        case COOKING_STATE_SET_TEMP:
+            break;
+
+        case COOKING_STATE_UNDER_TEMP:
+        case COOKING_STATE_ON_TEMP:
+            set_lights(true);
+            break;
+    }
+
+    cooking_state = state;
 }
 
 void state_machine_cooking(byte event){
-    switch (cooking_state) {
+    switch(cooking_state) {
         case COOKING_STATE_OFF:
-            switch (event) {
+            switch(event) {
                 case COOKING_EVENT_KEY_ENTER: 
-                    beep_on_temp = true;
-                    if (current_temp < programed_temp){
-                        set_resistance(resistances, true);
-                        cooking_state = COOKING_STATE_UNDER_TEMP;
-                    }
-                    else {
-                        cooking_state = COOKING_STATE_ON_TEMP;
-                    }
-                    set_lights(true);
-                    start_melody(&OVEN_GO_MELODY);
-                    screen_text(RESSTR_WARM_UP);
-                    break;
-
                 case COOKING_EVENT_KEY_MINUS:
-                    programed_temp -= STEP_TEMP_COOK; 
-                    if (programed_temp < MIN_TEMP_COOK) programed_temp = MIN_TEMP_COOK;
-                    programed_temp_change();
-                    break;
-
                 case COOKING_EVENT_KEY_PLUS: 
-                    programed_temp += STEP_TEMP_COOK; 
-                    if (programed_temp > MAX_TEMP_COOK) programed_temp = MAX_TEMP_COOK;
-                    programed_temp_change();
-                    break;
-
                 case COOKING_EVENT_KEY_CANCEL: 
-                    programed_temp = DEFAULT_TEMP_COOK;
-                    programed_temp_change();
-                    reset_resistances();
-                    // TODO: Aqui podriamos ir al menu de settings
-                    calibrate_mode();
+                    screen_backlight(true);
+                    screen_text(RESSTR_SEL_TEMP);
+                    start_timer_inactive(TIMER_INACTIVE);
+                    state_machine_cooking_set_state(COOKING_STATE_SET_TEMP);
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
@@ -154,8 +152,66 @@ void state_machine_cooking(byte event){
             }
             break;
 
+        case COOKING_STATE_SET_TEMP:
+            switch(event) {
+                case COOKING_EVENT_KEY_ENTER: 
+                    beep_on_temp = true;
+                    if (current_temp < programed_temp){
+                        set_resistance(resistances, true);
+                        state_machine_cooking_set_state(COOKING_STATE_UNDER_TEMP);
+                    }
+                    else {
+                        state_machine_cooking_set_state(COOKING_STATE_ON_TEMP);
+                    }
+                    set_lights(true);
+                    start_melody(&OVEN_GO_MELODY);
+                    screen_text(RESSTR_WARM_UP);
+                    start_timer_inactive(0);
+                    break;
+
+                case COOKING_EVENT_KEY_MINUS:
+                    programed_temp -= STEP_TEMP_COOK; 
+                    if (programed_temp < MIN_TEMP_COOK) programed_temp = MIN_TEMP_COOK;
+                    programed_temp_change();
+                    start_timer_inactive(TIMER_INACTIVE);
+                    break;
+
+                case COOKING_EVENT_KEY_PLUS: 
+                    programed_temp += STEP_TEMP_COOK; 
+                    if (programed_temp > MAX_TEMP_COOK) programed_temp = MAX_TEMP_COOK;
+                    programed_temp_change();
+                    start_timer_inactive(TIMER_INACTIVE);
+                    break;
+
+                case COOKING_EVENT_KEY_CANCEL: 
+                    programed_temp = DEFAULT_TEMP_COOK;
+                    programed_temp_change();
+                    reset_resistances();
+                    // TODO: Aqui podriamos ir al menu de settings
+                    calibrate_mode();
+                    start_timer_inactive(TIMER_INACTIVE);
+                    break;
+
+                case COOKING_EVENT_TEMP_CHANGE: 
+                    screen_current_temp(current_temp);
+                    break;
+
+                case COOKING_EVENT_OPEN_DOOR: 
+                    set_lights(is_input_active(current_inputs, DOOR_SENSOR));                 
+                    break;
+
+                case COOKING_EVENT_INACTIVE:
+                    resistances = RESIST_UP + RESIST_DOWN;
+                    programed_temp = DEFAULT_TEMP_COOK;
+                    screen_resistances(resistances);
+                    programed_temp_change();
+                    state_machine_cooking_set_state(COOKING_STATE_OFF);
+                    break;
+            }
+            break;
+
         case COOKING_STATE_UNDER_TEMP:
-            switch (event) {
+            switch(event) {
                 case COOKING_EVENT_KEY_ENTER: 
                     incr_resistances();
                     set_resistance(resistances, true);
@@ -177,9 +233,8 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
-                    screen_text(RESSTR_SEL_TEMP);
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));
-                    cooking_state = COOKING_STATE_OFF;
+                    state_machine_cooking_set_state(COOKING_STATE_OFF);
                     rear_fan = false;
                     break;
 
@@ -195,7 +250,7 @@ void state_machine_cooking(byte event){
             break;
 
         case COOKING_STATE_ON_TEMP:
-            switch (event) {
+            switch(event) {
                 case COOKING_EVENT_KEY_ENTER: 
                     incr_resistances();
                     set_resistance(resistances, false);
@@ -217,9 +272,8 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
-                    screen_text(RESSTR_SEL_TEMP);
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));
-                    cooking_state = COOKING_STATE_OFF;
+                    state_machine_cooking_set_state(COOKING_STATE_OFF);
                     rear_fan = false;
                     break;
 

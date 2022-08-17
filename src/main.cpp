@@ -56,10 +56,7 @@ void setup() {
   screen_write(0, 1, RESSTR_APP_NAME);
   delay(3000);
   
-  #if defined FORMAT_EEPROM
-    format_eeprom();
-    read_eeprom();
-  #elif defined BOARD_TEST
+  #if defined BOARD_TEST
     board_test_outputs();
   #else
     read_eeprom();
@@ -79,9 +76,6 @@ void loop() {
       Serial.println("Inputs: " + String(inputs));
     }
     last_input = inputs;
-//=======================================
-  #elif defined FORMAT_EEPROM
-    // EMPTY AT THE MOMENT
   #else
 // NORMAL MODE:==========================
 
@@ -103,6 +97,7 @@ void loop() {
   }
   // FAST TIMER ACTIONS:
   if (fast_click == true){
+      timers_verify();
       screen_refresh();
 
       // Si calibramos, miramos en fastclick
@@ -149,12 +144,14 @@ void loop() {
         if (active_state_machine_change == true) activate_cooking();
         if (input_change == true) inputs_change_cooking(current_inputs);
         if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
+        if (timer_inactive_timeout == true) state_machine_cooking(COOKING_EVENT_INACTIVE);
         break;
 
       case STATE_MACHINE_CALIBRATE:
-        if (active_state_machine_change == true) activate_calibrate();
-        if (input_change == true) inputs_change_calibrate(current_inputs);
-        if (temp_change == true) state_machine_calibrate(COOKING_EVENT_TEMP_CHANGE);
+        if (active_state_machine_change == true) activate_setup();
+        if (input_change == true) inputs_change_setup(current_inputs);
+        if (temp_change == true) state_machine_setup(SETUP_EVENT_TEMP_CHANGE);
+        if (timer_inactive_timeout == true) state_machine_setup(SETUP_EVENT_INACTIVE);
         break;
   }
   
@@ -163,6 +160,7 @@ void loop() {
   temp_change_primary = false;
   temp_change_secondary = false;
   active_state_machine_change = false;
+  timer_inactive_timeout = false;
 
   //=======================================
   #endif  

@@ -21,9 +21,15 @@
 #define RESSTR_SETUP_MODE     "Modo Configurar" 
 
 #define RESSTR_SETUP_MENU_CALIBRATE      "Calibrate"
+#define RESSTR_SETUP_MENU_FORMAT_EEPROM  "Format EEPROM"
 #define RESSTR_SETUP_MENU_TEST_FAN       "Test fan"
 #define RESSTR_SETUP_MENU_TEST_REAR_FAN  "Test rear fan"
 #define RESSTR_SETUP_MENU_TEST_COOL_FAN  "Test cool fan" 
 
 #define RESSTR_CALIBRATION_START         "Calibration Start"
 #define RESSTR_CALIBRATION_END           "Calibration End"
+
+#define RESSTR_FORMAT_EEPROM_START       "Pulsa + para formatear EEPROM"
+#define RESSTR_FORMAT_EEPROM_END         "EEPROM formateada"
+
+#define RESSTR_OPERATION_CANCELED        "Operacion cancelada"
