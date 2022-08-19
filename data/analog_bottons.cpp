@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-//----------- CONFIGURATION: ----------
+//----------- CONFIGURATION: ----------1
 #define ADC_BITS         8
 #define ADC_RATE  pow(2, ADC_BITS)
 
