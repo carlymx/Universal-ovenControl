@@ -22,41 +22,52 @@
 #define STATE_MACHINE_CALIBRATE 1
 #define STATE_MACHINE_TEST      2
 
-byte pin_in[] = {
-    ANALOG_BUTTON1, ANALOG_BUTTON2, ANALOG_BUTTON3, ANALOG_BUTTON4, PIN_OPEN_DOOR
-}; 
+//=============================================//
+//            GLOBAL INPUTS VARIBLES:          //
+//=============================================//
 
-bool pin_res[] = { // Si queremos activo con high (true) o low (false)
-    true, true, true, true, true
-};
+    // ----- ANALOG INPUTS: ----- //
+    byte analog_bottons_list[4] = {
+        ANALOG_BUTTON1, ANALOG_BUTTON2, ANALOG_BUTTON3, ANALOG_BUTTON4};
+    bool botton_active = false;
+    byte input_push = 0;
 
-byte current_inputs = 0;
+    // ---- DIGITAL INPUTS: ----- //
+    byte pin_in[5] = {
+        ANALOG_BUTTON1, ANALOG_BUTTON2, ANALOG_BUTTON3, ANALOG_BUTTON4, PIN_OPEN_DOOR}; 
+    bool pin_res[5] = { // Si queremos activo con high (true) o low (false)
+        true, true, true, true, true};
+    byte current_inputs = 0;
+    bool is_input_active(byte inputs, byte sensor){
+        return ((inputs & (1 << sensor)) != 0);
+    }
 
-bool is_input_active(byte inputs, byte sensor){
-    return ((inputs & (1 << sensor)) != 0);
-}
 
-bool temp_change = false;
-bool temp_change_primary = false;
-bool temp_change_secondary = false;
-bool input_change = false;
+//=============================================//
+//                GLOBAL VARIBLES:             //
+//=============================================//
 
-volatile bool zero_crossing_detected = false;
-bool zero_crossing_active = false;
-volatile unsigned long zero_crossing_timer = 0;   // TIMER MICROS FOR DIMMER CONTROL
+    bool temp_change = false;
+    bool temp_change_primary = false;
+    bool temp_change_secondary = false;
+    bool input_change = false;
 
-int current_temp = 0;
-int current_temp_primary = 0;
-int current_temp_secondary = 0;
+    volatile bool zero_crossing_detected = false;
+    bool zero_crossing_active = false;
+    volatile unsigned long zero_crossing_timer = 0;   // TIMER MICROS FOR DIMMER CONTROL
 
-int raw_primary_sensor = 0;
-int raw_secondary_sensor = 0;
+    int current_temp = 0;
+    int current_temp_primary = 0;
+    int current_temp_secondary = 0;
 
-bool resistance_active = false;
+    int raw_primary_sensor = 0;
+    int raw_secondary_sensor = 0;
 
-byte active_state_machine = STATE_MACHINE_COOKING;
-bool active_state_machine_change =  false;
+    bool resistance_active = false;
 
-bool rear_fan = false;
+    byte active_state_machine = STATE_MACHINE_COOKING;
+    bool active_state_machine_change =  false;
+
+    bool rear_fan = false;
 
 
