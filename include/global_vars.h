@@ -23,7 +23,7 @@
 #define STATE_MACHINE_TEST      2
 
 byte pin_in[] = {
-    PIN_PUSH_00, PIN_PUSH_01, PIN_PUSH_02, PIN_PUSH_03, PIN_OPEN_DOOR
+    ANALOG_BUTTON1, ANALOG_BUTTON2, ANALOG_BUTTON3, ANALOG_BUTTON4, PIN_OPEN_DOOR
 }; 
 
 bool pin_res[] = { // Si queremos activo con high (true) o low (false)
@@ -58,3 +58,5 @@ byte active_state_machine = STATE_MACHINE_COOKING;
 bool active_state_machine_change =  false;
 
 bool rear_fan = false;
+
+

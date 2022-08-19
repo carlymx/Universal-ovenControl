@@ -29,6 +29,14 @@
 #endif
 #define ADC_RATE    pow(2, ADC_BITS)
 
+// CONFIGURE ANALOG INPUTS HARDWARE:
+#define ANALOG_R1      680
+#define ANALOG_R2      680
+#define VOLTAGE_REF      5
+#define ADC_VALUE_B01 = ADC_RATE;  //1024,512...
+#define ADC_VALUE_B02 = (ADC_RATE(ANALOG_R1/(ANALOG_R1+ANALOG_R2)VOLTAGE_REF)/VOLTAGE_REF);
+#define DELTA_INPUT     10
+
 #define PWM_BITS    8       // 256 [0...255]
 #define PWM_RATE    pow(2, PWM_BITS)
 
@@ -63,15 +71,15 @@
     //#define OLED_12832_I2C
     //#define OLED_12864_I2C
 
-    #ifdef LCD_1602_I2C
-        // EMPTY AT TH MOMENT
-    #endif
-    #ifdef OLED_12832_I2C
-        // EMPTY AT TH MOMENT
-    #endif
-    #ifdef OLED_12864_I2C
-        // EMPTY AT TH MOMENT
-    #endif
+        #ifdef LCD_1602_I2C
+            // EMPTY AT TH MOMENT
+        #endif
+        #ifdef OLED_12832_I2C
+            // EMPTY AT TH MOMENT
+        #endif
+        #ifdef OLED_12864_I2C
+            // EMPTY AT TH MOMENT
+        #endif
 
 
 //===========================================

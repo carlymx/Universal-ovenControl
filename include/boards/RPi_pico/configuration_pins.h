@@ -30,9 +30,9 @@
 // INPUTS:
 #define PIN_OPEN_DOOR       99      // ON/OFF (1 CLOSE, 0 OPEN)
 #define PIN_ZERO_CROSSING   99      // 50/60Hz AC ZERO_CROSSING INTERRUPT
-#define PIN_PUSH_00         99      // PUSH BUTTON INPUT
-#define PIN_PUSH_01         99      // PUSH BUTTON INPUT
-#define PIN_PUSH_02         99      // PUSH BUTTON INPUT
-#define PIN_PUSH_03         99      // PUSH BUTTON INPUT
+#define ANALOG_BUTTON1         99      // PUSH BUTTON INPUT
+#define ANALOG_BUTTON2         99      // PUSH BUTTON INPUT
+#define ANALOG_BUTTON3         99      // PUSH BUTTON INPUT
+#define ANALOG_BUTTON4         99      // PUSH BUTTON INPUT
 #define PIN_TEMP_SENSOR_01  99      // ANALOG SENSOR IN
 #define PIN_TEMP_SENSOR_02  99      // ANALOG SENSOR IN PINOUT COMPATIBLE:

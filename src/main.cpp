@@ -24,10 +24,10 @@ void setup() {
   pinMode(PIN_OPEN_DOOR, INPUT);
   pinMode(PRIMARY_SENSOR, INPUT);
   pinMode(SECONDARY_SENSOR, INPUT);
-  pinMode(PIN_PUSH_00, INPUT);
-  pinMode(PIN_PUSH_01, INPUT);
-  pinMode(PIN_PUSH_02, INPUT);
-  pinMode(PIN_PUSH_03, INPUT);
+  pinMode(ANALOG_BUTTON1, INPUT);
+  pinMode(ANALOG_BUTTON2, INPUT);
+  pinMode(ANALOG_BUTTON3, INPUT);
+  pinMode(ANALOG_BUTTON4, INPUT);
   pinMode(PIN_ZERO_CROSSING, INPUT);
   //INTERRUPTIONS:
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
@@ -48,6 +48,10 @@ void setup() {
   Serial.print(RESSTR_MAX_TEMP);
   Serial.print(": ");
   Serial.println(MAX_TEMP_COOK);
+  Serial.print("Voltaje Ref: ");
+  Serial.print(VOLTAGE_REF);
+  Serial.println("v");
+
   #endif
 
   screen_init();
@@ -93,7 +97,8 @@ void loop() {
 
   // ULTRAFAST TIMER ACTIONS:
   if (ufast_click == true){
-      read_inputs();
+      read_analog_inputs();
+      //read_inputs();
   }
   // FAST TIMER ACTIONS:
   if (fast_click == true){

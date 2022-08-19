@@ -94,7 +94,7 @@ void setup() {
   pinMode(ANALOG_BUTTON2, INPUT);
   pinMode(ANALOG_BUTTON3, INPUT);
   pinMode(ANALOG_BUTTON4, INPUT);
-  Serial.println("Voltaje Ref: " +String(VOLTAGE_AREF) +"v");
+  Serial.println("Voltaje Ref: " +String(VOLTAGE_REF) +"v");
   delay(100);
 }
 
