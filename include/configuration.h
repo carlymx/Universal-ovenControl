@@ -20,25 +20,27 @@
 //         HARDWARE CONFIGURATION:          =
 //===========================================
 
-#define AC_HERTZ    50      // 50/60 HERTZ
+#define AC_HERTZ            50      // 50/60 HERTZ
 
 #if defined RASPBERRYPI_PICO || defined LGT8F328P    // ANALOG DIGITAL CONVERTER (12bits=4096 [0-4095])
-    #define ADC_BITS    12
+    #define ADC_BITS        12
 #else
-    #define ADC_BITS    10  // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
+    #define ADC_BITS        10  // ANALOG DIGITAL CONVERTER (10bits=1024 [0-1023]), ARDUINO UNO,MINI, MEGA...)
 #endif
-#define ADC_RATE    pow(2, ADC_BITS)
+#define ADC_RATE            pow(2, ADC_BITS)
 
 // CONFIGURE ANALOG INPUTS HARDWARE:
-#define ANALOG_R1      680
-#define ANALOG_R2      680
-#define VOLTAGE_REF      5
-#define ADC_VALUE_B01 = ADC_RATE;  //1024,512...
-#define ADC_VALUE_B02 = (ADC_RATE(ANALOG_R1/(ANALOG_R1+ANALOG_R2)VOLTAGE_REF)/VOLTAGE_REF);
-#define DELTA_INPUT     10
+#define ANALOG_R1          680
+#define ANALOG_R2          680
+#define VOLTAGE_REF          5
+//#define ADC_VALUE_B01    ADC_RATE  //1024,512...
+//#define ADC_VALUE_B02    ADC_RATE(ANALOG_R1/(ANALOG_R1+ANALOG_R2)VOLTAGE_REF)/VOLTAGE_REF
+#define ADC_VALUE_B01     1024
+#define ADC_VALUE_B02      512  
+#define DELTA_INPUT         10
 
-#define PWM_BITS    8       // 256 [0...255]
-#define PWM_RATE    pow(2, PWM_BITS)
+#define PWM_BITS             8  // 256 [0...255]
+#define PWM_RATE             pow(2, PWM_BITS)
 
 #define PRIMARY_SENSOR                PIN_TEMP_SENSOR_01  // SELECT ORIGINAL TERMISTOR OVEN SENSOR
 #define SECONDARY_SENSOR              PIN_TEMP_SENSOR_02  // SELECT TERMISTOR NTC3950 100K
@@ -50,11 +52,11 @@
 
 #define MAX_TEMPERATURE                  250              // 250ºC MAX TEMPERATURE SEGURITY LOCK
 
-#define TIME_UFAST_CLICK  100    // IN ms - DEFAULT = 100 (0.1 seg)
-#define TIME_FAST_CLICK     5    // UFAST MULTIPLIER - DEFAULT = 5 (0.5 seg)
-#define TIME_FULL_CLICK    50    // UFAST MULTIPLIER - DEFAULT = 50 (5 seg)
+#define TIME_UFAST_CLICK   100    // IN ms - DEFAULT = 100 (0.1 seg)
+#define TIME_FAST_CLICK      5    // UFAST MULTIPLIER - DEFAULT = 5 (0.5 seg)
+#define TIME_FULL_CLICK     50    // UFAST MULTIPLIER - DEFAULT = 50 (5 seg)
 
-#define TIMER_INACTIVE    30000  // IN ms 
+#define TIMER_INACTIVE   30000  // IN ms 
 
 
 //===========================================
