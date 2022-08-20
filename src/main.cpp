@@ -51,24 +51,28 @@ void setup() {
   Serial.print("Voltaje Ref: ");
   Serial.print(VOLTAGE_REF);
   Serial.println("v");
-
   #endif
 
-  screen_init();
-  screen_backlight(true);
-  screen_write(0, 0, RESSTR_STARTING);
-  screen_write(0, 1, RESSTR_APP_NAME);
-  delay(3000);
-  
   #if defined BOARD_TEST
     board_test_outputs();
   #else
     read_eeprom();
     start_melody(&START_MELODY);
+    delay(1000);
   #endif
 
   // Para forzar activacion
   active_state_machine_change = true;
+
+  //SCREEN INIT:
+  screen_init();
+  screen_backlight(true);
+  screen_write(0, 0, RESSTR_STARTING);
+  screen_write(0, 1, RESSTR_APP_NAME);
+  delay(2000);
+    screen_clear();
+    screen_write(0, 1, RESSTR_DEV_VERSION);
+    delay(2000);
 }
 
 void loop() {

@@ -7,7 +7,7 @@
     2022
 ***************************************************************/
 #define RESSTR_APP_NAME       "Univ ovenCONTROL"
-#define RESSTR_STARTING       "INICIALIZANDO"
+#define RESSTR_STARTING       "INICIANDO..."
 #define RESSTR_MIN_TEMP       "Temp Min" 
 #define RESSTR_MAX_TEMP       "Temp Max" 
 
@@ -33,3 +33,5 @@
 #define RESSTR_FORMAT_EEPROM_END         "EEPROM formateada"
 
 #define RESSTR_OPERATION_CANCELED        "Operacion cancelada"
+
+#define RESSTR_DEV_VERSION               "DEV 79F9E138"
