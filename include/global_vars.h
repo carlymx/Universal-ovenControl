@@ -26,11 +26,13 @@
 //            GLOBAL INPUTS VARIBLES:          //
 //=============================================//
 
-    // ----- ANALOG INPUTS: ----- //
-    byte analog_bottons_list[4] = {
-        ANALOG_BUTTON1, ANALOG_BUTTON2, ANALOG_BUTTON3, ANALOG_BUTTON4};
-    bool botton_active = false;
-    byte input_push = 0;
+    // --- ANALOG INPUTS VARIBLES: ----- //
+    byte analog_bottons_list[] = {
+        ANALOG_BUTTON1, ANALOG_BUTTON2, ANALOG_BUTTON3, ANALOG_BUTTON4 };
+    int input_analog = 0;
+    int last_input_analog = 0;
+    int raw = 0;
+    int last_raw = 0;
 
     // ---- DIGITAL INPUTS: ----- //
     byte pin_in[5] = {
