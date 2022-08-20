@@ -25,7 +25,7 @@ void set_fan(unsigned int vel) {
         Serial.print("/");
         Serial.print((int)PWM_RATE-1);
         Serial.print(" - ");
-        Serial.print((int)((vel*100)/(PWM_RATE-1));
+        Serial.print((int)((vel*100)/(PWM_RATE-1)));
         Serial.println("%");
         #endif
     }

@@ -31,6 +31,7 @@ bool pin_res[] = { // Si queremos activo con high (true) o low (false)
 };
 
 byte current_inputs = 0;
+bool input_change = false;
 
 bool is_input_active(byte inputs, byte sensor){
     return ((inputs & (1 << sensor)) != 0);
@@ -39,7 +40,6 @@ bool is_input_active(byte inputs, byte sensor){
 bool temp_change = false;
 bool temp_change_primary = false;
 bool temp_change_secondary = false;
-bool input_change = false;
 
 volatile bool zero_crossing_detected = false;
 bool zero_crossing_active = false;

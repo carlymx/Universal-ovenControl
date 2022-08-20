@@ -7,10 +7,11 @@
     2022
 ***************************************************************/
 
-void set_lights(bool active) {
-    digitalWrite(PIN_LIGHT_CHAMBER, active == true ? HIGH : LOW);
-    #ifdef DEBUG_LOG
-    Serial.print("Light: ");
-    Serial.println((String)(active ? "ON" : "OFF"));
-    #endif
+void read_inputs() {
+    byte new_inputs = current_inputs;
+     
+    if (new_inputs != current_inputs) {
+        current_inputs = new_inputs;
+        input_change = true;
+    }
 }

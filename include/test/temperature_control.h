@@ -9,7 +9,8 @@
 
 // DUMMY MODE
 
-void read_temperature_primary() {  
+void read_temperature_primary() { 
+    int temp_primary_sensor = current_temp_primary; 
     if (resistance_active == true) temp_primary_sensor += 5;
     else temp_primary_sensor -= 4;
 
@@ -18,7 +19,7 @@ void read_temperature_primary() {
     // TODO: Usar el raw tambien (o usar solo el raw y obtener de tabla)
     // raw_primary_sensor = xxxxx;
 
-    #ifdef DEBUG_LOG
+    #ifdef DEBUG_LOG_HW
     Serial.print("Sensor A1 DUMMY: "); 
     Serial.print(temp_primary_sensor);
     Serial.print(" Raw: ");
@@ -31,7 +32,8 @@ void read_temperature_primary() {
     }
 }
 
-void read_temperature_secundary(){
+void read_temperature_secondary(){
+    int temp_secondary_sensor = current_temp_secondary;
     // TODO: Usar el raw tambien
     if (resistance_active == true) temp_secondary_sensor += 5;
     else temp_secondary_sensor -= 4;
@@ -41,15 +43,15 @@ void read_temperature_secundary(){
     // TODO: Usar el raw tambien (o usar solo el raw y obtener de tabla)
     // raw_secondary_sensor = xxxxx;
 
-    #ifdef DEBUG_LOG
+    #ifdef DEBUG_LOG_HW
     Serial.print("Sensor A2 DUMMY: "); 
     Serial.print(temp_secondary_sensor);
     Serial.print(" Raw: ");
     Serial.println(raw_secondary_sensor);
     #endif    
 
-    if (temp_secondary_sensor != temp_secondary_sensor){
-        temp_secondary_sensor = temp_secondary_sensor;
-        temp_secondary_sensor = true;
+    if (current_temp_secondary != temp_secondary_sensor){
+        current_temp_secondary = temp_secondary_sensor;
+        temp_change_secondary = true;
     }
 }

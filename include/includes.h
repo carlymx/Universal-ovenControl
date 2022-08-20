@@ -43,6 +43,9 @@
 #endif
 
 #if defined SCREEN_CONTROL
+    #ifdef SCREEN_SERIAL
+      #include <hardware/lcdserial_control.h>
+    #endif
     #if defined LCD_1602_I2C
         #include <hardware/lcd1602_control.h>
     #endif
@@ -60,11 +63,17 @@
 //          HARDWARE INCLUDES:         =
 //======================================
 
-#include <hardware/inputs_control.h>
+#if defined DUMMY_SENSORS
+  #include <test/inputs_control.h>
+  #include <test/temperature_control.h>
+#else
+  #include <hardware/inputs_control.h>
+  #include <hardware/temperature_control.h>
+#endif
+
 #include <hardware/resistance_control.h>
 #include <hardware/zero_crossing_control.h>
 #include <hardware/dimmer_control.h>
-#include <hardware/temperature_control.h>
 #include <hardware/fan_control.h>
 #include <hardware/light_control.h>
 #include <oven_control.h>

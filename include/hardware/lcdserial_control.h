@@ -36,16 +36,21 @@ void screen_info(String msg){
 }
 
 void screen_resistances(byte resist){
+    Serial.print("Monitor ");
+    Serial.print("Resist");
+    Serial.print(": ");
     Serial.println(resist);
 }
 
 void screen_current_temp(int temp){
+    Serial.print("Monitor ");
     Serial.print(RESSTR_CURR_TEMP);
     Serial.print(": ");
     Serial.println(temp);
 }
 
 void screen_prog_temp(int temp){
+    Serial.print("Monitor ");
     Serial.print(RESSTR_PROG_TEMP);
     Serial.print(": ");
     Serial.println(temp);

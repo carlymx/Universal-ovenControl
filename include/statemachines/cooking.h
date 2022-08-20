@@ -41,6 +41,61 @@ bool beep_on_temp = true;
 byte reset_resistance_counter = 0;
 byte calibrate_mode_counter = 0;
 
+#ifdef DEBUG_LOG
+void print_cooking_state_event(byte state, byte event){
+    Serial.print("state_machine_cooking: "); 
+
+    switch(state) {
+        case COOKING_STATE_OFF:
+            Serial.print("COOKING_STATE_OFF");
+            break;
+        case COOKING_STATE_SET_TEMP:
+            Serial.print("COOKING_STATE_SET_TEMP");
+            break;
+        case COOKING_STATE_UNDER_TEMP:
+            Serial.print("COOKING_STATE_UNDER_TEMP");
+            break;
+        case COOKING_STATE_ON_TEMP:
+            Serial.print("COOKING_STATE_ON_TEMP");
+            break;
+        default:
+            Serial.print(state);
+    }
+
+    Serial.print(" ");
+            
+    switch(event) {
+        case COOKING_EVENT_KEY_ENTER: 
+            Serial.println("COOKING_EVENT_KEY_ENTER");
+            break;
+        case COOKING_EVENT_KEY_MINUS:
+            Serial.println("COOKING_EVENT_KEY_MINUS");
+            break;
+        case COOKING_EVENT_KEY_PLUS: 
+            Serial.println("COOKING_EVENT_KEY_PLUS");
+            break;
+        case COOKING_EVENT_KEY_CANCEL: 
+            Serial.println("COOKING_EVENT_KEY_CANCEL");
+            break;
+        case COOKING_EVENT_TEMP_CHANGE: 
+            Serial.println("COOKING_EVENT_TEMP_CHANGE");
+            break;
+        case COOKING_EVENT_OPEN_DOOR: 
+            Serial.println("COOKING_EVENT_OPEN_DOOR");
+            break;
+        case COOKING_EVENT_INACTIVE: 
+            Serial.println("COOKING_EVENT_INACTIVE");
+            break;
+        case COOKING_EVENT_TIMER: 
+            Serial.println("COOKING_EVENT_TIMER");
+            break;
+        default:
+            Serial.println(event);
+    }
+}
+#endif  
+
+
 void programed_temp_change(){
     screen_prog_temp(programed_temp);
     Serial.print(RESSTR_PROG_TEMP);
@@ -117,6 +172,8 @@ void state_machine_cooking_set_state(byte state){
             break;
 
         case COOKING_STATE_SET_TEMP:
+            screen_backlight(true);
+            screen_text(RESSTR_SEL_TEMP);        
             break;
 
         case COOKING_STATE_UNDER_TEMP:
@@ -129,6 +186,10 @@ void state_machine_cooking_set_state(byte state){
 }
 
 void state_machine_cooking(byte event){
+    #ifdef DEBUG_LOG
+    print_cooking_state_event(cooking_state, event);
+    #endif  
+
     switch(cooking_state) {
         case COOKING_STATE_OFF:
             switch(event) {
@@ -136,8 +197,6 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_MINUS:
                 case COOKING_EVENT_KEY_PLUS: 
                 case COOKING_EVENT_KEY_CANCEL: 
-                    screen_backlight(true);
-                    screen_text(RESSTR_SEL_TEMP);
                     start_timer_inactive(TIMER_INACTIVE);
                     state_machine_cooking_set_state(COOKING_STATE_SET_TEMP);
                     break;
@@ -291,6 +350,13 @@ void state_machine_cooking(byte event){
 }
 
 void inputs_change_cooking(byte inputs){
+    #ifdef DEBUG_LOG
+    Serial.print("Cooking input: ");
+    Serial.print(inputs);
+    Serial.print(" ");
+    Serial.println(last_input_cooking);
+    #endif
+
     if (is_input_active(inputs, KEY_ENTER) && !is_input_active(last_input_cooking, KEY_ENTER))
         state_machine_cooking(COOKING_EVENT_KEY_ENTER);
 

@@ -94,6 +94,7 @@ void loop() {
   // ULTRAFAST TIMER ACTIONS:
   if (ufast_click == true){
       read_inputs();
+      serial_input();
   }
   // FAST TIMER ACTIONS:
   if (fast_click == true){
