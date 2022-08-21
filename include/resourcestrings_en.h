@@ -33,3 +33,5 @@
 #define RESSTR_FORMAT_EEPROM_END         "Format EEPROM Finished"
 
 #define RESSTR_OPERATION_CANCELED        "Canceled Operation"
+
+#define RESSTR_SCREEN_WAIT               "PUSH A BUTTON TO START"
