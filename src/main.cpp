@@ -61,9 +61,6 @@ void setup() {
     delay(1000);
   #endif
 
-  // Para forzar activacion
-  active_state_machine_change = true;
-
   //SCREEN INIT:
   screen_init();
   screen_backlight(true);
@@ -73,6 +70,9 @@ void setup() {
     screen_clear();
     screen_write(0, 1, RESSTR_DEV_VERSION);
     delay(2000);
+
+  // Para forzar activacion
+  active_state_machine_change = true;
 }
 
 void loop() {
