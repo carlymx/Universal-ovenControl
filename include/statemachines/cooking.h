@@ -43,20 +43,20 @@ byte calibrate_mode_counter = 0;
 
 #ifdef DEBUG_LOG
 void print_cooking_state_event(byte state, byte event){
-    Serial.print("state_machine_cooking: "); 
+    Serial.print("sm_cooking: "); 
 
     switch(state) {
         case COOKING_STATE_OFF:
-            Serial.print("COOKING_STATE_OFF");
+            Serial.print("ST_OFF");
             break;
         case COOKING_STATE_SET_TEMP:
-            Serial.print("COOKING_STATE_SET_TEMP");
+            Serial.print("ST_SET_TEMP");
             break;
         case COOKING_STATE_UNDER_TEMP:
-            Serial.print("COOKING_STATE_UNDER_TEMP");
+            Serial.print("ST_UNDER_TEMP");
             break;
         case COOKING_STATE_ON_TEMP:
-            Serial.print("COOKING_STATE_ON_TEMP");
+            Serial.print("ST_ON_TEMP");
             break;
         default:
             Serial.print(state);
@@ -66,28 +66,28 @@ void print_cooking_state_event(byte state, byte event){
             
     switch(event) {
         case COOKING_EVENT_KEY_ENTER: 
-            Serial.println("COOKING_EVENT_KEY_ENTER");
+            Serial.println("EV_KEY_ENTER");
             break;
         case COOKING_EVENT_KEY_MINUS:
-            Serial.println("COOKING_EVENT_KEY_MINUS");
+            Serial.println("EV_KEY_MINUS");
             break;
         case COOKING_EVENT_KEY_PLUS: 
-            Serial.println("COOKING_EVENT_KEY_PLUS");
+            Serial.println("EV_KEY_PLUS");
             break;
         case COOKING_EVENT_KEY_CANCEL: 
-            Serial.println("COOKING_EVENT_KEY_CANCEL");
+            Serial.println("EV_KEY_CANCEL");
             break;
         case COOKING_EVENT_TEMP_CHANGE: 
-            Serial.println("COOKING_EVENT_TEMP_CHANGE");
+            Serial.println("EV_TEMP_CHANGE");
             break;
         case COOKING_EVENT_OPEN_DOOR: 
-            Serial.println("COOKING_EVENT_OPEN_DOOR");
+            Serial.println("EV_OPEN_DOOR");
             break;
         case COOKING_EVENT_INACTIVE: 
-            Serial.println("COOKING_EVENT_INACTIVE");
+            Serial.println("EV_INACTIVE");
             break;
         case COOKING_EVENT_TIMER: 
-            Serial.println("COOKING_EVENT_TIMER");
+            Serial.println("EV_TIMER");
             break;
         default:
             Serial.println(event);
@@ -98,9 +98,11 @@ void print_cooking_state_event(byte state, byte event){
 
 void programed_temp_change(){
     screen_prog_temp(programed_temp);
+    #ifdef DEBUG_LOG
     Serial.print(RESSTR_PROG_TEMP);
     Serial.print(": ");
     Serial.println(programed_temp);
+    #endif
 }
 
 void verify_temp_under() {
