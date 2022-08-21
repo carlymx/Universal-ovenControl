@@ -20,10 +20,8 @@ void read_temperature_primary() {
     // raw_primary_sensor = xxxxx;
 
     #ifdef DEBUG_LOG_HW
-    Serial.print("Sensor A1 DUMMY: "); 
-    Serial.print(temp_primary_sensor);
-    Serial.print(" Raw: ");
-    Serial.println(raw_primary_sensor);
+    Serial.print("A1 DUMMY "); 
+    debuglog_temperature(raw_primary_sensor, temp_primary_sensor);
     #endif    
 
     if (current_temp_primary != temp_primary_sensor){
@@ -44,10 +42,8 @@ void read_temperature_secondary(){
     // raw_secondary_sensor = xxxxx;
 
     #ifdef DEBUG_LOG_HW
-    Serial.print("Sensor A2 DUMMY: "); 
-    Serial.print(temp_secondary_sensor);
-    Serial.print(" Raw: ");
-    Serial.println(raw_secondary_sensor);
+    Serial.print("A2 DUMMY "); 
+    debuglog_temperature(raw_secondary_sensor, temp_secondary_sensor);
     #endif    
 
     if (current_temp_secondary != temp_secondary_sensor){

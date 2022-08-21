@@ -64,8 +64,7 @@ void setup() {
     start_melody(&START_MELODY);
   #endif
 
-  // Para forzar activacion
-  active_state_machine_change = true;
+  active_state_machine = STATE_MACHINE_COOKING;
 }
 
 void loop() {
@@ -103,7 +102,7 @@ void loop() {
       screen_refresh();
 
       // Si calibramos, miramos en fastclick
-      if(active_state_machine == STATE_MACHINE_CALIBRATE){
+      if(active_state_machine == STATE_MACHINE_SETUP){
         read_temperature_primary();
         read_temperature_secondary();
 
@@ -116,7 +115,7 @@ void loop() {
   if (full_click == true){
     activate_zero_crossing_detect(true);  // ENABLE INTERRUPTS
     
-    if(active_state_machine != STATE_MACHINE_CALIBRATE){
+    if(active_state_machine != STATE_MACHINE_SETUP) {
       if((prog_eeprom_actual.options & EEPROM_OPT_MAPPED) == 0){
         read_temperature_secondary();
         current_temp = current_temp_secondary;
@@ -129,7 +128,7 @@ void loop() {
       }
     }
 
-    #ifdef DEBUG_LOG
+    #ifdef DEBUG_LOG_HW
     Serial.print(RESSTR_CURR_TEMP); 
     Serial.print(": ");
     Serial.println(current_temp);
@@ -143,25 +142,33 @@ void loop() {
   // CONSTANT TIMER ACTIONS: State Machine
   switch (active_state_machine) {
       case STATE_MACHINE_COOKING:
-        if (active_state_machine_change == true) activate_cooking();
+        if (active_state_machine != last_state_machine) {
+          activate_cooking();
+          last_state_machine = active_state_machine;
+        }
         if (input_change == true) inputs_change_cooking(current_inputs);
         if (temp_change == true) state_machine_cooking(COOKING_EVENT_TEMP_CHANGE);
         if (timer_inactive_timeout == true) state_machine_cooking(COOKING_EVENT_INACTIVE);
         break;
 
-      case STATE_MACHINE_CALIBRATE:
-        if (active_state_machine_change == true) activate_setup();
+      case STATE_MACHINE_SETUP:
+        if (active_state_machine != last_state_machine) {
+          activate_setup();
+          last_state_machine = active_state_machine;
+        }
         if (input_change == true) inputs_change_setup(current_inputs);
         if (temp_change == true) state_machine_setup(SETUP_EVENT_TEMP_CHANGE);
         if (timer_inactive_timeout == true) state_machine_setup(SETUP_EVENT_INACTIVE);
         break;
+
+      default:        
+        last_state_machine = active_state_machine;
   }
   
   input_change = false;
   temp_change = false;
   temp_change_primary = false;
   temp_change_secondary = false;
-  active_state_machine_change = false;
   timer_inactive_timeout = false;
 
   //=======================================

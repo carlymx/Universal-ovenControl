@@ -129,11 +129,16 @@ void verify_temp_on() {
     }
 }
 
-void incr_resistances() {
+void incr_resistances(){
     resistances++;
     if (resistances > MAX_OPT_RESISTANCE) resistances = 1;
     rear_fan = ((resistances & RESIST_REAR) != 0);  
     screen_resistances(resistances);
+}
+
+void reset_counters(){
+    reset_resistance_counter = 0;
+    calibrate_mode_counter = 0;
 }
 
 void reset_resistances(){
@@ -149,21 +154,11 @@ void reset_resistances(){
 
 void calibrate_mode(){
     calibrate_mode_counter++;
-    if (calibrate_mode_counter == 4) {
+    if (calibrate_mode_counter == 3) {
         Serial.println("Calibrate mode");
-        active_state_machine = STATE_MACHINE_CALIBRATE;
-        active_state_machine_change = true;
+        active_state_machine = STATE_MACHINE_SETUP;
         calibrate_mode_counter = 0;
     }
-}
-
-void activate_cooking(){
-    Serial.println(RESSTR_COOKING_MODE);
-    screen_clear();
-    screen_resistances(resistances);
-    screen_prog_temp(programed_temp);
-    screen_current_temp(current_temp);
-    screen_text(RESSTR_SCREEN_WAIT);
 }
 
 void state_machine_cooking_set_state(byte state){
@@ -175,7 +170,11 @@ void state_machine_cooking_set_state(byte state){
 
         case COOKING_STATE_SET_TEMP:
             screen_backlight(true);
+            screen_resistances(resistances);
+            screen_prog_temp(programed_temp);
+            screen_current_temp(current_temp);
             screen_text(RESSTR_SEL_TEMP);        
+            start_timer_inactive(TIMER_INACTIVE);
             break;
 
         case COOKING_STATE_UNDER_TEMP:
@@ -185,6 +184,12 @@ void state_machine_cooking_set_state(byte state){
     }
 
     cooking_state = state;
+}
+
+void activate_cooking(){
+    Serial.println(RESSTR_COOKING_MODE);
+    screen_clear();
+    state_machine_cooking_set_state(COOKING_STATE_OFF);
 }
 
 void state_machine_cooking(byte event){
@@ -199,7 +204,6 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_MINUS:
                 case COOKING_EVENT_KEY_PLUS: 
                 case COOKING_EVENT_KEY_CANCEL: 
-                    start_timer_inactive(TIMER_INACTIVE);
                     state_machine_cooking_set_state(COOKING_STATE_SET_TEMP);
                     break;
 
@@ -216,6 +220,7 @@ void state_machine_cooking(byte event){
         case COOKING_STATE_SET_TEMP:
             switch(event) {
                 case COOKING_EVENT_KEY_ENTER: 
+                    reset_counters();
                     beep_on_temp = true;
                     if (current_temp < programed_temp){
                         set_resistance(resistances, true);
@@ -231,6 +236,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_KEY_MINUS:
+                    reset_counters();
                     programed_temp -= STEP_TEMP_COOK; 
                     if (programed_temp < MIN_TEMP_COOK) programed_temp = MIN_TEMP_COOK;
                     programed_temp_change();
@@ -238,6 +244,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_KEY_PLUS: 
+                    reset_counters();
                     programed_temp += STEP_TEMP_COOK; 
                     if (programed_temp > MAX_TEMP_COOK) programed_temp = MAX_TEMP_COOK;
                     programed_temp_change();
@@ -295,7 +302,7 @@ void state_machine_cooking(byte event){
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));
-                    state_machine_cooking_set_state(COOKING_STATE_OFF);
+                    state_machine_cooking_set_state(COOKING_STATE_SET_TEMP);
                     rear_fan = false;
                     break;
 
@@ -334,7 +341,7 @@ void state_machine_cooking(byte event){
                     set_resistance(resistances, false);
                     start_melody(&CANCEL_MELODY);
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));
-                    state_machine_cooking_set_state(COOKING_STATE_OFF);
+                    state_machine_cooking_set_state(COOKING_STATE_SET_TEMP);
                     rear_fan = false;
                     break;
 

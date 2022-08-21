@@ -58,6 +58,7 @@
         #define BAUDRATE    9600    // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
     #endif
 
+/*
 #define SCREEN_CONTROL
     #define LCD_1602_I2C
     //#define OLED_12832_I2C
@@ -72,7 +73,7 @@
     #ifdef OLED_12864_I2C
         // EMPTY AT TH MOMENT
     #endif
-
+*/
 
 //===========================================
 //         PROGRAM CONFIGURATION:           =

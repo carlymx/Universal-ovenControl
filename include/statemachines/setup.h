@@ -73,14 +73,6 @@ void set_map_temp(program_eeprom* prog) {
     }
 }
 
-void activate_setup(){
-    Serial.println(RESSTR_SETUP_MODE);
-    screen_prog_temp(0);
-    screen_current_temp(current_temp);
-    menu_opt = 0;
-    setup_show_menu();
-}
-
 void state_machine_setup_set_state(byte state){
     switch(state) {
         case SETUP_STATE_OFF:
@@ -94,6 +86,14 @@ void state_machine_setup_set_state(byte state){
     }
     
     setup_state = state;
+}
+
+void activate_setup(){
+    Serial.println(RESSTR_SETUP_MODE);
+    screen_prog_temp(0);
+    screen_current_temp(current_temp);
+    menu_opt = 0;
+    state_machine_setup_set_state(SETUP_STATE_OFF);
 }
 
 void state_machine_setup(byte event){
@@ -153,7 +153,6 @@ void state_machine_setup(byte event){
 
                 case SETUP_EVENT_KEY_CANCEL:
                     active_state_machine = STATE_MACHINE_COOKING;
-                    active_state_machine_change = true;
                     break;
 
                 case SETUP_EVENT_KEY_PLUS:
@@ -168,7 +167,6 @@ void state_machine_setup(byte event){
 
                 case SETUP_EVENT_INACTIVE:
                     active_state_machine = STATE_MACHINE_COOKING;
-                    active_state_machine_change = true;
                     break;
             }
         break;
@@ -231,7 +229,6 @@ void state_machine_setup(byte event){
 
                 case SETUP_EVENT_INACTIVE:
                     active_state_machine = STATE_MACHINE_COOKING;
-                    active_state_machine_change = true;
                     break;
             }
             break;
@@ -300,7 +297,6 @@ void state_machine_setup(byte event){
 
                 case SETUP_EVENT_INACTIVE:
                     active_state_machine = STATE_MACHINE_COOKING;
-                    active_state_machine_change = true;
                     break;
             }
             break;

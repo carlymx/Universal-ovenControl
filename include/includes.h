@@ -20,6 +20,7 @@
 #include <melodys.h>
 #include <temperature_func.h>
 #include <timer_control.h>
+#include <debuglog_funcs.h>
 
 //======================================
 //            MISC INCLUDES:           =
@@ -38,7 +39,7 @@
 //       COMUNICATIONS INCLUDES:       =
 //======================================
 
-#ifdef USB_SERIAL_PORT
+#if defined USB_SERIAL_PORT
     #include <hardware/usb_serial_control.h>
 #endif
 

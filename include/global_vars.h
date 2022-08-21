@@ -18,9 +18,9 @@
 #define KEY_MINUS   3
 #define DOOR_SENSOR 4
 
-#define STATE_MACHINE_COOKING   0
-#define STATE_MACHINE_CALIBRATE 1
-#define STATE_MACHINE_TEST      2
+#define STATE_MACHINE_NONE      0
+#define STATE_MACHINE_COOKING   1
+#define STATE_MACHINE_SETUP     2
 
 byte pin_in[] = {
     PIN_PUSH_00, PIN_PUSH_01, PIN_PUSH_02, PIN_PUSH_03, PIN_OPEN_DOOR
@@ -54,7 +54,7 @@ int raw_secondary_sensor = 0;
 
 bool resistance_active = false;
 
-byte active_state_machine = STATE_MACHINE_COOKING;
-bool active_state_machine_change =  false;
+byte active_state_machine = STATE_MACHINE_NONE;
+byte last_state_machine = STATE_MACHINE_NONE;
 
 bool rear_fan = false;

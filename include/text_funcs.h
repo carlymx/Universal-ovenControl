@@ -17,3 +17,7 @@ String resistances_to_text(byte resist) {
 
     return res;
 }
+
+String boolean_to_onoff(bool active) {
+  return (String)(active ? "ON" : "OFF");
+}
