@@ -33,3 +33,4 @@
 #define RESSTR_FORMAT_EEPROM_END         "EEPROM formateada"
 
 #define RESSTR_OPERATION_CANCELED        "Operacion cancelada"
+#define RESSTR_SCREEN_WAIT               "PULSE UNA TECLA PARA EMPEZAR"

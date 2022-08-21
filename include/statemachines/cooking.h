@@ -163,14 +163,14 @@ void activate_cooking(){
     screen_resistances(resistances);
     screen_prog_temp(programed_temp);
     screen_current_temp(current_temp);
-    screen_text(RESSTR_APP_NAME);
+    screen_text(RESSTR_SCREEN_WAIT);
 }
 
 void state_machine_cooking_set_state(byte state){
     switch(state) {
         case COOKING_STATE_OFF:
             screen_backlight(false);
-            screen_text(RESSTR_APP_NAME);
+            screen_text(RESSTR_SCREEN_WAIT);
             break;
 
         case COOKING_STATE_SET_TEMP:

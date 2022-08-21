@@ -55,6 +55,7 @@ void setup() {
   screen_write(0, 0, RESSTR_STARTING);
   screen_write(0, 1, RESSTR_APP_NAME);
   delay(3000);
+  screen_backlight(false);
   
   #if defined BOARD_TEST
     board_test_outputs();

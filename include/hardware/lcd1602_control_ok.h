@@ -45,6 +45,9 @@ LiquidCrystal_I2C lcd(0x27,16,2);
 String _screen_text = "";
 byte _screen_index = 0;
 byte _screen_index_zero = 0;
+String _screen_info = "";
+byte _screen_info_index = 0;
+byte _screen_info_index_zero = 0;
 byte _screen_resist = 0;
 int _screen_current_temp = 0;
 int _screen_prog_temp = 0;
@@ -96,6 +99,16 @@ void screen_text(String msg){
   _screen_index_zero = 0;
 
   lcd.setCursor(LCD_POS_TXT_X, LCD_POS_TXT_Y);
+  lcd.print(msg);
+  lcd.print("         ");
+}
+
+void screen_info(String msg){
+  _screen_info = msg;
+  _screen_info_index = 0;
+  _screen_info_index_zero = 0;
+
+  lcd.setCursor(LCD_POS_TXT_X, 0);
   lcd.print(msg);
   lcd.print("         ");
 }
