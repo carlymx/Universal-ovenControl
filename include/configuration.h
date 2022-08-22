@@ -62,7 +62,8 @@
        //#define BAUDRATE   115200
     #endif
 
-#ifndef SERIAL_SCREEN
+
+#if !defined SERIAL_SCREEN && !defined SCREEN_SERIAL_1602
     #define SCREEN_CONTROL
         #ifdef SCREEN_CONTROL  // SELECT A DISPLAY:
             #define LCD_1602_I2C

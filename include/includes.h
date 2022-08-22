@@ -43,12 +43,15 @@
     #include <hardware/usb_serial_control.h>
 #endif
 
-#if defined SCREEN_CONTROL
+//#if defined SCREEN_CONTROL
     #ifdef SCREEN_SERIAL
       #include <hardware/lcdserial_control.h>
     #endif
+    #ifdef SCREEN_SERIAL_1602
+      #include <hardware/lcd1602_serial.h>
+    #endif
     #if defined LCD_1602_I2C
-        #include <hardware/lcd1602_control.h>
+        #include <hardware/lcd1602_LiquidCrystal_I2C.h>
     #endif
     #ifdef OLED_12832_I2C
         // EMPTY AT TH MOMENT
@@ -56,16 +59,16 @@
     #ifdef OLED_12864_I2C
         // EMPTY AT TH MOMENT
     #endif
-#else
-  #include <hardware/lcdserial_control.h>
-#endif
+//#else
+//  #include <hardware/lcdserial_control.h>
+//#endif
 
 //======================================
 //          HARDWARE INCLUDES:         =
 //======================================
 
 #if defined DUMMY_SENSORS
-  #include <test/inputs_control.h>
+  #include <hardware/inputs_control.h>
   #include <test/temperature_control.h>
 #else
   #include <hardware/inputs_control.h>
