@@ -54,26 +54,23 @@
 //===========================================
 
 #define USB_SERIAL_PORT
-    #ifdef USB_SERIAL_PORT
-        #define BAUDRATE    9600    // SERIAL CONEXION [2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
+    #ifdef USB_SERIAL_PORT  // SELECT A BAURATE:
+        #define BAUDRATE      9600
+       //#define BAUDRATE    19200
+       //#define BAUDRATE    38400
+       //#define BAUDRATE    57600
+       //#define BAUDRATE   115200
     #endif
 
-/*
-#define SCREEN_CONTROL
-    #define LCD_1602_I2C
-    //#define OLED_12832_I2C
-    //#define OLED_12864_I2C
+#ifndef SERIAL_SCREEN
+    #define SCREEN_CONTROL
+        #ifdef SCREEN_CONTROL  // SELECT A DISPLAY:
+            #define LCD_1602_I2C
+            //#define OLED_12832_I2C
+            //#define OLED_12864_I2C
+        #endif
+#endif
 
-    #ifdef LCD_1602_I2C
-        // EMPTY AT TH MOMENT
-    #endif
-    #ifdef OLED_12832_I2C
-        // EMPTY AT TH MOMENT
-    #endif
-    #ifdef OLED_12864_I2C
-        // EMPTY AT TH MOMENT
-    #endif
-*/
 
 //===========================================
 //         PROGRAM CONFIGURATION:           =
