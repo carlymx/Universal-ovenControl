@@ -11,24 +11,6 @@
 
 void setup() {
 
-  // OUTPUTS PINS
-  pinMode(PIN_LIGHT_CHAMBER, OUTPUT);
-  pinMode(PIN_RESISTOR_UP, OUTPUT);
-  pinMode(PIN_RESISTOR_DOWN, OUTPUT);
-  pinMode(PIN_RESISTOR_REAR, OUTPUT);
-  pinMode(PIN_COOL_FAN, OUTPUT);
-  pinMode(PIN_CHAMBER_FAN, OUTPUT);
-  pinMode(PIN_PCB_FAN, OUTPUT);
-  pinMode(PIN_SPEAKER, OUTPUT);
-  // INPUTS PINS
-  pinMode(PIN_OPEN_DOOR, INPUT);
-  pinMode(PRIMARY_SENSOR, INPUT);
-  pinMode(SECONDARY_SENSOR, INPUT);
-  pinMode(PIN_PUSH_00, INPUT);
-  pinMode(PIN_PUSH_01, INPUT);
-  pinMode(PIN_PUSH_02, INPUT);
-  pinMode(PIN_PUSH_03, INPUT);
-  pinMode(PIN_ZERO_CROSSING, INPUT);
   //INTERRUPTIONS:
   //attachInterrupt(digitalPinToInterrupt(PIN_ZERO_CROSSING), zero_crossing, RISING);
 

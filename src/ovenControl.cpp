@@ -11,6 +11,7 @@
 
 
 void setup() {
+    pin_mode();
 
 }
 

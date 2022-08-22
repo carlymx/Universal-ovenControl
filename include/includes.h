@@ -7,7 +7,11 @@
     2022
 ***************************************************************/
 
-// LIB INCLUDE
+// --- LIB INCLUDE ---
 #include <Arduino.h>
 
+
+// --- Global --------
 #include <configuration.h>
+#include <global.h>
+
