@@ -145,7 +145,7 @@ void state_machine_setup(byte event){
                             cur_idx_calibrate = 0;
                             set_map_temp(&prog_eeprom_actual);
 
-                            resistances = RESIST_DOWN;
+                            resistances = RESIST_UP;
                             //resistances = RESIST_UP + RESIST_DOWN;
                             set_resistance(resistances, true);
 
@@ -248,6 +248,12 @@ void state_machine_setup(byte event){
                     screen_info(RESSTR_OPERATION_CANCELED);
                     state_machine_setup_set_state(SETUP_STATE_OPERATION_END);
                     break;
+
+                case SETUP_EVENT_KEY_ENTER: 
+                    incr_resistances();
+                    set_resistance(resistances, true);
+                    break;
+
             }
             break;
 

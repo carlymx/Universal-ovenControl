@@ -8,7 +8,8 @@
 ***************************************************************/
 
 void read_inputs() {
-    byte new_inputs = current_inputs;
+    //byte new_inputs = current_inputs;
+    byte new_inputs = 0;
      
     if (new_inputs != current_inputs) {
         current_inputs = new_inputs;

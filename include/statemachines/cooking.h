@@ -165,6 +165,8 @@ void state_machine_cooking_set_state(byte state){
     switch(state) {
         case COOKING_STATE_OFF:
             screen_backlight(false);
+            screen_info("");
+            screen_prog_temp(0);
             screen_text(RESSTR_SCREEN_WAIT);
             break;
 

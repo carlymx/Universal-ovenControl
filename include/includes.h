@@ -69,7 +69,7 @@
 //======================================
 
 #if defined DUMMY_SENSORS
-  #include <hardware/inputs_control.h>
+  #include <test/inputs_control.h>
   #include <test/temperature_control.h>
 #else
   #include <hardware/inputs_control.h>
