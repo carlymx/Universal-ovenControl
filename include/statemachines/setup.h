@@ -15,6 +15,9 @@
 #define SETUP_STATE_REAR_FAN       4
 #define SETUP_STATE_COOL_FAN       5
 
+#define SETUP_STATE_RESET          8
+#define SETUP_STATE_VERSION        9
+
 #define SETUP_STATE_OPERATION_END 25
 
 // EVENTS
@@ -26,14 +29,33 @@
 #define SETUP_EVENT_OPEN_DOOR   5
 #define SETUP_EVENT_INACTIVE    6
 
+void activate_setup();
+void state_machine_setup(byte event);
+void inputs_change_setup(byte inputs);
+
+// ********************************* TODO: L____ hasta aqui el .h ******************************************
+
+/***************************************************************  
+    openELECTRO
+    Home appliance control, based on arduino and other MPU
+
+    https://github.com/carlymx/openELECTRO
+    jordi@surfzone.org, carlymx@gmail.com
+    2022
+***************************************************************/
+//#include <Arduino.h>
+//#include <statemachines/setup.h>
+
 byte sel_menu[] = {
     SETUP_STATE_CALIBRATE, SETUP_STATE_FORMAT_EEPROM, 
-    SETUP_STATE_FAN, SETUP_STATE_REAR_FAN,  SETUP_STATE_COOL_FAN
+    SETUP_STATE_FAN, SETUP_STATE_REAR_FAN,  SETUP_STATE_COOL_FAN,
+    SETUP_STATE_RESET, SETUP_STATE_VERSION
 };
 
 String sel_text[] = {
     RESSTR_SETUP_MENU_CALIBRATE, RESSTR_SETUP_MENU_FORMAT_EEPROM, 
-    RESSTR_SETUP_MENU_TEST_FAN, RESSTR_SETUP_MENU_TEST_REAR_FAN, RESSTR_SETUP_MENU_TEST_COOL_FAN  
+    RESSTR_SETUP_MENU_TEST_FAN, RESSTR_SETUP_MENU_TEST_REAR_FAN, RESSTR_SETUP_MENU_TEST_COOL_FAN,
+    RESSTR_SETUP_MENU_RESET, RESSTR_SETUP_MENU_VERSION
 };
 
 byte menu_opt = 0;
@@ -45,6 +67,8 @@ byte cur_idx_calibrate = 0;
 
 byte idx_vel_fan_test = 0;
 
+void (* resetSoftware)(void) = 0;
+
 void setup_show_menu(){
     #ifdef DEBUG_LOG
     Serial.println(sel_text[menu_opt]);
@@ -52,10 +76,12 @@ void setup_show_menu(){
     screen_text(sel_text[menu_opt]);
 }
 
-void setup_add_menu(byte a){
-    menu_opt += a; 
-    if(menu_opt >= sizeof(sel_menu))
-        menu_opt = a > 0 ? 0 : sizeof(sel_menu);
+void setup_add_menu(int a){
+    if(a < 0 && menu_opt == 0) menu_opt = sizeof(sel_menu) - 1;
+    else {
+        menu_opt += a; 
+        if(menu_opt >= sizeof(sel_menu)) menu_opt = 0;
+    }
 
     setup_show_menu();
 }
@@ -76,6 +102,7 @@ void set_map_temp(program_eeprom* prog) {
 void state_machine_setup_set_state(byte state){
     switch(state) {
         case SETUP_STATE_OFF:
+            screen_info(RESSTR_SETUP);
             setup_show_menu();
             start_timer_inactive(TIMER_INACTIVE);
             break;
@@ -127,7 +154,7 @@ void state_machine_setup(byte event){
                             break;
 
                         case SETUP_STATE_FORMAT_EEPROM:
-                            screen_text(RESSTR_FORMAT_EEPROM_START);
+                            screen_info(RESSTR_FORMAT_START);
                             start_timer_inactive(TIMER_INACTIVE);
                             state_machine_setup_set_state(SETUP_STATE_FORMAT_EEPROM);
                             break;
@@ -146,6 +173,18 @@ void state_machine_setup(byte event){
                         case SETUP_STATE_COOL_FAN:
                             start_timer_inactive(0);
                             state_machine_setup_set_state(SETUP_STATE_COOL_FAN);
+                            break;
+
+                        case SETUP_STATE_RESET:
+                            screen_info(RESSTR_FORMAT_START);
+                            start_timer_inactive(TIMER_INACTIVE);
+                            state_machine_setup_set_state(SETUP_STATE_RESET);
+                            break;
+                    
+                        case SETUP_STATE_VERSION:
+                            screen_info(APP_VER);
+                            start_timer_inactive(TIMER_INACTIVE);
+                            state_machine_setup_set_state(SETUP_STATE_VERSION);
                             break;
                    
                     }
@@ -282,6 +321,37 @@ void state_machine_setup(byte event){
                 case SETUP_EVENT_KEY_CANCEL:
                     set_dimmer_control_cool(DIMMER_CONTROL_POWER_0);
                     state_machine_setup_set_state(SETUP_STATE_OFF);
+                    break;
+            }
+            break;
+
+        case SETUP_STATE_RESET:
+            switch(event) {
+                case SETUP_EVENT_KEY_PLUS:
+                    resetSoftware();
+                    break;
+
+                case SETUP_EVENT_KEY_CANCEL:
+                    state_machine_setup_set_state(SETUP_STATE_OFF);
+                    break;
+
+                case SETUP_EVENT_INACTIVE:
+                    active_state_machine = STATE_MACHINE_COOKING;
+                    break;
+            }
+            break;
+
+        case SETUP_STATE_VERSION:
+            switch(event) {
+                //case SETUP_EVENT_KEY_PLUS:
+                //case SETUP_EVENT_KEY_MINUS:
+                case SETUP_EVENT_KEY_ENTER:
+                case SETUP_EVENT_KEY_CANCEL:
+                    state_machine_setup_set_state(SETUP_STATE_OFF);
+                    break;
+
+                case SETUP_EVENT_INACTIVE:
+                    active_state_machine = STATE_MACHINE_COOKING;
                     break;
             }
             break;

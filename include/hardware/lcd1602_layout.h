@@ -21,12 +21,12 @@
 #define LCD_POS_RES_L2_Y    1
 #define LCD_LEN_LINE       16
 #define LCD_NUM_LINES       2
-#define LCD_POS_TXT_X       3
+#define LCD_POS_TXT_X       3 // 2 - 3
 #define LCD_POS_TXT_Y       1
-#define LCD_LEN_TXT        12
-#define LCD_POS_INFO_X      3
+#define LCD_LEN_TXT        13 // 12 - 14
+#define LCD_POS_INFO_X      3 // 2 - 3
 #define LCD_POS_INFO_Y      0
-#define LCD_LEN_INFO       12
+#define LCD_LEN_INFO       13 // 12 - 14
 #define LCD_POS_CTEMP_X     5
 #define LCD_POS_CTEMP_Y     0
 #define LCD_LEN_CTEMP       3

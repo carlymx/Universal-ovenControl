@@ -25,11 +25,13 @@
 #define RESSTR_SETUP_MENU_TEST_FAN       "Test fan"
 #define RESSTR_SETUP_MENU_TEST_REAR_FAN  "Test rear fan"
 #define RESSTR_SETUP_MENU_TEST_COOL_FAN  "Test cool fan"    
+#define RESSTR_SETUP_MENU_RESET          "Reset"
+#define RESSTR_SETUP_MENU_VERSION        "Software version"
 
 #define RESSTR_CALIBRATION_START         "Calibration Start"
 #define RESSTR_CALIBRATION_END           "Calibration End"
 
-#define RESSTR_FORMAT_EEPROM_START       "Press + to format EEPROM"
+#define RESSTR_FORMAT_START              "Press + to start"
 #define RESSTR_FORMAT_EEPROM_END         "Format EEPROM Finished"
 
 #define RESSTR_OPERATION_CANCELED        "Canceled Operation"

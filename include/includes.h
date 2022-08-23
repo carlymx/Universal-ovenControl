@@ -11,6 +11,7 @@
 #include <Arduino.h>
 #include <math.h>
 
+#include <version.h>
 //#include <resourcestrings_en.h>
 #include <resourcestrings_es.h>
 #include <configuration.h>
@@ -54,7 +55,7 @@
         #include <hardware/lcd1602_LiquidCrystal_I2C.h>
     #endif
     #ifdef OLED_12832_I2C
-        // EMPTY AT TH MOMENT
+        #include <hardware/lcd1602_SSD1306.h>
     #endif
     #ifdef OLED_12864_I2C
         // EMPTY AT TH MOMENT
