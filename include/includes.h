@@ -69,11 +69,15 @@
 //======================================
 
 #if defined DUMMY_SENSORS
-  #include <test/inputs_control.h>
   #include <test/temperature_control.h>
 #else
-  #include <hardware/inputs_control.h>
   #include <hardware/temperature_control.h>
+#endif
+
+#if defined DUMMY_INPUTS
+  #include <test/inputs_control.h>
+#else
+  #include <hardware/inputs_control.h>
 #endif
 
 #include <hardware/resistance_control.h>
@@ -87,5 +91,6 @@
 //      STATE MACHINES INCLUDES:       =
 //======================================
 
+#include <statemachines/common.h>
 #include <statemachines/cooking.h>
 #include <statemachines/setup.h>

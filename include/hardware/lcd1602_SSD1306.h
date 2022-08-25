@@ -15,16 +15,11 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define OLED_RESET 4
-Adafruit_SSD1306 display(OLED_RESET);
-
-// this is the Width and Height of Display which is 128 xy 32 
-#define LOGO16_GLCD_HEIGHT 32
-#define LOGO16_GLCD_WIDTH  128 
-
-#if (SSD1306_LCDHEIGHT != 32)
-#error("Height incorrect, please fix Adafruit_SSD1306.h!");
-#endif
+#define SCREEN_WIDTH    128 // OLED display width, in pixels
+#define SCREEN_HEIGHT    32 // OLED display height, in pixels
+#define OLED_RESET       -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void screen_clear();
 
@@ -134,8 +129,13 @@ void screen_write_xy(int x, int y, char *msg, int len) {
 }
 
 void screen_init(){   
-    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
+    if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+        Serial.println(F("SSD1306 allocation failed"));
+        for(;;); // Don't proceed, loop forever
+    }
+    
     display.display();
+    delay(1000);
     screen_clear();
 }
 

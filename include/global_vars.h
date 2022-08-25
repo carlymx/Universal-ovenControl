@@ -12,6 +12,8 @@
 #define RESIST_REAR    4
 #define MAX_OPT_RESISTANCE 7
 
+#define RESISTANCE_DEFAULT RESIST_UP + RESIST_DOWN
+
 #define KEY_ENTER   0
 #define KEY_CANCEL  1
 #define KEY_PLUS    2
@@ -29,6 +31,8 @@ byte pin_in[] = {
 bool pin_res[] = { // Si queremos activo con high (true) o low (false)
     true, true, true, true, true
 };
+
+bool develop_mode = false;
 
 byte current_inputs = 0;
 bool input_change = false;
@@ -50,11 +54,13 @@ int current_temp_primary = 0;
 int current_temp_secondary = 0;
 
 int raw_primary_sensor = 0;
+byte resistances = RESISTANCE_DEFAULT;    
+
 int raw_secondary_sensor = 0;
 
 bool resistance_active = false;
 
+bool rear_fan = false;
+
 byte active_state_machine = STATE_MACHINE_NONE;
 byte last_state_machine = STATE_MACHINE_NONE;
-
-bool rear_fan = false;

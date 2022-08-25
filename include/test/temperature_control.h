@@ -9,15 +9,12 @@
 
 // DUMMY MODE
 
+#define DIFF_RAW  6
+
 void read_temperature_primary() { 
-    int temp_primary_sensor = current_temp_primary; 
-    if (resistance_active == true) temp_primary_sensor += 5;
-    else temp_primary_sensor -= 4;
-
-    if (temp_primary_sensor < 20) temp_primary_sensor = 20;
-
-    // TODO: Usar el raw tambien (o usar solo el raw y obtener de tabla)
-    // raw_primary_sensor = xxxxx;
+    // Siempre leemos el secundario primero
+    raw_primary_sensor = raw_secondary_sensor + DIFF_RAW;
+    int temp_primary_sensor = read_temperature_map(raw_primary_sensor, &prog_eeprom_actual); // read_temperature(raw_primary_sensor, RESISTANCE_PRIMARY_SENSOR); 
 
     #ifdef DEBUG_LOG_HW
     Serial.print("A1 DUMMY "); 
@@ -30,16 +27,16 @@ void read_temperature_primary() {
     }
 }
 
-void read_temperature_secondary(){
+void read_temperature_secondary() {
     int temp_secondary_sensor = current_temp_secondary;
-    // TODO: Usar el raw tambien
+
     if (resistance_active == true) temp_secondary_sensor += 5;
     else temp_secondary_sensor -= 4;
 
     if (temp_secondary_sensor < 20) temp_secondary_sensor = 20;
 
-    // TODO: Usar el raw tambien (o usar solo el raw y obtener de tabla)
-    // raw_secondary_sensor = xxxxx;
+    raw_secondary_sensor = temperature_to_raw(temp_secondary_sensor, RESISTANCE_SECONDARY_SENSOR, THERMISTOR_SECONDARY_RESIST, 
+                                              THERMISTOR_SECONDARY_TEMP, THERMISTOR_SECONDARY_BETA, PULLUP_SECONDARY == 1); 
 
     #ifdef DEBUG_LOG_HW
     Serial.print("A2 DUMMY "); 

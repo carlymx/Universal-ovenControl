@@ -41,8 +41,21 @@ int read_temperature_beta(int temp_sensor, long resistance, long therm_r0, int t
     return temp_sensor;  
 }
 
+int temperature_to_raw(int temp, long resistance, long therm_r0, int therm_t0, int beta,  bool pullup) {
+    float steinhart = temp;
+    steinhart += 273.15; 
+    steinhart = 1.0 / steinhart;             
+    steinhart -= 1.0 / (therm_t0 + 273.15);
+    steinhart *= beta;          
+    steinhart = exp(steinhart);
+    steinhart *= therm_r0;
+
+    temp = resistance * ADC_RATE / (steinhart + resistance);
+    return temp;
+}
+
 int read_temperature_map(int raw_temp, program_eeprom* prog) {
-    if((prog->options & EEPROM_OPT_MAPPED) == 0)
+    if(((prog->options & EEPROM_OPT_MAPPED) == 0) || (raw_temp == 0))
         return -1;
 
     if ((prog->options & EEPROM_OPT_DESCENDING) != 0){

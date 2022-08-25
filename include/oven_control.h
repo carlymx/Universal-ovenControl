@@ -22,10 +22,8 @@ void time_click() {
     unsigned long time_now = millis();
 
     //OVERFLOW
-    if (last_timer > time_now){
+    if (last_timer > time_now)
         timer_counter = time_now;
-    }
-    last_timer = time_now;
 
     if (time_now >= timer_counter){
         ufast_click = true;
@@ -46,6 +44,8 @@ void time_click() {
         full_click = true;
     }
     else full_click = false;
+
+    last_timer = time_now;    
 }
 
 //==========================================
@@ -104,4 +104,23 @@ byte control_dimmer_cool(int temp) {
         //set_dimmer_control_cool(dimmer_fan[get_index(temp)]);
         set_dimmer_control_cool(temp >= COOL_FAN_TEMPERATURE_20 ? DIMMER_CONTROL_POWER_100 : DIMMER_CONTROL_POWER_0);    
     return 0;
+}
+
+void read_temperature_sensors() {
+    if((prog_eeprom_actual.options & EEPROM_OPT_MAPPED) == 0){
+        read_temperature_secondary();
+        if(develop_mode == true) read_temperature_primary();
+        current_temp = current_temp_secondary;
+        temp_change = develop_mode || temp_change_secondary;
+    }
+    else {
+        #ifndef DUMMY_SENSORS
+        read_temperature_secondary();
+        #else
+        if(develop_mode == true)  read_temperature_secondary();
+        #endif 
+        read_temperature_primary();
+        current_temp = current_temp_primary;
+        temp_change = develop_mode || temp_change_primary;
+    }
 }

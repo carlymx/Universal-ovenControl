@@ -9,7 +9,6 @@
 
 void read_temperature_primary(){
     raw_primary_sensor = analogRead(PRIMARY_SENSOR);    // READ TERMISTOR 
-    //  TODO: Buscar según tabla
     int temp_primary_sensor = read_temperature_map(raw_primary_sensor, &prog_eeprom_actual); // read_temperature(raw_primary_sensor, RESISTANCE_PRIMARY_SENSOR); 
 
     #ifdef DEBUG_LOG_HW

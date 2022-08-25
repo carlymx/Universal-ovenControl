@@ -22,7 +22,7 @@ DATA REQUIRED FOR A FIRST START-UP. */
 //#define PROJECT_TEMP_IN         "ºC"
 
 #define TEMP_INTERVAL 5
-#define TEMP_INI 0
+#define TEMP_INI 30
 #define TEMP_FIN 255 
 #define TEMP_NUM ((TEMP_FIN - TEMP_INI) / TEMP_INTERVAL) + 1
 

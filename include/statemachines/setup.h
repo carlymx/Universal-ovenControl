@@ -15,6 +15,7 @@
 #define SETUP_STATE_REAR_FAN       4
 #define SETUP_STATE_COOL_FAN       5
 
+#define SETUP_STATE_DEV_MODE       7
 #define SETUP_STATE_RESET          8
 #define SETUP_STATE_VERSION        9
 
@@ -49,13 +50,13 @@ void inputs_change_setup(byte inputs);
 byte sel_menu[] = {
     SETUP_STATE_CALIBRATE, SETUP_STATE_FORMAT_EEPROM, 
     SETUP_STATE_FAN, SETUP_STATE_REAR_FAN,  SETUP_STATE_COOL_FAN,
-    SETUP_STATE_RESET, SETUP_STATE_VERSION
+    SETUP_STATE_DEV_MODE, SETUP_STATE_RESET, SETUP_STATE_VERSION
 };
 
 String sel_text[] = {
     RESSTR_SETUP_MENU_CALIBRATE, RESSTR_SETUP_MENU_FORMAT_EEPROM, 
     RESSTR_SETUP_MENU_TEST_FAN, RESSTR_SETUP_MENU_TEST_REAR_FAN, RESSTR_SETUP_MENU_TEST_COOL_FAN,
-    RESSTR_SETUP_MENU_RESET, RESSTR_SETUP_MENU_VERSION
+    RESSTR_SETUP_MENU_DEV_MODE, RESSTR_SETUP_MENU_RESET, RESSTR_SETUP_MENU_VERSION
 };
 
 byte menu_opt = 0;
@@ -66,6 +67,7 @@ byte last_input_setup = 0;
 byte cur_idx_calibrate = 0;
 
 byte idx_vel_fan_test = 0;
+bool setup_bool_option;
 
 void (* resetSoftware)(void) = 0;
 
@@ -116,7 +118,9 @@ void state_machine_setup_set_state(byte state){
 }
 
 void activate_setup(){
+    #ifdef DEBUG_LOG
     Serial.println(RESSTR_SETUP_MODE);
+    #endif
     screen_prog_temp(0);
     screen_current_temp(current_temp);
     menu_opt = 0;
@@ -132,10 +136,10 @@ void state_machine_setup(byte event){
                         case SETUP_STATE_CALIBRATE:
                             // Empezamos calibracion
                             screen_text(RESSTR_CALIBRATION_START);
+                            screen_info("");
+                            screen_prog_temp(TEMP_FIN);
                             #ifdef DEBUG_LOG
-                            Serial.println("=========================");
-                            Serial.println("  Start Calibration:...");
-                            Serial.println("=========================");
+                            Serial.println(RESSTR_CALIBRATION_START);
                             #endif
 
                             set_lights(true);
@@ -148,6 +152,7 @@ void state_machine_setup(byte event){
                             resistances = RESIST_UP;
                             //resistances = RESIST_UP + RESIST_DOWN;
                             set_resistance(resistances, true);
+                            screen_resistances(resistances);
 
                             start_timer_inactive(0);
                             state_machine_setup_set_state(SETUP_STATE_CALIBRATE);
@@ -167,12 +172,21 @@ void state_machine_setup(byte event){
 
                         case SETUP_STATE_REAR_FAN:
                             start_timer_inactive(0);
+                            screen_info(RESSTR_DISABLED);
                             state_machine_setup_set_state(SETUP_STATE_REAR_FAN);
                             break;
 
                         case SETUP_STATE_COOL_FAN:
                             start_timer_inactive(0);
+                            screen_info(RESSTR_DISABLED);
                             state_machine_setup_set_state(SETUP_STATE_COOL_FAN);
+                            break;
+
+                        case SETUP_STATE_DEV_MODE:
+                            setup_bool_option = develop_mode;
+                            screen_info(setup_bool_option ? RESSTR_ENABLED : RESSTR_DISABLED);
+                            start_timer_inactive(TIMER_INACTIVE);
+                            state_machine_setup_set_state(SETUP_STATE_DEV_MODE);
                             break;
 
                         case SETUP_STATE_RESET:
@@ -213,7 +227,7 @@ void state_machine_setup(byte event){
         case SETUP_STATE_CALIBRATE:
             switch(event) {
                 case SETUP_EVENT_TEMP_CHANGE: 
-                    screen_current_temp(current_temp);
+                    sm_change_temp();
                     set_map_temp(&prog_eeprom_actual);
 
                     if(cur_idx_calibrate >= TEMP_NUM){
@@ -222,13 +236,16 @@ void state_machine_setup(byte event){
                             prog_eeprom_actual.options += EEPROM_OPT_DESCENDING;
 
                         write_eeprom(); 
+                        #ifdef DEBUG_LOG
+                        debuglog_calibration(&prog_eeprom_actual);
+                        #endif
+
                         set_resistance(resistances, false);
+                        rear_fan = false;
                         start_melody(&ON_TEMP_MELODY);
                         set_lights(is_input_active(current_inputs, DOOR_SENSOR));
                         #ifdef DEBUG_LOG
-                        Serial.println("=========================");
-                        Serial.println(" ¡¡¡ End Calibration !!!");
-                        Serial.println("=========================");
+                        Serial.println(RESSTR_CALIBRATION_END);
                         #endif
                         screen_text(RESSTR_SETUP_MENU_CALIBRATE);
                         screen_info(RESSTR_CALIBRATION_END);
@@ -242,7 +259,7 @@ void state_machine_setup(byte event){
                     start_melody(&CANCEL_MELODY);
                     set_lights(is_input_active(current_inputs, DOOR_SENSOR));
                     #ifdef DEBUG_LOG
-                    Serial.println("Calibration cancelled");
+                    Serial.println(RESSTR_OPERATION_CANCELED);
                     #endif
                     screen_text(RESSTR_SETUP_MENU_CALIBRATE);
                     screen_info(RESSTR_OPERATION_CANCELED);
@@ -301,10 +318,12 @@ void state_machine_setup(byte event){
             switch(event) {
                 case SETUP_EVENT_KEY_PLUS:
                     set_dimmer_control_rear(DIMMER_CONTROL_POWER_100);
+                    screen_info(RESSTR_ENABLED);
                     break;
 
                 case SETUP_EVENT_KEY_MINUS:
                     set_dimmer_control_rear(DIMMER_CONTROL_POWER_0);
+                    screen_info(RESSTR_DISABLED);
                     break;
 
                 case SETUP_EVENT_KEY_CANCEL:
@@ -318,14 +337,36 @@ void state_machine_setup(byte event){
             switch(event) {
                 case SETUP_EVENT_KEY_PLUS:
                     set_dimmer_control_cool(DIMMER_CONTROL_POWER_100);
+                    screen_info(RESSTR_ENABLED);
                     break;
 
                 case SETUP_EVENT_KEY_MINUS:
                     set_dimmer_control_cool(DIMMER_CONTROL_POWER_0);
+                    screen_info(RESSTR_DISABLED);
                     break;
 
                 case SETUP_EVENT_KEY_CANCEL:
                     set_dimmer_control_cool(DIMMER_CONTROL_POWER_0);
+                    state_machine_setup_set_state(SETUP_STATE_OFF);
+                    break;
+            }
+            break;
+
+        case SETUP_STATE_DEV_MODE:
+            switch(event) {
+                case SETUP_EVENT_KEY_PLUS:
+                case SETUP_EVENT_KEY_MINUS:
+                    setup_bool_option = !setup_bool_option;
+                    screen_info(setup_bool_option ? RESSTR_ENABLED : RESSTR_DISABLED);
+                    start_timer_inactive(TIMER_INACTIVE);
+                    break;
+
+                case SETUP_EVENT_KEY_ENTER:
+                    develop_mode = setup_bool_option;
+                    state_machine_setup_set_state(SETUP_STATE_OFF);
+                    break;
+
+                case SETUP_EVENT_KEY_CANCEL:
                     state_machine_setup_set_state(SETUP_STATE_OFF);
                     break;
             }

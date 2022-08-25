@@ -28,18 +28,17 @@
 #define MAX_TEMP_COOK      240  
 #define STEP_TEMP_COOK       5
 
-#define DELTA_ON          -5
-#define DELTA_OFF          1
+#define DELTA_ON_WARM       -5
+#define DELTA_ON_COOK        0
+#define DELTA_OFF            1
 
 byte programed_temp = DEFAULT_TEMP_COOK;
 byte cooking_state = COOKING_STATE_OFF;
-byte resistances = RESIST_UP + RESIST_DOWN;     // PIZZA TIME!
 
 byte last_input_cooking = 0;
 bool beep_on_temp = true;
 
-byte reset_resistance_counter = 0;
-byte calibrate_mode_counter = 0;
+byte cancel_counter = 0;
 
 #ifdef DEBUG_LOG
 void print_cooking_state_event(byte state, byte event){
@@ -95,7 +94,6 @@ void print_cooking_state_event(byte state, byte event){
 }
 #endif  
 
-
 void programed_temp_change(){
     screen_prog_temp(programed_temp);
     #ifdef DEBUG_LOG
@@ -105,15 +103,19 @@ void programed_temp_change(){
     #endif
 }
 
+void on_cooking_temp() {
+    if (beep_on_temp == true) {
+        start_melody(&ON_TEMP_MELODY);
+        beep_on_temp = false;
+        screen_text(RESSTR_COOKING);
+    }
+}
+
 void verify_temp_under() {
-    if (current_temp >= programed_temp + DELTA_ON) {
+    if (current_temp >= programed_temp + (beep_on_temp ? DELTA_ON_WARM : DELTA_ON_COOK)) {
         set_resistance(resistances, false);
         cooking_state = COOKING_STATE_ON_TEMP;                    
-        if (beep_on_temp == true) {
-            start_melody(&ON_TEMP_MELODY);
-            beep_on_temp = false;
-            screen_text(RESSTR_COOKING);
-        }
+        on_cooking_temp();
     }
 }
 
@@ -121,43 +123,31 @@ void verify_temp_on() {
     if (current_temp <= programed_temp - DELTA_OFF) {
         set_resistance(resistances, true);
         cooking_state = COOKING_STATE_UNDER_TEMP;                    
-        if (beep_on_temp == true) {
-            start_melody(&ON_TEMP_MELODY);
-            beep_on_temp = false;
-            screen_text(RESSTR_COOKING);
-        }
+        on_cooking_temp();
     }
 }
 
-void incr_resistances(){
-    resistances++;
-    if (resistances > MAX_OPT_RESISTANCE) resistances = 1;
-    rear_fan = ((resistances & RESIST_REAR) != 0);  
-    screen_resistances(resistances);
-}
-
 void reset_counters(){
-    reset_resistance_counter = 0;
-    calibrate_mode_counter = 0;
+    cancel_counter = 0;
 }
 
-void reset_resistances(){
-    reset_resistance_counter++;
-    if (reset_resistance_counter == 2) {
-        resistances = RESIST_UP + RESIST_DOWN;
+void check_reset_resistances() {
+    if (cancel_counter == 2) {
+        #ifdef DEBUG_LOG
         Serial.println("Reset!!! ");
+        #endif
+        resistances = RESISTANCE_DEFAULT;
         set_resistance(resistances, false);
-        reset_resistance_counter = 0;
         screen_resistances(resistances);
     }
 }
 
-void calibrate_mode(){
-    calibrate_mode_counter++;
-    if (calibrate_mode_counter == 3) {
+void check_calibrate_mode(){
+    if (cancel_counter == 3) {
+        #ifdef DEBUG_LOG
         Serial.println("Calibrate mode");
+        #endif
         active_state_machine = STATE_MACHINE_SETUP;
-        calibrate_mode_counter = 0;
     }
 }
 
@@ -189,7 +179,14 @@ void state_machine_cooking_set_state(byte state){
 }
 
 void activate_cooking(){
+    #ifdef DEBUG_LOG
     Serial.println(RESSTR_COOKING_MODE);
+    #endif
+    programed_temp = DEFAULT_TEMP_COOK;
+    programed_temp_change();
+    resistances = RESISTANCE_DEFAULT;
+    screen_resistances(resistances);
+    reset_counters();
     screen_clear();
     state_machine_cooking_set_state(COOKING_STATE_OFF);
 }
@@ -256,9 +253,9 @@ void state_machine_cooking(byte event){
                 case COOKING_EVENT_KEY_CANCEL: 
                     programed_temp = DEFAULT_TEMP_COOK;
                     programed_temp_change();
-                    reset_resistances();
-                    // TODO: Aqui podriamos ir al menu de settings
-                    calibrate_mode();
+                    cancel_counter++;
+                    check_reset_resistances();
+                    check_calibrate_mode();
                     start_timer_inactive(TIMER_INACTIVE);
                     break;
 
@@ -271,10 +268,6 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_INACTIVE:
-                    resistances = RESIST_UP + RESIST_DOWN;
-                    programed_temp = DEFAULT_TEMP_COOK;
-                    screen_resistances(resistances);
-                    programed_temp_change();
                     state_machine_cooking_set_state(COOKING_STATE_OFF);
                     break;
             }
@@ -309,7 +302,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
-                    screen_current_temp(current_temp);
+                    sm_change_temp();
                     verify_temp_under();
                     break;
 
@@ -348,7 +341,7 @@ void state_machine_cooking(byte event){
                     break;
 
                 case COOKING_EVENT_TEMP_CHANGE: 
-                    screen_current_temp(current_temp);
+                    sm_change_temp();
                     verify_temp_on();
                     break;
 

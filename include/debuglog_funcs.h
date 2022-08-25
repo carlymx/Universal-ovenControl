@@ -54,3 +54,21 @@ void debuglog_temperature(int raw, int temp) {
     Serial.println(raw);
     #endif
 }
+
+void debuglog_calibration(program_eeprom* prog) {
+    #ifdef DEBUG_LOG
+    Serial.print('Options: ');
+    Serial.print(prog->options);
+    if(prog->options & EEPROM_OPT_MAPPED != 0) {
+        Serial.print(" [");
+        for(byte i = 0; i < prog->lon_temp; i++) {
+            Serial.print(TEMP_INI + (i * TEMP_INTERVAL));
+            Serial.print("C: ");
+            Serial.print(prog->temp_map01[i]));
+            if(i + 1 < prog->lon_temp) Serial.print(", ");
+        }
+        Serial.print("]");
+    }
+    else Serial.print(" []");
+    #endif
+}

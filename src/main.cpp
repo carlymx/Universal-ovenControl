@@ -61,8 +61,14 @@ void setup() {
     board_test_outputs();
   #else
     read_eeprom();
+    #ifdef DEBUG_LOG
+    debuglog_calibration(&prog_eeprom_actual);
+    #endif
+
     start_melody(&START_MELODY);
   #endif
+
+  read_temperature_sensors();
 
   active_state_machine = STATE_MACHINE_COOKING;
 }
@@ -103,8 +109,8 @@ void loop() {
 
       // Si calibramos, miramos en fastclick
       if(active_state_machine == STATE_MACHINE_SETUP){
-        read_temperature_primary();
         read_temperature_secondary();
+        read_temperature_primary();
 
         current_temp = current_temp_secondary;
         temp_change = temp_change_secondary;
@@ -116,16 +122,7 @@ void loop() {
     activate_zero_crossing_detect(true);  // ENABLE INTERRUPTS
     
     if(active_state_machine != STATE_MACHINE_SETUP) {
-      if((prog_eeprom_actual.options & EEPROM_OPT_MAPPED) == 0){
-        read_temperature_secondary();
-        current_temp = current_temp_secondary;
-        temp_change = temp_change_secondary;
-      }
-      else {
-        read_temperature_primary();
-        current_temp = current_temp_primary;
-        temp_change = temp_change_primary;
-      }
+      read_temperature_sensors();
     }
 
     #ifdef DEBUG_LOG_HW
